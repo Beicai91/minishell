@@ -1,0 +1,148 @@
+ in_temp->mode check 0
+access check: -1
+access check: -1
+access check: -1
+access check: -1
+access check: 0
+what am i freeing in free_2darray? PATH=/Library/Frameworks/Python.framework/Versions/3.12/bin
+what am i freeing in free_2darray? /usr/local/bin
+what am i freeing in free_2darray? /System/Cryptexes/App/usr/bin
+what am i freeing in free_2darray? /usr/bin
+what am i freeing in free_2darray? /bin
+what am i freeing in free_2darray? /usr/sbin
+what am i freeing in free_2darray? /sbin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+what am i freeing in free_2darray? /Library/Apple/usr/bin
+what am i freeing in free_2darray? /usr/local/share/dotnet
+what am i freeing in free_2darray? ~/.dotnet/tools
+what am i freeing in free_2darray? /Library/Frameworks/Python.framework/Versions/3.12/bin
+-------------------checking ecmd->ecmd_args: cat
+
+Executing
+cat
+in0 in0 in0 in0 in0 in0
+in0 in0 in0 in0 in0 in0
+in0 in0 in0 in0 in0 in0
+in0 in0 in0 in0 in0 in0
+in0 in0 in0 in0 in0 in0
+in0 in0 in0 in0 in0 in0
+in0 in0 in0 in0 in0 in0
+exit status is 0
+ in_temp->mode check 0
+access check: -1
+access check: -1
+access check: -1
+access check: -1
+access check: 0
+what am i freeing in free_2darray? PATH=/Library/Frameworks/Python.framework/Versions/3.12/bin
+what am i freeing in free_2darray? /usr/local/bin
+what am i freeing in free_2darray? /System/Cryptexes/App/usr/bin
+what am i freeing in free_2darray? /usr/bin
+what am i freeing in free_2darray? /bin
+what am i freeing in free_2darray? /usr/sbin
+what am i freeing in free_2darray? /sbin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+what am i freeing in free_2darray? /Library/Apple/usr/bin
+what am i freeing in free_2darray? /usr/local/share/dotnet
+what am i freeing in free_2darray? ~/.dotnet/tools
+what am i freeing in free_2darray? /Library/Frameworks/Python.framework/Versions/3.12/bin
+-------------------checking ecmd->ecmd_args: cat
+
+Executing
+cat
+*********
+*********
+*********
+*********
+*********
+exit status is 0
+ in_temp->mode check 0
+access check: -1
+access check: -1
+access check: -1
+access check: -1
+access check: 0
+what am i freeing in free_2darray? PATH=/Library/Frameworks/Python.framework/Versions/3.12/bin
+what am i freeing in free_2darray? /usr/local/bin
+what am i freeing in free_2darray? /System/Cryptexes/App/usr/bin
+what am i freeing in free_2darray? /usr/bin
+what am i freeing in free_2darray? /bin
+what am i freeing in free_2darray? /usr/sbin
+what am i freeing in free_2darray? /sbin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+what am i freeing in free_2darray? /Library/Apple/usr/bin
+what am i freeing in free_2darray? /usr/local/share/dotnet
+what am i freeing in free_2darray? ~/.dotnet/tools
+what am i freeing in free_2darray? /Library/Frameworks/Python.framework/Versions/3.12/bin
+-------------------checking ecmd->ecmd_args: cat
+
+Executing
+cat
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>
+>>>>>>>>>exit status is 0
+ in_temp->mode check 0
+access check: -1
+access check: -1
+access check: -1
+access check: -1
+access check: 0
+what am i freeing in free_2darray? PATH=/Library/Frameworks/Python.framework/Versions/3.12/bin
+what am i freeing in free_2darray? /usr/local/bin
+what am i freeing in free_2darray? /System/Cryptexes/App/usr/bin
+what am i freeing in free_2darray? /usr/bin
+what am i freeing in free_2darray? /bin
+what am i freeing in free_2darray? /usr/sbin
+what am i freeing in free_2darray? /sbin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+what am i freeing in free_2darray? /Library/Apple/usr/bin
+what am i freeing in free_2darray? /usr/local/share/dotnet
+what am i freeing in free_2darray? ~/.dotnet/tools
+what am i freeing in free_2darray? /Library/Frameworks/Python.framework/Versions/3.12/bin
+-------------------checking ecmd->ecmd_args: cat
+
+Executing
+cat
+ in_temp->mode check 0
+access check: -1
+access check: -1
+access check: -1
+access check: -1
+access check: 0
+what am i freeing in free_2darray? PATH=/Library/Frameworks/Python.framework/Versions/3.12/bin
+what am i freeing in free_2darray? /usr/local/bin
+what am i freeing in free_2darray? /System/Cryptexes/App/usr/bin
+what am i freeing in free_2darray? /usr/bin
+what am i freeing in free_2darray? /bin
+what am i freeing in free_2darray? /usr/sbin
+what am i freeing in free_2darray? /sbin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/local/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/bin
+what am i freeing in free_2darray? /var/run/com.apple.security.cryptexd/codex.system/bootstrap/usr/appleinternal/bin
+what am i freeing in free_2darray? /Library/Apple/usr/bin
+what am i freeing in free_2darray? /usr/local/share/dotnet
+what am i freeing in free_2darray? ~/.dotnet/tools
+what am i freeing in free_2darray? /Library/Frameworks/Python.framework/Versions/3.12/bin
+-------------------checking ecmd->ecmd_args: cat
+
+Executing
+cat
+*********
+*********
+*********
+*********
+*********
+exit status is 0
+to_free file name freed in inlist execution in3.txt
+exit status is 0
+to_free file name freed in inlist execution out5.txt
