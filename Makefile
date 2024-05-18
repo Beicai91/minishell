@@ -20,8 +20,8 @@ LFT = libft/libft.a
 # Source files
 SRC = $(wildcard *.c) \
 		$(wildcard executing/*.c) \
-		$(wildcard wildcards/*.c)
-
+		$(wildcard wildcards/*.c) \
+		$(wildcard utils/*c)
 
 # Object files
 OBJ = $(SRC:.c=.o)

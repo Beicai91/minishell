@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:13 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:48:19 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/18 18:32:46 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void	embedded_cmdline(char *cmdline, int heredoc_fd, t_heredoc *heredoc)
 	int		fd_cpy;
 
 	m.envp = heredoc->envp;
-	init_envvars(heredoc->envp);
+	init_envvars(heredoc->envp, 0);
 	partial_reinit_m(&m);
 	fd_cpy = dup(STDOUT_FILENO);
 	if (dup2(heredoc_fd, STDOUT_FILENO) == -1)

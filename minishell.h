@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/17 13:25:27 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:08:04 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,6 @@ typedef struct s_execcmd
 	t_list						*cmdargs;
 	char						**cmd_args;
 	int							single_quote;
-	// int							status;
 	t_m							*m;
 }								t_execcmd;
 
@@ -169,6 +168,15 @@ typedef struct s_strvars
 	char						*new;
 	int							i;
 }								t_strvars;
+
+typedef struct s_gl
+{
+	char						*spaces;
+	char						*signs;
+	t_envvar					*env_vars;
+	struct termios				orig_termios;
+
+}								t_gl;
 
 // executing main functions
 void							partial_reinit_m(t_m *m);
@@ -321,7 +329,7 @@ int								get_outtype(char **start);
 int								get_intype(char **start);
 
 // environment variables handling
-void							init_envvars(char **envp);
+void							init_envvars(char **envp, int i);
 void							add_envvar(char *key, char *value,
 									int is_exported);
 void							update_envvars(char *key, char *value,
@@ -406,5 +414,9 @@ t_list							*remove_wildcards(t_list *list);
 void							free_t_list(t_list **list);
 void							find_executable_path(t_m *m, t_execcmd *ecmd);
 void							initialize_var_wild(t_m *m);
+// global var
 
 #endif
+
+t_gl							*init_global_var(void);
+t_gl							*get_gl(void);

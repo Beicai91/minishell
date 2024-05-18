@@ -6,24 +6,27 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:29:06 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/18 22:08:27 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-struct termios	g_orig_termios;
+//struct termios	g_orig_termios;
 
 void	initial_setup(t_m *m, char **envp)
 {
 	struct termios	new_termios;
+	t_gl			*gl;
 
+	init_global_var();
+	gl = get_gl();
 	m->envp = envp;
 	m->exit_status = 0;
 	m->position = ON_MAIN;
-	init_envvars(envp);
-	tcgetattr(STDIN_FILENO, &g_orig_termios);
-	new_termios = g_orig_termios;
+	init_envvars(envp, 0);
+	tcgetattr(STDIN_FILENO, &gl->orig_termios);
+	new_termios = gl->orig_termios;
 	new_termios.c_lflag &= ~ECHOCTL;
 	new_termios.c_cc[VERASE] = '\t';
 	tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
@@ -41,7 +44,9 @@ void	partial_reinit_m(t_m *m)
 
 void	lastfree_restore(void)
 {
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
+	t_gl *gl;
+	gl = get_gl();
+	tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
 	free_envvars();
 	clear_history();
 }

@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:08:48 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 13:28:50 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:22:52 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ void	handle_sigint_heredoc(int sig, siginfo_t *siginfo, void *context)
 
 void	signal_tracking(struct sigaction *sa, t_m *m)
 {
+	init_global_var();
 	if (m->position == ON_MAIN)
 	{
 		sigemptyset(&(sa->sa_mask));

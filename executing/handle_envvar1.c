@@ -6,24 +6,24 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:48:54 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 13:31:44 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/18 21:57:14 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_envvar	*g_env_vars = NULL;
+// static t_envvar	*g_env_vars = NULL;
 
-void	init_envvars(char **envp)
+void	init_envvars(char **envp, int i)
 {
-	int		i;
 	char	*key;
 	char	*value;
 	char	*equal;
+	t_gl	*gl;
 
-	if (g_env_vars != NULL)
+	gl = get_gl();
+	if (gl->env_vars != NULL)
 		return ;
-	i = 0;
 	while (envp[i] != NULL)
 	{
 		equal = ft_strchr(envp[i], '=');
@@ -38,7 +38,9 @@ void	add_envvar(char *key, char *value, int is_exported)
 {
 	t_envvar	*new;
 	t_envvar	*temp;
+	t_gl		*gl;
 
+	gl = get_gl();
 	new = malloc(sizeof(t_envvar) * 1);
 	if (!new)
 		return ;
@@ -48,12 +50,12 @@ void	add_envvar(char *key, char *value, int is_exported)
 	free(value);
 	new->is_exported = is_exported;
 	new->next = NULL;
-	if (!g_env_vars)
+	if (!gl->env_vars)
 	{
-		g_env_vars = new;
+		gl->env_vars = new;
 		return ;
 	}
-	temp = g_env_vars;
+	temp = gl->env_vars;
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
@@ -64,9 +66,11 @@ void	update_envvars(char *key, char *value, int is_exported)
 	int			modify;
 	t_envvar	*temp;
 	t_envvar	*target;
+	t_gl		*gl;
 
+	gl = get_gl();
 	modify = 0;
-	temp = g_env_vars;
+	temp = gl->env_vars;
 	while (temp != NULL)
 	{
 		if (ft_strncmp(temp->key, key, cmplen(temp->key, key)) == 0)
@@ -87,8 +91,10 @@ void	remove_envvar(char *key)
 	t_envvar	*temp;
 	t_envvar	*after_target;
 	t_envvar	*previous;
+	t_gl		*gl;
 
-	temp = g_env_vars;
+	gl = get_gl();
+	temp = gl->env_vars;
 	while (temp != NULL && ft_strncmp(temp->key, key, cmplen(temp->key,
 				key)) != 0)
 	{
@@ -111,5 +117,8 @@ void	remove_envvar(char *key)
 
 t_envvar	*getter(void)
 {
-	return (g_env_vars);
+	t_gl	*gl;
+
+	gl = get_gl();
+	return (gl->env_vars);
 }
