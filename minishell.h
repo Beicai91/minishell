@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/18 22:08:04 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:28:59 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,8 @@ typedef struct s_mini
 	int							wild_count;
 	int							match_count;
 	t_list						*check;
+	char						*line;
+	char						*one_ch;
 }								t_m;
 
 typedef struct s_listcmd
@@ -415,8 +417,7 @@ void							free_t_list(t_list **list);
 void							find_executable_path(t_m *m, t_execcmd *ecmd);
 void							initialize_var_wild(t_m *m);
 // global var
-
-#endif
-
 t_gl							*init_global_var(void);
 t_gl							*get_gl(void);
+
+#endif

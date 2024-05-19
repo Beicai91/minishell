@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:06:33 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/18 18:17:26 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:03:17 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,10 @@ int	get_type(char **start, char *end)
 
 int	gettoken(char **start, char *end, char **s_token, char **e_token)
 {
-	int	type;
+	int		type;
 	t_gl	*gl;
 
 	gl = get_gl();
-
 	while (*start < end && ft_strchr(gl->spaces, **start))
 		(*start)++;
 	*s_token = *start;

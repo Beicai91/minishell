@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:56 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:47:03 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/19 13:27:41 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	find_path(t_m *m)
 	m->envp_path = ft_split(m->path, ':');
 	if (!m->envp_path)
 	{
-		printf("Error: Failed to split PATH variable.\n");
 		return ;
 	}
 }

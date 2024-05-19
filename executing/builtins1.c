@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:45:44 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/19 13:25:46 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ void	builtin_cd(t_cmd *cmd, t_m *m)
 		builtin_error(cmd, m, "Expected argument to \"cd\"");
 	if (chdir(cmd_args[1]) != 0)
 	{
-		free_tree(cmd, m);
 		perror("cd");
 	}
 }

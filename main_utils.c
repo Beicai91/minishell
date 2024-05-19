@@ -6,13 +6,11 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/18 22:08:27 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:28:24 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-//struct termios	g_orig_termios;
 
 void	initial_setup(t_m *m, char **envp)
 {
@@ -24,6 +22,7 @@ void	initial_setup(t_m *m, char **envp)
 	m->envp = envp;
 	m->exit_status = 0;
 	m->position = ON_MAIN;
+	m->line = NULL;
 	init_envvars(envp, 0);
 	tcgetattr(STDIN_FILENO, &gl->orig_termios);
 	new_termios = gl->orig_termios;
@@ -44,7 +43,8 @@ void	partial_reinit_m(t_m *m)
 
 void	lastfree_restore(void)
 {
-	t_gl *gl;
+	t_gl	*gl;
+
 	gl = get_gl();
 	tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
 	free_envvars();

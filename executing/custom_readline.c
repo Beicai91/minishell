@@ -6,13 +6,13 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:27 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/18 21:22:27 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 13:20:42 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-struct termios	g_orig_termios;
+// struct termios	g_orig_termios;
 
 char	*delete_char(char *line)
 {
@@ -28,9 +28,9 @@ char	*delete_char(char *line)
 	return (temp);
 }
 
-void	clean_exit(char *one_char, t_m *m)
+void	clean_exit(char *m->one_ch, t_m *m)
 {
-	free(one_char);
+	free(m->one_ch);
 	unlink("heredoc_tmp");
 	free_list(&(m->in));
 	free_list(&(m->out));
@@ -44,38 +44,40 @@ void	clean_exit(char *one_char, t_m *m)
 void	set_raw_mode(void)
 {
 	struct termios	raw;
+	t_gl			*gl;
 
-	tcgetattr(STDIN_FILENO, &g_orig_termios);
-	raw = g_orig_termios;
+	gl = get_gl();
+	tcgetattr(STDIN_FILENO, &gl->orig_termios);
+	raw = gl->orig_termios;
 	raw.c_lflag &= ~(ICANON | ECHO);
 	tcsetattr(STDIN_FILENO, TCSANOW, &raw);
 }
 
 char	*ft_readline(char *prompt, t_m *m)
 {
-	char	*line;
-	char	*one_char;
+	t_gl	*gl;
 
-	one_char = safe_malloc(2, CHAR, NULL);
-	line = ft_strdup("");
+	gl = get_gl();
+	m->one_ch = safe_malloc(2, CHAR, NULL);
+	m->line = ft_strdup("");
 	write(STDOUT_FILENO, prompt, ft_strlen(prompt));
 	set_raw_mode();
-	while (read(STDIN_FILENO, one_char, 1) == 1 && ft_strncmp(one_char, "\n",
+	while (read(STDIN_FILENO, m->one_ch, 1) == 1 && ft_strncmp(m->one_ch, "\n",
 			1) != 0 && g_sig_indicator == 0)
 	{
-		one_char[1] = '\0';
-		if (one_char[0] == '\004')
-			clean_exit(one_char, m);
-		if (one_char[0] == '\177')
-			line = delete_char(line);
+		m->one_ch[1] = '\0';
+		if (m->one_ch[0] == '\004')
+			clean_exit(m->one_ch, m);
+		if (m->one_ch[0] == '\177')
+			m->line = delete_char(m->line);
 		else
 		{
-			line = join_free(line, one_char);
-			write(STDOUT_FILENO, one_char, 1);
+			m->line = join_free(m->line, m->one_ch);
+			write(STDOUT_FILENO, m->one_ch, 1);
 		}
 	}
 	write(STDOUT_FILENO, "\n", 1);
-	tcsetattr(STDIN_FILENO, TCSANOW, &g_orig_termios);
-	free(one_char);
-	return (line);
+	tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
+	free(m->one_ch);
+	return (m->line);
 }
