@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:47:10 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:18:38 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,16 +42,11 @@ void	check_exit_status(int status, t_m *m)
 	}
 	if (WIFEXITED(status))
 	{
-		m->exit_status = WEXITSTATUS(status);
-		if (m->exit_status != 0)
-		{
-			printf("Command exited with status %d\n", m->exit_status);
-		}
+		m->exit_status = WEXITSTATUS(status);		
 	}
 	else if (WIFSIGNALED(status))
 	{
 		m->exit_status = -WTERMSIG(status);
-		printf("Process terminated by signal %d\n", WTERMSIG(status));
 	}
 	else
 	{

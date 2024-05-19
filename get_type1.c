@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:57:04 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/18 18:12:57 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:27:58 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,6 @@ int	get_atype(char **start, char *end)
 	while (*start < end && !ft_strchr(gl->spaces, **start)
 		&& !ft_strchr(gl->signs, **start))
 	{
-		printf("----73****\n");
 		if (**start == '"' || **start == 39)
 			quote_num++;
 		(*start)++;

@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:47:11 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 18:00:20 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/20 01:17:37 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 		exit(0);
 	}
 	waitpid(m->pid_left, &m->exit_status, 0);
-	printf("waited and successfully \n");
 	check_exit_status(m->exit_status, m);
 	m->pid_right = fork_check(m);
 	if (m->pid_right == 0)
@@ -32,8 +31,7 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 		exit(0);
 	}
 	close(m->pfd[0]);
-	close(m->pfd[1]);
-	
+	close(m->pfd[1]);	
 	waitpid(m->pid_right, &m->exit_status, 0);
 	check_exit_status(m->exit_status, m);
 }
@@ -44,6 +42,7 @@ void	pipe_left_exec(t_m *m, t_pipecmd *pcmd)
 	dup2(m->pfd[1], STDOUT_FILENO);
 	close(m->pfd[1]);
 	traverse_tree(pcmd->left, m);
+	exit(0);
 }
 
 void	pipe_right_exec(t_m *m, t_pipecmd *pcmd)

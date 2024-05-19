@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:54:03 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 13:14:52 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:27:50 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ void	single_quoted_args(t_list **cmdargs, t_execcmd *ecmd, char **start,
 
 	ecmd->single_quote = 1;
 	s_token = *start + 1;
-	printf("entering single quoted args\n");
 	(*start)++;
 	while (**start && **start != 39)
 		(*start)++;
