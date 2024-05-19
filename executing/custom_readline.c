@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:27 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 13:20:42 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/19 18:02:17 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,9 @@ char	*delete_char(char *line)
 	return (temp);
 }
 
-void	clean_exit(char *m->one_ch, t_m *m)
+void	clean_exit(char *one_char, t_m *m)
 {
-	free(m->one_ch);
+	free(one_char);
 	unlink("heredoc_tmp");
 	free_list(&(m->in));
 	free_list(&(m->out));
