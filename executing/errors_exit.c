@@ -41,17 +41,11 @@ void	check_exit_status(int status, t_m *m)
 		m->path = NULL;
 	}
 	if (WIFEXITED(status))
-	{
 		m->exit_status = WEXITSTATUS(status);		
-	}
 	else if (WIFSIGNALED(status))
-	{
 		m->exit_status = -WTERMSIG(status);
-	}
 	else
-	{
 		m->exit_status = -1;
-	}
 }
 
 void	free_2darray(char **arr)

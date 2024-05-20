@@ -17,15 +17,10 @@ void	update_temp2(char **temp)
 	int	stop_flag;
 
 	stop_flag = 0;
-	while (**temp && stop_flag == 0)
-	{
-		while (**temp && (**temp != '$' || (**temp == '$' && (*(*temp
-							+ 1) == ' ' || *(*temp + 1) == '\0' || *(*temp
-							+ 1) == '"' || *(*temp + 1) == '$'))))
-			(*temp)++;
-		if (**temp == '$')
-			check_name_equal_value(temp, &stop_flag);
-	}
+	while (**temp && (**temp != '$' || (**temp == '$' && (*(*temp
+						+ 1) == ' ' || *(*temp + 1) == '\0' || *(*temp
+						+ 1) == '"' || *(*temp + 1) == '$'))))
+		(*temp)++;
 }
 
 char	*replace_d(t_execcmd *ecmd, int i)
@@ -93,7 +88,7 @@ void	last_set(t_cmd *cmd, t_m *m)
 void	get_strlen(char *temp, int *i)
 {
 	*i = 0;
-	while (temp[*i] && temp[*i + 1] != ' ' && temp[*i + 1] != '"' && temp[*i
-			+ 1] != '$' && temp[*i + 1] != '\0')
+	while (temp[*i] && temp[*i + 1] != ' ' && temp[*i + 1] != '"' && temp[*i + 1] != '\0' && ft_strchr("!@#$%^", temp[*i + 1]) == 0)
 		(*i)++;
 }
+

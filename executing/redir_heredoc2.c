@@ -75,6 +75,8 @@ void	build_redir_list(t_cmd *cmd, t_m *m, t_inout **list)
 
 void	execute_heredoc_command(t_heredoc *heredoc, t_m *m)
 {
+	if (m->pipe_flag == 1)
+		restore_inout(m->fdout_cpy, 1, m);
 	m->heredoc_fd = open("heredoc_tmp", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	heredoc->tmp_file = ft_strdup("heredoc_tmp");
 	if (heredoc->is_quoted == 1)
@@ -82,6 +84,8 @@ void	execute_heredoc_command(t_heredoc *heredoc, t_m *m)
 	else
 		expand_line(heredoc, m->heredoc_fd, m);
 	close(m->heredoc_fd);
+	if (m->pipe_flag == 1)
+		dup2(m->pfd[1], STDOUT_FILENO);
 }
 
 void	free_list(t_inout **list)

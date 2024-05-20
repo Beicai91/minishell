@@ -13,7 +13,8 @@
 #include "../minishell.h"
 
 void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
-{
+{	
+	m->pipe_flag = 1;
 	if (pipe(m->pfd) < 0)
 		exit_error(1, "Problem with creating a pipe", m, m->final_tree);
 	m->pid_left = fork_check(m);
@@ -38,11 +39,13 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 
 void	pipe_left_exec(t_m *m, t_pipecmd *pcmd)
 {
+	m->fdout_cpy = dup(STDOUT_FILENO);
 	close(m->pfd[0]);
 	dup2(m->pfd[1], STDOUT_FILENO);
-	close(m->pfd[1]);
 	traverse_tree(pcmd->left, m);
-	exit(0);
+	restore_inout(m->fdout_cpy, 1, m);
+	close(m->pfd[1]);
+	close(m->fdout_cpy);
 }
 
 void	pipe_right_exec(t_m *m, t_pipecmd *pcmd)

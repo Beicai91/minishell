@@ -78,22 +78,24 @@ void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
 	int		fd;
 	t_inout	*to_free;
 
-	while (m->out != NULL)
+	while (m->out->next != NULL)
 	{
 		fd = open(m->out->file_name, m->out->mode, 0666);
-		if (dup2(fd, STDOUT_FILENO) == -1)
-		{
-			close_fds(fdout_cpy, fd);
-			return ;
-		}
 		close(fd);
-		inlist_execution(ecmd, m);
 		to_free = m->out;
 		m->out = m->out->next;
 		free(to_free->file_name);
 		free(to_free);
-		restore_inout(fdout_cpy, 1, m);
 	}
+	fd = open(m->out->file_name, m->out->mode, 0666);
+	if (dup2(fd, STDOUT_FILENO) == -1)
+	{
+		close_fds(fdout_cpy, fd);
+		return ;
+	}
+	close(fd);
+	inlist_execution(ecmd, m);
+	restore_inout(fdout_cpy, 1, m);
 }
 
 void	inlist_execution(t_execcmd *ecmd, t_m *m)
@@ -109,18 +111,16 @@ void	inlist_execution(t_execcmd *ecmd, t_m *m)
 		return ;
 	}
 	fdin_cpy = dup(STDIN_FILENO);
-	while (in_temp != NULL)
-	{
-		fd = open(in_temp->file_name, in_temp->mode, 0666);
-		if (dup2(fd, STDIN_FILENO) == -1)
-		{
-			close_fds(fdin_cpy, fd);
-			return ;
-		}
-		close(fd);
-		execute_simple_command(ecmd, m);
+	while (in_temp->next != NULL)
 		in_temp = in_temp->next;
-		restore_inout(fdin_cpy, 0, m);
+	fd = open(in_temp->file_name, in_temp->mode, 0666);
+	if (dup2(fd, STDIN_FILENO) == -1)
+	{
+		close_fds(fdin_cpy, fd);
+		return ;
 	}
+	close(fd);
+	execute_simple_command(ecmd, m);
+	restore_inout(fdin_cpy, 0, m);
 	close(fdin_cpy);
 }

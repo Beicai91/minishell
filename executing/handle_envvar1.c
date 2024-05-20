@@ -12,7 +12,41 @@
 
 #include "minishell.h"
 
-// static t_envvar	*g_env_vars = NULL;
+void	resize(char *buffer, size_t *size)
+{
+	free(buffer);
+	if (errno == ERANGE)
+		(*size) = (*size) * 2;
+	else
+	{
+		perror("getcmd");
+		free_envvars();
+		exit(1);
+	}
+}
+
+void	fill_basic_envvars()
+{
+	char	*buffer;
+	size_t	size;
+	char	*cwd;
+	
+	size = 1024;
+	while (1)
+	{
+		buffer = safe_malloc(size, CHAR, NULL);
+		cwd = getcwd(buffer, size);
+		if (cwd)
+			break ;
+		else
+			resize(buffer, &size);
+	}
+	add_envvar(ft_strdup("PWD"), ft_strdup(cwd), 1);
+	free(buffer);
+	add_envvar(ft_strdup("PATH"), ft_strdup("/usr/gnu/bin:/usr/local/bin:/bin:/usr/bin:."), 0);
+	add_envvar(ft_strdup("SHLVL"), ft_strdup("1"), 1);
+	add_envvar(ft_strdup("_"), ft_strdup("/usr/bin/env"), 1);
+}
 
 void	init_envvars(char **envp, int i)
 {
@@ -24,6 +58,11 @@ void	init_envvars(char **envp, int i)
 	gl = get_gl();
 	if (gl->env_vars != NULL)
 		return ;
+	if (!envp[i])
+	{
+		fill_basic_envvars();
+		return ;
+	}
 	while (envp[i] != NULL)
 	{
 		equal = ft_strchr(envp[i], '=');

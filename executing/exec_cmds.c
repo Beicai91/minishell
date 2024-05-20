@@ -14,20 +14,31 @@
 
 void	find_path(t_m *m)
 {
-	m->i = 0;
-	while (m->envp[m->i] != NULL)
+	t_envvar *temp;
+
+	temp = getter();
+	while (temp != NULL)
 	{
-		if (ft_strncmp(m->envp[m->i], "PATH=", 5) == 0)
-			m->path = m->envp[m->i];
-		m->i++;
+		if (ft_strncmp(temp->key, "PATH", 4) == 0)
+			m->path = temp->value;
+		temp = temp->next;
 	}
 	if (!m->path)
-		return ;
+		return;
 	m->envp_path = ft_split(m->path, ':');
 	if (!m->envp_path)
 	{
+		printf("Error: Failed to split PATH variable\n");
 		return ;
 	}
+}
+
+void	execve_error_message(t_execcmd *ecmd)
+{
+	if (ecmd->path_prob == 1)
+		printf("minishell: %s: No such file or directory\n", ecmd->cmd_args[0]);
+	else
+		printf("minishell: %s: command not found\n", ecmd->cmd_args[0]);
 }
 
 void	execute_simple_command(t_execcmd *ecmd, t_m *m)
@@ -47,7 +58,7 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 	{
 		if (execve(m->path, ecmd->cmd_args, m->envp) == -1)
 		{
-			printf("Error: Execve failed.\n");
+			execve_error_message(ecmd);
 			exit(127);
 		}
 	}
@@ -60,17 +71,14 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 
 void	find_executable_path(t_m *m, t_execcmd *ecmd)
 {
-	while (m->envp_path[m->i] != NULL)
+	if (!m->path)
+		ecmd->path_prob = 1;
+	while (m->envp_path && m->envp_path[m->i] != NULL)
 	{
 		m->temp_path = ft_strjoin(m->envp_path[m->i], "/");
 		m->path = ft_strjoin(m->temp_path, ecmd->cmd_args[0]);
 		free(m->temp_path);
 		m->temp_path = NULL;
-		if (!m->path)
-		{
-			lastfree_restore();
-			exit(127);
-		}
 		if (access(m->path, X_OK) == 0)
 			break ;
 		free(m->path);

@@ -66,6 +66,8 @@ typedef struct s_mini
 	char						**envp_path;
 	char						*input;
 	int							pfd[2];
+	int							pipe_flag;
+	int							fdout_cpy;
 	pid_t						pid;
 	pid_t						pid_left;
 	pid_t						pid_right;
@@ -136,6 +138,7 @@ typedef struct s_execcmd
 	t_list						*cmdargs;
 	char						**cmd_args;
 	int							single_quote;
+	int							path_prob;
 	t_m							*m;
 }								t_execcmd;
 
@@ -332,6 +335,8 @@ int								get_intype(char **start);
 
 // environment variables handling
 void							init_envvars(char **envp, int i);
+void							fill_basic_envvars();
+void							resize(char *buffer, size_t *size);
 void							add_envvar(char *key, char *value,
 									int is_exported);
 void							update_envvars(char *key, char *value,
@@ -416,6 +421,7 @@ t_list							*remove_wildcards(t_list *list);
 void							free_t_list(t_list **list);
 void							find_executable_path(t_m *m, t_execcmd *ecmd);
 void							initialize_var_wild(t_m *m);
+
 // global var
 t_gl							*init_global_var(void);
 t_gl							*get_gl(void);
