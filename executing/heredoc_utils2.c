@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:13 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 12:59:50 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:16:29 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,14 @@ void	embedded_cmdline(char *cmdline, int heredoc_fd, t_heredoc *heredoc)
 {
 	t_m		m;
 	t_cmd	*cmd;
-	int		fd_cpy;
 
 	m.envp = heredoc->envp;
 	init_envvars(heredoc->envp, 0);
 	partial_reinit_m(&m);
-	fd_cpy = dup(STDOUT_FILENO);
+	m.outcpy_emb = dup(STDOUT_FILENO);
 	if (dup2(heredoc_fd, STDOUT_FILENO) == -1)
 	{
-		close(fd_cpy);
+		close(m.outcpy_emb);
 		return ;
 	}
 	cmd = parsecmd(cmdline);
@@ -87,9 +86,9 @@ void	embedded_cmdline(char *cmdline, int heredoc_fd, t_heredoc *heredoc)
 		free_tree(cmd, &m);
 	}
 	free(cmdline);
-	if (dup2(fd_cpy, STDOUT_FILENO) == -1)
+	if (dup2(m.outcpy_emb, STDOUT_FILENO) == -1)
 	{
-		close(fd_cpy);
+		close(m.outcpy_emb);
 		return ;
 	}
 }

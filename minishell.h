@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/22 12:53:30 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 13:16:00 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_mini
 	int							pfd[2];
 	int							pipe_flag;
 	int							fdout_cpy;
+	int							outcpy_emb;
 	pid_t						pid;
 	pid_t						pid_left;
 	pid_t						pid_right;
@@ -354,8 +355,10 @@ int								cmplen(char *lst_key, char *key);
 
 // builtins and builtin utils
 void							builtin_cd(t_cmd *cmd, t_m *m);
+void							resize_or_free(char *buffer, t_m *m, size_t *size);
 void							builtin_echo(t_cmd *cmd);
 void							builtin_export(t_cmd *cmd, t_m *m);
+void							export_all(t_m *m);
 void							set_envvar(t_cmd *cmd, t_m *m);
 void							builtin_unset(t_cmd *cmd, t_m *m);
 void							builtin_pwd(t_cmd *cmd, t_m *m);
