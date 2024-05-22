@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_envvar2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:49:11 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:52:00 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:05:05 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 int	cmplen(char *lst_key, char *key)
 {

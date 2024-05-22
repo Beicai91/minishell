@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   custom_readline.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:27 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 18:02:17 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:43 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-// struct termios	g_orig_termios;
+#include "../minishell.h"
 
 char	*delete_char(char *line)
 {

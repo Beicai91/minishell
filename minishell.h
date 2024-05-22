@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/19 13:28:59 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:58:41 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -335,7 +335,7 @@ int								get_intype(char **start);
 
 // environment variables handling
 void							init_envvars(char **envp, int i);
-void							fill_basic_envvars();
+void							fill_basic_envvars(void);
 void							resize(char *buffer, size_t *size);
 void							add_envvar(char *key, char *value,
 									int is_exported);
@@ -352,7 +352,7 @@ int								cmplen(char *lst_key, char *key);
 
 // builtins and builtin utils
 void							builtin_cd(t_cmd *cmd, t_m *m);
-void							builtin_echo(t_cmd *cmd, t_m *m);
+void							builtin_echo(t_cmd *cmd);
 void							builtin_export(t_cmd *cmd, t_m *m);
 void							set_envvar(t_cmd *cmd, t_m *m);
 void							builtin_unset(t_cmd *cmd, t_m *m);

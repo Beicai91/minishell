@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_exit.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/20 01:18:38 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:06:14 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void	check_exit_status(int status, t_m *m)
 		m->path = NULL;
 	}
 	if (WIFEXITED(status))
-		m->exit_status = WEXITSTATUS(status);		
+		m->exit_status = WEXITSTATUS(status);
 	else if (WIFSIGNALED(status))
 		m->exit_status = -WTERMSIG(status);
 	else

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:13 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/18 18:32:46 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:59:07 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 static void	write_update(char **start, char *target, int heredoc_fd)
 {
@@ -80,6 +80,7 @@ void	embedded_cmdline(char *cmdline, int heredoc_fd, t_heredoc *heredoc)
 		return ;
 	}
 	cmd = parsecmd(cmdline);
+	last_set(cmd, &m);
 	if (cmd != NULL)
 	{
 		traverse_tree(cmd, &m);

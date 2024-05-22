@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_set1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:57:24 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 13:24:01 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 09:54:39 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ void	last_set(t_cmd *cmd, t_m *m)
 void	get_strlen(char *temp, int *i)
 {
 	*i = 0;
-	while (temp[*i] && temp[*i + 1] != ' ' && temp[*i + 1] != '"' && temp[*i + 1] != '\0' && ft_strchr("!@#$%^", temp[*i + 1]) == 0)
+	while (temp[*i] && temp[*i + 1] != ' ' && temp[*i + 1] != '"' && \
+		temp[*i + 1] != '\0' && ft_strchr("!@#$%^", temp[*i + 1]) == 0)
 		(*i)++;
 }
-

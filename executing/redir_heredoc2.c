@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:51:05 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:50:46 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:58:48 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	restore_inout(int fd_cpy, int in_out, t_m *m)
 {

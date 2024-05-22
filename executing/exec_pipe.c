@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_pipe.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:47:11 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/20 01:17:37 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:00:52 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 		exit(0);
 	}
 	close(m->pfd[0]);
-	close(m->pfd[1]);	
+	close(m->pfd[1]);
 	waitpid(m->pid_right, &m->exit_status, 0);
 	check_exit_status(m->exit_status, m);
 }

@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:46 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 13:30:00 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:05:16 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	redir_list(t_redircmd *rcmd, t_cmd *cmd, t_m *m, t_inout **list)
 {

@@ -6,11 +6,11 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:48:39 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:48:46 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:55 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_lr_list(t_cmd *left, t_cmd *right, t_m *m)
 {

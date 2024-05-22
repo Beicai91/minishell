@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:37:39 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:39 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	builtin_env(t_cmd *cmd, t_m *m)
 {

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:56 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 13:27:41 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 10:00:37 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	find_path(t_m *m)
 {
-	t_envvar *temp;
+	t_envvar	*temp;
 
 	temp = getter();
 	while (temp != NULL)
@@ -24,7 +24,7 @@ void	find_path(t_m *m)
 		temp = temp->next;
 	}
 	if (!m->path)
-		return;
+		return ;
 	m->envp_path = ft_split(m->path, ':');
 	if (!m->envp_path)
 	{

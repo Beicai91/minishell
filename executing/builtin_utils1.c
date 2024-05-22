@@ -6,11 +6,11 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:20 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:00:48 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:22 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	builtin_error(t_cmd *cmd, t_m *m, char *msg)
 {
@@ -31,4 +31,3 @@ int	is_builtin(char *cmd)
 	else
 		return (0);
 }
-

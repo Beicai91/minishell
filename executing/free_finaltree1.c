@@ -6,11 +6,11 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:48:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:48:32 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 10:04:52 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../minishell.h"
 
 void	free_exec_content(t_execcmd *ecmd)
 {
