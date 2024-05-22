@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 10:16:12 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 13:01:59 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,39 @@ void	run_builtin(t_cmd *cmd, t_m *m)
 		builtin_exit(cmd, m);
 }
 
+void	update_pwd(t_m *m)
+{
+	char	*cwd;
+	char	*buffer;
+	size_t	size;
+
+	size = 1024;
+	while (1)
+	{
+		buffer = safe_malloc(size, CHAR, m->final_tree);
+		cwd = getcwd(buffer, size);
+		if (cwd)
+		{
+			free(buffer);
+			break ;
+		}
+		else
+			resize_or_free(buffer, m, &size);
+	}
+	update_envvars(ft_strdup("PWD"), ft_strdup(cwd), 1);
+}
+
 void	builtin_cd(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
 
+	(void)m;
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
 	if (cmd_args[1] == NULL)
-		builtin_error(cmd, m, "Expected argument to \"cd\"");
+		return ;
 	if (chdir(cmd_args[1]) != 0)
 		perror("cd");
+	update_pwd(m);
 }
 
 void	builtin_echo(t_cmd *cmd)
@@ -86,27 +110,5 @@ void	resize_or_free(char *buffer, t_m *m, size_t *size)
 		free_tree(m->final_tree, m);
 		lastfree_restore();
 		exit(1);
-	}
-}
-
-void	builtin_pwd(t_cmd *cmd, t_m *m)
-{
-	char	*buffer;
-	size_t	size;
-	char	*cwd;
-
-	size = 1024;
-	while (1)
-	{
-		buffer = safe_malloc(size, CHAR, cmd);
-		cwd = getcwd(buffer, size);
-		if (cwd)
-		{
-			printf("%s\n", cwd);
-			free(buffer);
-			break ;
-		}
-		else
-			resize_or_free(buffer, m, &size);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/22 10:58:41 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 12:53:30 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -301,6 +301,8 @@ char							*getvalue_freename(t_list *cmdargs,
 									char *var_name);
 char							*get_current_envvar(char *key);
 char							*get_exported_envvar(char *key);
+void							build_envvar_list(t_envvar *envvars,
+									t_list **envcpy);
 
 // safe_malloc modules
 void							*safe_malloc(size_t size, t_type type,
