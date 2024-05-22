@@ -37,6 +37,7 @@ SRC = executing/builtin_utils1.c \
 	  executing/heredoc_utils2.c \
 	  executing/redir_heredoc1.c \
 	  executing/redir_heredoc2.c \
+	  executing/redir_heredoc3.c \
 	  wildcards/wildcards_in_out.c \
 	  wildcards/wildcards_sort.c \
 	  wildcards/wildcards_utils.c \

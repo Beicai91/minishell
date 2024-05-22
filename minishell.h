@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/22 13:16:00 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 17:19:52 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,8 @@ void							parselist_execute(t_cmd *cmd, t_m *m);
 void							inlist_execution_loop(t_m *m, int fdout_cpy,
 									t_execcmd *ecmd);
 void							inlist_execution(t_execcmd *ecmd, t_m *m);
+int								inlist_execution_util(t_execcmd *ecmd, t_m *m,
+									t_inout **in_temp);
 void							restore_inout(int fd_cpy, int in_out, t_m *m);
 void							free_list(t_inout **list);
 
@@ -355,7 +357,8 @@ int								cmplen(char *lst_key, char *key);
 
 // builtins and builtin utils
 void							builtin_cd(t_cmd *cmd, t_m *m);
-void							resize_or_free(char *buffer, t_m *m, size_t *size);
+void							resize_or_free(char *buffer, t_m *m,
+									size_t *size);
 void							builtin_echo(t_cmd *cmd);
 void							builtin_export(t_cmd *cmd, t_m *m);
 void							export_all(t_m *m);
@@ -389,24 +392,15 @@ void							clean_exit(char *one_char, t_m *m);
 void							set_raw_mode(void);
 
 // wildcards utils
-int								*ft_strchr_adj(const char *s, int c);
 int								pattern_match(char *file_name, char *pattern);
 t_list							*open_cd(char *str, t_list *list, t_m *m);
 t_list							*expand_list(t_list *list, char *file_name);
-char							*expand_input(char *add_file, char *input,
-									t_m *m);
 char							*open_cd_in_out(char *str, t_m *m);
 char							*expand_input_check(char *input, t_m *m);
-char							*expand_input_array(char *temp, char *input,
-									t_m *m);
-char							*star_pattern_found(char *input, t_m *m);
 char							*find_pattern(char *input, t_m *m);
-char							*create_files_array(char *add_file, char *array,
-									t_m *m);
-char							*remove_star(char *str);
 char							*merge_files_input(char *t, char *in, t_m *m);
+
 int								check_if_pattern(char *input, int i);
-int								stars_count(char *pattern);
 void							set_up_signs(char *input, t_m *m);
 char							*f(char *input, t_m *m, char *pattern);
 void							build_files_list(t_list **list, char *file);
@@ -415,12 +409,12 @@ t_list							*find_smallest_and_remove(t_list **array_files,
 									t_m *m);
 char							*build_array_files(t_list *array_list, t_m *m);
 t_list							*building_sorted(t_list *smallest, t_list *new);
-void							merge_files_loop(t_m *m, char *input, int i);
+void							merge_files_loop(t_m *m, char *input, int i,
+									char *temp);
 void							sort_array(t_list **array_files, t_m *m);
 void							find_smallest(t_list **array_files, t_m *m);
 t_list							*check_list(t_list **list);
 t_list							*add_check_node(t_list *list, t_list *node);
-void							print_list(t_list *list);
 t_list							*merge_list(t_list *list, t_list *temp);
 t_list							*remove_wildcards(t_list *list);
 void							free_t_list(t_list **list);

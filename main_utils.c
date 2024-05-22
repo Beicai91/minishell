@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 13:28:24 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/22 17:20:44 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	*expand_input_check(char *input, t_m *m)
 			{
 				temp = open_cd_in_out(temp, m);
 				if (temp == NULL)
-					return (NULL);
+					return (original);
 				original = merge_files_input(temp, original, m);
 				input = original;
 			}
@@ -84,20 +84,16 @@ char	*merge_files_input(char *t, char *in, t_m *m)
 	int	i;
 
 	i = 0;
-	m->j = -1;
-	m->k = -1;
+	m->j = 0;
+	m->k = 0;
 	m->new = (char *)malloc(sizeof(char) * (ft_strlen(t) + ft_strlen(in)) + 1);
 	if (m->new == NULL)
 		return (NULL);
-	while (in[i] != '\0' && in[i] != '>' && in[i] != '<')
-		m->new[++m->j] = in[i++];
-	while (t[++m->k] != '\0')
-		m->new[++m->j] = t[m->k];
 	while (in[i] != '\0')
 	{
-		if (i == m->i)
+		if (in[i] == '<' || in[i] == '>')
 		{
-			merge_files_loop(m, in, i);
+			merge_files_loop(m, in, i, t);
 			free(t);
 			free(in);
 			return (m->new);

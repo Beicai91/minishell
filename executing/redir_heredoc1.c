@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:46 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 10:05:16 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 17:19:07 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,31 +96,4 @@ void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
 	close(fd);
 	inlist_execution(ecmd, m);
 	restore_inout(fdout_cpy, 1, m);
-}
-
-void	inlist_execution(t_execcmd *ecmd, t_m *m)
-{
-	t_inout	*in_temp;
-	int		fd;
-	int		fdin_cpy;
-
-	in_temp = m->in;
-	if (in_temp == NULL)
-	{
-		execute_simple_command(ecmd, m);
-		return ;
-	}
-	fdin_cpy = dup(STDIN_FILENO);
-	while (in_temp->next != NULL)
-		in_temp = in_temp->next;
-	fd = open(in_temp->file_name, in_temp->mode, 0666);
-	if (dup2(fd, STDIN_FILENO) == -1)
-	{
-		close_fds(fdin_cpy, fd);
-		return ;
-	}
-	close(fd);
-	execute_simple_command(ecmd, m);
-	restore_inout(fdin_cpy, 0, m);
-	close(fdin_cpy);
 }

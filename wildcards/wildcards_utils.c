@@ -6,23 +6,35 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:52:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:52:36 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 17:16:15 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
 
-void	merge_files_loop(t_m *m, char *input, int i)
+void	merge_files_loop(t_m *m, char *input, int i, char *temp)
 {
+	int	a;
+
+	a = 0;
 	m->k = 0;
-	if (input[i] == '<' || input[i] == '>')
-		m->k++;
-	while (input[i + m->k] == ' ')
-		m->k++;
-	while (input[i + m->k] != ' ' && input[i + m->k] != '\0')
-		m->k++;
 	while (input[i + m->k] != '\0')
+	{
+		if (i == m->i)
+		{
+			if (input[i] == '<' || input[i] == '>')
+				m->k++;
+			while (input[i + m->k] == ' ')
+				m->k++;
+			while (input[i + m->k] != ' ' && input[i + m->k] != '\0')
+				m->k++;
+			while (temp[a] != '\0')
+			{
+				m->new[m->j++] = temp[a++];
+			}
+		}
 		m->new[m->j++] = input[i++ + m->k];
+	}
 	m->new[m->j] = '\0';
 }
 
