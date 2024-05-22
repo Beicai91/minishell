@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 18:22:31 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/22 18:49:56 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,39 @@ void	builtin_env(t_cmd *cmd, t_m *m)
 	print_envvars();
 }
 
+static void	excessive_args_check(t_cmd *cmd, t_m *m, char **cmd_args)
+{
+	if (cmd_args[2] != NULL)
+	{
+		printf("exit\nbash: too many arguments\n");
+		free_tree(cmd, m);
+		lastfree_restore();
+		exit(1);
+	}
+}
+
 void	builtin_exit(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
+	int	i;
 
+	i = -1;
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
 	if (cmd_args[1] != NULL)
+	{
+		if (cmd_args[1][0] == '-')
+			i++;
+		while (cmd_args[1][++i])
+		{
+			if (!ft_isdigit(cmd_args[1][i]))
+			{
+				printf("exit\nbash: exit: %s: numeric argument required\n", cmd_args[1]);
+				exit(255);
+			}
+		}
 		m->exit_status = ft_atoi(cmd_args[1]);
+	}
+	excessive_args_check(cmd, m, cmd_args);
 	free_tree(cmd, m);
 	lastfree_restore();
 	printf("exit\n");
