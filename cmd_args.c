@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmd_args.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:54:03 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 18:27:50 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:23:41 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ void	single_quoted_args(t_list **cmdargs, t_execcmd *ecmd, char **start,
 {
 	char	*s_token;
 	char	*e_token;
+	t_gl	*gl;
 
 	ecmd->single_quote = 1;
 	s_token = *start + 1;
@@ -76,6 +77,8 @@ void	single_quoted_args(t_list **cmdargs, t_execcmd *ecmd, char **start,
 	}
 	else
 	{
+		gl = get_gl();
+		gl->quoted = 1;
 		e_token = *start - 1;
 		(*start)++;
 		populate_cmdargs_singlequote(cmdargs, s_token, e_token, cmd);
@@ -86,7 +89,10 @@ void	cmdargs_dquote(t_list **cmdargs, char *s_token,
 		char *e_token, char **start)
 {
 	t_list	*node;
+	t_gl	*gl;
 
+	gl = get_gl();
+	gl->quoted = 1;
 	node = (t_list *)safe_malloc(1, NODE, NULL);
 	node->content = safe_malloc(e_token - s_token + 2, CHAR, NULL);
 	ft_strlcpy(node->content, s_token, e_token - s_token + 2);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 13:01:59 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:44:10 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,13 +90,7 @@ void	builtin_echo(t_cmd *cmd)
 		i++;
 	}
 	while (cmd_args[i] != NULL)
-	{
-		if (*cmd_args[i] != '\0' && cmd_args[i + 1] && *cmd_args[i + 1] == '\0')
-			printf("%s", cmd_args[i]);
-		else if (*cmd_args[i] != '\0')
-			printf("%s ", cmd_args[i]);
-		i++;
-	}
+		print_helper(cmd_args, &i);
 	((t_execcmd *)cmd)->m->exit_status = 0;
 	if (n_flag == false)
 		printf("\n");

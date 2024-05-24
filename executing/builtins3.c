@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 18:49:56 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/24 13:44:08 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@ void	builtin_env(t_cmd *cmd, t_m *m)
 
 static void	excessive_args_check(t_cmd *cmd, t_m *m, char **cmd_args)
 {
+	if (cmd_args[1] == NULL)
+		return ;
 	if (cmd_args[2] != NULL)
 	{
-		printf("exit\nbash: too many arguments\n");
+		printf("exit\nminishell: too many arguments\n");
 		free_tree(cmd, m);
 		lastfree_restore();
 		exit(1);
@@ -33,7 +35,7 @@ static void	excessive_args_check(t_cmd *cmd, t_m *m, char **cmd_args)
 void	builtin_exit(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
-	int	i;
+	int		i;
 
 	i = -1;
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
@@ -45,7 +47,8 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 		{
 			if (!ft_isdigit(cmd_args[1][i]))
 			{
-				printf("exit\nbash: exit: %s: numeric argument required\n", cmd_args[1]);
+				printf("exit\nminishell: exit: %s: \
+					numeric argument required\n", cmd_args[1]);
 				exit(255);
 			}
 		}

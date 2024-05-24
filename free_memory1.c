@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:56:35 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 12:22:11 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/24 12:18:57 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	free_redir(t_cmd *cmd)
 void	free_exec(t_cmd *cmd)
 {
 	t_execcmd	*execcmd;
-	t_list	*temp;
+	t_list		*temp;
 
 	execcmd = (t_execcmd *)cmd;
 	if (execcmd->cmd_args != NULL)

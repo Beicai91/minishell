@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:06:33 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/19 13:03:17 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:31:17 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,13 @@ bool	skipspace_peek(char **start, char *end, char *check)
 {
 	t_gl	*gl;
 
-	gl = init_global_var();
+	gl = get_gl();
 	while (*start < end && ft_strchr(gl->spaces, **start))
+	{
+		if (gl->quoted == 1)
+			gl->consec_quotes = 0;
 		(*start)++;
+	}
 	if (**start && ft_strchr(check, **start))
 		return (true);
 	else

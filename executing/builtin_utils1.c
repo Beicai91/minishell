@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:20 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 10:04:22 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/24 16:41:01 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,29 @@ int	is_builtin(char *cmd)
 		return (1);
 	else
 		return (0);
+}
+
+void	print_helper(char **cmd_args, int *i)
+{
+	t_gl	*gl;
+
+	gl = get_gl();
+	if (*cmd_args[*i] == '\0')
+		(*i)++;
+	else
+	{
+		if (cmd_args[*i + 1] && *cmd_args[*i + 1] == '\0')
+		{
+			printf("%s", cmd_args[*i]);
+			(*i)++;
+		}
+		else
+		{
+			if (gl->consec_quotes == 0)
+				printf("%s ", cmd_args[*i]);
+			else
+				printf("%s", cmd_args[*i]);
+			(*i)++;
+		}
+	}
 }

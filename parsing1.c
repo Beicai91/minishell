@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:07:19 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 11:07:29 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/24 16:43:46 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ t_cmd	*parsecmd(char *input)
 	end = input + ft_strlen(input);
 	cmd = parselist(&start, end);
 	if (start != end)
-	{
 		handle_error("Invalid command line.", cmd);
-		return (NULL);
-	}
 	return (cmd);
 }
 

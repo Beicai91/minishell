@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:04:02 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 14:57:28 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/24 12:18:43 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ int	main(int argc, char **argv, char **envp)
 			runcmd(m.final_tree, &m);
 		}
 		free(m.input);
-
 	}
 }

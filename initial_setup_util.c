@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   global_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/18 12:36:53 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/19 13:25:09 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/24 16:31:26 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ t_gl	*init_global_var(void)
 	gl->spaces = ft_strdup(" \t\r\n\v");
 	gl->signs = ft_strdup("<|>;()");
 	gl->env_vars = NULL;
+	gl->quoted = 0;
+	gl->consec_quotes = 1;
 	return (gl);
 }
 

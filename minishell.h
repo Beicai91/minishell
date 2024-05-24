@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/22 17:19:52 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/24 16:42:48 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -181,7 +181,8 @@ typedef struct s_gl
 	char						*signs;
 	t_envvar					*env_vars;
 	struct termios				orig_termios;
-
+	int							quoted;
+	int							consec_quotes;
 }								t_gl;
 
 // executing main functions
@@ -306,9 +307,6 @@ char							*get_current_envvar(char *key);
 char							*get_exported_envvar(char *key);
 void							build_envvar_list(t_envvar *envvars,
 									t_list **envcpy);
-void    						check_quotes_inside(char **input);
-char    *update_input_quotes(char *temp, char *new);
-int count_quotes(char *input);
 
 // safe_malloc modules
 void							*safe_malloc(size_t size, t_type type,
@@ -377,6 +375,7 @@ char							*handle_expansion(char *start, t_cmd *cmd,
 									t_m *m);
 char							*get_value(char *arg, char *quote_letter,
 									t_cmd *cmd, t_m *m);
+void							print_helper(char **cmd_args, int *i);
 
 // heredoc functions
 void							no_line_expansion(t_heredoc *heredoc,
