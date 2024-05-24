@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:20 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/24 16:41:01 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/24 16:54:04 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	print_helper(char **cmd_args, int *i)
 		}
 		else
 		{
-			if (gl->consec_quotes == 0)
+			if (gl->consec_quotes == 0 || gl->quoted == 0)
 				printf("%s ", cmd_args[*i]);
 			else
 				printf("%s", cmd_args[*i]);
