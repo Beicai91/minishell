@@ -70,7 +70,10 @@ void	single_quoted_args(t_list **cmdargs, t_execcmd *ecmd, char **start,
 	while (**start && **start != 39)
 		(*start)++;
 	if (!**start)
-		handle_error("Missing closing quote", cmd);
+	{
+		printf("Missing closing quote\n");
+		(*start)++;
+	}
 	else
 	{
 		e_token = *start - 1;

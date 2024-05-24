@@ -37,11 +37,22 @@ void	free_redir(t_cmd *cmd)
 void	free_exec(t_cmd *cmd)
 {
 	t_execcmd	*execcmd;
+	t_list	*temp;
 
 	execcmd = (t_execcmd *)cmd;
 	if (execcmd->cmd_args != NULL)
-		free(execcmd->cmd_args);
+		free_2darray(execcmd->cmd_args);
+	if (execcmd->cmdargs != NULL)
+	{
+		while (execcmd->cmdargs != NULL)
+		{
+			temp = execcmd->cmdargs;
+			execcmd->cmdargs = execcmd->cmdargs->next;
+			free(temp);
+		}
+	}
 	free(cmd);
+	cmd = NULL;
 }
 
 void	free_memory(t_cmd *cmd)

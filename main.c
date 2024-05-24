@@ -30,8 +30,12 @@ int	main(int argc, char **argv, char **envp)
 		m.input = expand_input_check(m.input, &m);
 		partial_reinit_m(&m);
 		m.final_tree = parsecmd(m.input);
-		last_set(m.final_tree, &m);
-		runcmd(m.final_tree, &m);
+		if (m.final_tree != NULL)
+		{
+			last_set(m.final_tree, &m);
+			runcmd(m.final_tree, &m);
+		}
 		free(m.input);
+
 	}
 }

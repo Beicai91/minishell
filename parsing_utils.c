@@ -12,8 +12,6 @@
 
 #include "minishell.h"
 
-//char		g_whitespace[] = " \t\r\n\v";
-
 int	get_type(char **start, char *end)
 {
 	int	type;
@@ -47,7 +45,7 @@ int	gettoken(char **start, char *end, char **s_token, char **e_token)
 	t_gl	*gl;
 
 	gl = get_gl();
-	while (*start < end && ft_strchr(gl->spaces, **start))
+	while (*start < end && ft_strchr(gl->spaces, **start) && **start != '"')
 		(*start)++;
 	*s_token = *start;
 	type = get_type(start, end);

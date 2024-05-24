@@ -12,9 +12,6 @@
 
 #include "minishell.h"
 
-// char	g_spaces[] = " \t\r\n\v";
-//char	g_signs[] = "<|>;()";
-
 int	get_intype(char **start)
 {
 	int	type;
@@ -67,7 +64,7 @@ int	get_atype(char **start, char *end)
 	quote_num = 0;
 	type = 'a';
 	while (*start < end && !ft_strchr(gl->spaces, **start)
-		&& !ft_strchr(gl->signs, **start))
+		&& !ft_strchr(gl->signs, **start) && **start != '"' && **start != 39)
 	{
 		if (**start == '"' || **start == 39)
 			quote_num++;

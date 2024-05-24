@@ -62,6 +62,9 @@ void	free_tree(t_cmd *cmd, t_m *m)
 		free_lr_and(((t_and *)cmd)->left, ((t_and *)cmd)->right, m);
 	else if (cmd->type == OR)
 		free_lr_or(((t_or *)cmd)->left, ((t_or *)cmd)->right, m);
-	free(cmd);
-	cmd = NULL;
+	if (cmd != NULL)
+	{
+		free(cmd);
+		cmd = NULL;
+	}
 }

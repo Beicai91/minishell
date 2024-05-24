@@ -306,6 +306,9 @@ char							*get_current_envvar(char *key);
 char							*get_exported_envvar(char *key);
 void							build_envvar_list(t_envvar *envvars,
 									t_list **envcpy);
+void    						check_quotes_inside(char **input);
+char    *update_input_quotes(char *temp, char *new);
+int count_quotes(char *input);
 
 // safe_malloc modules
 void							*safe_malloc(size_t size, t_type type,

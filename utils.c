@@ -16,7 +16,6 @@ void	handle_error(char *msg, t_cmd *cmd)
 {
 	printf("%s\n", msg);
 	free_memory(cmd);
-	exit(1);
 }
 
 char	*join_free_all(char *s1, char *s2, t_cmd *cmd)

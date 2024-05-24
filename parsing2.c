@@ -79,12 +79,12 @@ t_cmd	*parseexec(char **start, char *end)
 	while (**start && skipspace_peek(start, end, "&|);") == false)
 	{
 		type = gettoken(start, end, &s_tkn, &e_tkn);
-		if (execcmd->cmdargs == NULL || (type != 39 && type != '"'))
-			populate_cmdargs(&execcmd->cmdargs, s_tkn, e_tkn, cmd);
-		else if (type == 39)
+		if (type == 39)
 			single_quoted_args(&execcmd->cmdargs, execcmd, start, cmd);
-		else if (type == '"')
+		else if (type == 34)
 			cmdargs_dquote(&execcmd->cmdargs, s_tkn + 1, e_tkn - 1, start);
+		else if (execcmd->cmdargs == NULL || (type != 39 && type != '"'))
+			populate_cmdargs(&execcmd->cmdargs, s_tkn, e_tkn, cmd);
 		cmd = parseredirs(cmd, start, end);
 	}
 	get_cmd_args(execcmd, cmd);

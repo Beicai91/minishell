@@ -91,7 +91,10 @@ void	builtin_echo(t_cmd *cmd)
 	}
 	while (cmd_args[i] != NULL)
 	{
-		printf("%s ", cmd_args[i]);
+		if (*cmd_args[i] != '\0' && cmd_args[i + 1] && *cmd_args[i + 1] == '\0')
+			printf("%s", cmd_args[i]);
+		else if (*cmd_args[i] != '\0')
+			printf("%s ", cmd_args[i]);
 		i++;
 	}
 	((t_execcmd *)cmd)->m->exit_status = 0;
