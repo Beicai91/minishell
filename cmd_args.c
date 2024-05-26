@@ -45,7 +45,7 @@ void	populate_cmdargs(t_list **cmdargs, char *s_token, char *e_token,
 	ft_strlcpy(node->content, s_token, e_token - s_token + 1);
 	ft_lstadd_back(cmdargs, node);
 }
-
+/*
 void	populate_cmdargs_singlequote(t_list **cmdargs, char *s_token,
 		char *e_token, t_cmd *cmd)
 {
@@ -71,10 +71,7 @@ void	single_quoted_args(t_list **cmdargs, t_execcmd *ecmd, char **start,
 	while (**start && **start != 39)
 		(*start)++;
 	if (!**start)
-	{
 		printf("Missing closing quote\n");
-		(*start)++;
-	}
 	else
 	{
 		gl = get_gl();
@@ -83,9 +80,9 @@ void	single_quoted_args(t_list **cmdargs, t_execcmd *ecmd, char **start,
 		(*start)++;
 		populate_cmdargs_singlequote(cmdargs, s_token, e_token, cmd);
 	}
-}
+}*/
 
-void	cmdargs_dquote(t_list **cmdargs, char *s_token,
+void	cmdargs_quote(t_list **cmdargs, char *s_token,
 		char *e_token, char **start)
 {
 	t_list	*node;

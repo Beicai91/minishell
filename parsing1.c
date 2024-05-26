@@ -23,8 +23,9 @@ t_cmd	*parsecmd(char *input)
 		return (NULL);
 	end = input + ft_strlen(input);
 	cmd = parselist(&start, end);
-	if (start != end)
-		handle_error("Invalid command line.", cmd);
+	if (cmd == NULL)
+		printf("Invalid command line\n");
+		//handle_error("Invalid command line.", cmd);
 	return (cmd);
 }
 
@@ -65,6 +66,11 @@ t_cmd	*parse_and_or(char **start, char *end)
 		right_cmd = parse_and_or(start, end);
 		cmd = (t_cmd *)orcmd_init(cmd, right_cmd);
 	}
+	else if (**start == '&' && *(*start + 1) != '&')
+	{
+		free_memory(cmd);
+		return (NULL);
+	}
 	return (cmd);
 }
 
@@ -79,6 +85,16 @@ t_cmd	*parsepipe(char **start, char *end)
 	if (**start == '|' && *(*start + 1) != '|')
 	{
 		gettoken(start, end, &s_token, &e_token);
+		//test
+		printf("in parsepipe after gettoken, start %c\nletter before start %c", **start, *(*start - 1));
+		if (*start == end)
+			printf("start is updated till the end\n");
+		//
+		if (*start == end)
+		{
+			free_memory(cmd);
+			return (NULL);
+		}
 		right_cmd = parsepipe(start, end);
 		cmd = (t_cmd *)pipecmd_init(cmd, right_cmd);
 	}

@@ -31,7 +31,13 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL
 		&& execcmd->single_quote == 0)
 	{
+		//test
+		printf("before replace, cmd_args %s\n", execcmd->cmd_args[i]);
+		//
 		temp = replace_d(execcmd, i);
+		//test
+		printf("after replace, cmd_args %s\n", temp);
+		//
 		execcmd->cmd_args[i] = temp;
 		i++;
 	}
@@ -63,32 +69,4 @@ char	*get_newstr2(char *temp, char *e_cpy, t_execcmd *ecmd, char *first_part)
 	free(first_part);
 	v.new = join_free_all(v.new, v.rest, NULL);
 	return (v.new);
-}
-
-void	check_name_equal_value(char **temp, int *stop_flag)
-{
-	char		*tmp;
-	int			i;
-	char		*name;
-	t_envvar	*env_vars;
-	int			exist_flag;
-
-	exist_flag = 0;
-	tmp = *temp;
-	i = 0;
-	while (tmp[i + 1] != ' ' && tmp[i + 1] != '$' && tmp[i + 1] != '\0')
-		i++;
-	name = ft_substr(tmp + 1, 0, i);
-	env_vars = getter();
-	while (env_vars != NULL)
-	{
-		if (ft_strcmp(env_vars->value, name) == 0)
-			exist_flag = 1;
-		env_vars = env_vars->next;
-	}
-	free(name);
-	if (exist_flag == 1)
-		*temp = *temp + i + 1;
-	else
-		*stop_flag = 1;
 }

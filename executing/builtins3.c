@@ -19,46 +19,47 @@ void	builtin_env(t_cmd *cmd, t_m *m)
 	print_envvars();
 }
 
-static void	excessive_args_check(t_cmd *cmd, t_m *m, char **cmd_args)
+static void	is_numeric(t_cmd *cmd, t_m *m, char *arg_one)
 {
-	if (cmd_args[1] == NULL)
-		return ;
-	if (cmd_args[2] != NULL)
+	int	i;
+
+	i = -1;
+	if (arg_one[0] == '-')
+		i++;
+	while (arg_one[++i])
 	{
-		printf("exit\nminishell: too many arguments\n");
-		free_tree(cmd, m);
-		lastfree_restore();
-		exit(1);
+		if (!ft_isdigit(arg_one[i]))
+		{
+			printf("exit\nminishell: exit: %s: numeric argument required\n", arg_one);
+			free_tree(cmd, m);
+			lastfree_restore();
+			exit(255);
+		}
 	}
 }
 
 void	builtin_exit(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
-	int		i;
 
-	i = -1;
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
-	if (cmd_args[1] != NULL)
+	if (cmd_args[1] == NULL)
 	{
-		if (cmd_args[1][0] == '-')
-			i++;
-		while (cmd_args[1][++i])
+		free_tree(cmd, m);
+		lastfree_restore();
+		printf("exit\n");
+		exit(m->exit_status);
+	}
+	else
+	{
+		is_numeric(cmd, m, cmd_args[1]);
+		if (cmd_args[2] != NULL)
 		{
-			if (!ft_isdigit(cmd_args[1][i]))
-			{
-				printf("exit\nminishell: exit: %s: \
-					numeric argument required\n", cmd_args[1]);
-				exit(255);
-			}
+			printf("exit\nminishell: exit: too many arguments\n");
+			return ;
 		}
 		m->exit_status = ft_atoi(cmd_args[1]);
 	}
-	excessive_args_check(cmd, m, cmd_args);
-	free_tree(cmd, m);
-	lastfree_restore();
-	printf("exit\n");
-	exit(m->exit_status);
 }
 
 void	builtin_unset(t_cmd *cmd, t_m *m)

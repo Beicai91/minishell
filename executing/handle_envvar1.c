@@ -37,12 +37,55 @@ void	init_envvars(char **envp, int i)
 	}
 }
 
+int	special_cases(char *key, char *value)
+{
+	if (key[0] == '!')
+	{
+		printf("minishell: %s=%s: event not found\n", key, value);
+		return (1);
+	}
+	if (key[0] == '#')
+		return (1);
+	return (0);
+}
+
+int	check_key_validity(char *key, char *value, int export_flag)
+{
+	int	i;
+
+	if (ft_isdigit(key[0]) || ft_strchr("~@%*^", key[0]))
+	{
+		if (export_flag == 1)
+			printf("minishell: export:'%s=%s': not a valid identifier\n", key, value);
+		else
+			printf("minishell: '%s=%s': not a valid identifier\n", key, value);
+		return (1);
+	}
+	if (special_cases(key, value) == 1)
+		return (1);
+	i = 0;
+	while (key[++i])
+	{
+		if (!ft_isdigit(key[i]) && !ft_isalpha(key[i]) && key[i] != '_')
+		{
+			if (export_flag == 1)
+				printf("minishell: export: '%s=%s': not a valid identifier\n", key, value);
+			else
+				printf("minishell: '%s=%s': not a valid identifier\n", key, value);
+			return (1);
+		}
+	}
+	return (0);
+}
+
 void	add_envvar(char *key, char *value, int is_exported)
 {
 	t_envvar	*new;
 	t_envvar	*temp;
 	t_gl		*gl;
 
+	if (check_key_validity(key, value, is_exported) == 1)
+		return ;
 	gl = get_gl();
 	new = malloc(sizeof(t_envvar) * 1);
 	if (!new)

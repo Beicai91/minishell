@@ -16,6 +16,7 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_m					m;
 	struct sigaction	sa;
+	t_envvar	*shlvl;
 
 	(void)argc;
 	(void)argv;

@@ -60,13 +60,21 @@ void	update_pwd(t_m *m)
 void	builtin_cd(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
+	t_envvar	*home;
 
 	(void)m;
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
 	if (cmd_args[1] == NULL)
-		return ;
-	if (chdir(cmd_args[1]) != 0)
-		perror("cd");
+	{
+		home = get_envvar("HOME");
+		if(chdir(home->value) != 0)
+			perror("cd: ");
+	}
+	else
+	{
+		if (chdir(cmd_args[1]) != 0)
+			perror("cd: ");
+	}
 	update_pwd(m);
 }
 

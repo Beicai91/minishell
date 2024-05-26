@@ -50,7 +50,11 @@ void	traverse_tree(t_cmd *cmd, t_m *m)
 		if (is_builtin(((t_execcmd *)cmd)->cmd_args[0]) == 1)
 			run_builtin(cmd, m);
 		else
+		{
+			m->position = ON_EXEC;
 			execute_simple_command((t_execcmd *)cmd, m);
+			m->position = ON_MAIN;
+		}
 	}
 	else if (cmd->type == REDIR)
 		redir_heredoc(cmd, m);

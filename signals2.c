@@ -1,3 +1,4 @@
+
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
@@ -31,29 +32,18 @@ void	handle_sigint_heredoc(int sig, siginfo_t *siginfo, void *context)
 	g_sig_indicator = 1;
 }
 
-void	signal_tracking(struct sigaction *sa, t_m *m)
+void	handle_sigint_exec(int sig, siginfo_t *siginfo, void *context)
 {
-	init_global_var();
-	if (m->position == ON_MAIN)
-	{
-		sigemptyset(&(sa->sa_mask));
-		sa->sa_flags = SA_SIGINFO;
-		sa->sa_sigaction = handle_sigint;
-		sigaction(SIGINT, sa, NULL);
-		sigemptyset(&(sa->sa_mask));
-		sa->sa_flags = 0;
-		sa->sa_handler = SIG_IGN;
-		sigaction(SIGQUIT, sa, NULL);
-	}
-	else if (m->position == ON_HEREDOC)
-	{
-		sigemptyset(&(sa->sa_mask));
-		sa->sa_flags = SA_SIGINFO;
-		sa->sa_sigaction = handle_sigint_heredoc;
-		sigaction(SIGINT, sa, NULL);
-		sigemptyset(&(sa->sa_mask));
-		sa->sa_flags = 0;
-		sa->sa_handler = SIG_IGN;
-		sigaction(SIGQUIT, sa, NULL);
-	}
+	(void)siginfo;
+	(void)context;
+	(void)sig;
+	return ;
+}
+
+void	handle_sigquit_exec(int sig, siginfo_t *siginfo, void *context)
+{
+	(void)siginfo;
+	(void)context;
+	(void)sig;
+	return ;
 }

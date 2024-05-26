@@ -43,6 +43,8 @@ void	execve_error_message(t_execcmd *ecmd)
 
 void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 {
+	struct sigaction	sa;
+
 	find_path(m);
 	if (ft_strchr(ecmd->cmd_args[0], '/'))
 		m->path = ft_strdup(ecmd->cmd_args[0]);
@@ -56,6 +58,8 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 	m->pid = fork_check(m);
 	if (m->pid == 0)
 	{
+		signal(SIGINT, SIG_DFL);
+		signal(SIGQUIT, SIG_DFL);
 		if (execve(m->path, ecmd->cmd_args, m->envp) == -1)
 		{
 			execve_error_message(ecmd);
@@ -64,6 +68,7 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 	}
 	else
 	{
+		signal_tracking(&sa, m);
 		waitpid(m->pid, &m->exit_status, 0);
 		check_exit_status(m->exit_status, m);
 	}

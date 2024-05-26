@@ -87,6 +87,25 @@ int	get_quotetype(char **start, char *end)
 	while (*start < end && **start != '"')
 		(*start)++;
 	if (**start != '"')
-		handle_error("Missing closing quote\n", NULL);
+	{
+		printf("Missing closing quote\n");
+		return (127);
+	}
+	return (type);
+}
+
+int	get_squotetype(char **start, char *end)
+{
+	int	type;
+
+	type = **start;
+	(*start)++;
+	while (*start < end && **start != 39)
+		(*start)++;
+	if (**start != 39)
+	{
+		printf("Missing closing quote\n");
+		return (127);
+	}
 	return (type);
 }

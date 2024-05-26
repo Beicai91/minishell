@@ -40,7 +40,8 @@ typedef enum type
 	STRING_ARRAY = 8,
 	HEREDOC = 9,
 	ON_MAIN = 10,
-	ON_HEREDOC = 11
+	ON_HEREDOC = 11,
+	ON_EXEC = 12
 }								t_type;
 
 typedef struct s_cmd
@@ -227,6 +228,8 @@ void							handle_sigint_heredoc(int sig,
 									siginfo_t *siginfo, void *context);
 void							handle_sigint(int sig, siginfo_t *siginfo,
 									void *context);
+void							handle_sigint_exec(int sig, siginfo_t *siginfo, void *context);
+void							handle_sigquit_exec(int sig, siginfo_t *siginfo, void *context);
 
 // multiple in_outfiles utiles
 void							build_redir_list(t_cmd *cmd, t_m *m,
@@ -264,7 +267,7 @@ int								gettoken(char **start, char *end,
 bool							skipspace_peek(char **start, char *end,
 									char *check);
 t_cmd							*handle_quoted_delimiter(t_cmd *cmd,
-									char **start, char *end, int file_type);
+									char **start, char *s_token, char *e_token);
 
 // initial and last set of cmd before entering exeution
 void							initial_setup(t_m *m, char **envp);
@@ -276,8 +279,6 @@ char							*replace_d(t_execcmd *ecmd, int i);
 char							*get_newstr2(char *temp, char *e_cpy,
 									t_execcmd *ecmd, char *first_part);
 void							get_strlen(char *temp, int *i);
-void							check_name_equal_value(char **temp,
-									int *stop_flag);
 
 // parsing main functions
 t_cmd							*parsecmd(char *input);
@@ -297,7 +298,7 @@ void							populate_cmdargs(t_list **cmdargs,
 									char *s_token, char *e_token, t_cmd *cmd);
 void							populate_cmdargs_singlequote(t_list **cmdargs,
 									char *s_token, char *e_token, t_cmd *cmd);
-void							cmdargs_dquote(t_list **cmdargs, char *s_token,
+void							cmdargs_quote(t_list **cmdargs, char *s_token,
 									char *e_token, char **start);
 void							single_quoted_args(t_list **cmdargs,
 									t_execcmd *ecmd, char **start, t_cmd *cmd);
@@ -338,6 +339,7 @@ int								get_andtype(char **start);
 int								get_ortype(char **start);
 int								get_outtype(char **start);
 int								get_intype(char **start);
+int								get_squotetype(char **start, char *end);
 
 // environment variables handling
 void							init_envvars(char **envp, int i);
@@ -345,6 +347,7 @@ void							fill_basic_envvars(void);
 void							resize(char *buffer, size_t *size);
 void							add_envvar(char *key, char *value,
 									int is_exported);
+int								check_key_validity(char *key, char *value, int export_flag);
 void							update_envvars(char *key, char *value,
 									int is_exported);
 void							update_target(t_envvar *target, char *value,
