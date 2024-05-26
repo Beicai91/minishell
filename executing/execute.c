@@ -41,20 +41,14 @@ void	traverse_lr_or(t_cmd *left, t_cmd *right, t_m *m)
 		traverse_tree(right, m);
 }
 
+
 void	traverse_tree(t_cmd *cmd, t_m *m)
 {
 	if (cmd->type == EXEC)
 	{
 		if (((t_execcmd *)cmd)->cmd_args == NULL)
 			return ;
-		if (is_builtin(((t_execcmd *)cmd)->cmd_args[0]) == 1)
-			run_builtin(cmd, m);
-		else
-		{
-			m->position = ON_EXEC;
-			execute_simple_command((t_execcmd *)cmd, m);
-			m->position = ON_MAIN;
-		}
+		builtin_exec(cmd, m);
 	}
 	else if (cmd->type == REDIR)
 		redir_heredoc(cmd, m);

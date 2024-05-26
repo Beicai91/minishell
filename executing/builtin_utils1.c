@@ -17,6 +17,7 @@ void	builtin_error(t_cmd *cmd, t_m *m, char *msg)
 	printf("%s\n", msg);
 	free_tree(cmd, m);
 	check_exit_status(-1, m);
+	free_2darray(m->minishell_envp);
 	lastfree_restore();
 	exit(1);
 }

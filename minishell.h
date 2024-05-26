@@ -63,6 +63,7 @@ typedef struct s_mini
 	int							j;
 	char						*path;
 	char						**envp;
+	char						**minishell_envp;
 	char						*temp_path;
 	char						**envp_path;
 	char						*input;
@@ -176,6 +177,14 @@ typedef struct s_strvars
 	int							i;
 }								t_strvars;
 
+typedef struct s_tkn
+{
+	char	*s_tkn;
+	char	*e_tkn;
+	int		redir;
+	int		file;
+}	t_tkn;
+
 typedef struct s_gl
 {
 	char						*spaces;
@@ -191,6 +200,7 @@ void							partial_reinit_m(t_m *m);
 void							runcmd(t_cmd *cmd, t_m *m);
 void							traverse_tree(t_cmd *cmd, t_m *m);
 void							find_path(t_m *m);
+void							builtin_exec(t_cmd *cmd, t_m *m);
 void							execute_simple_command(t_execcmd *ecmd, t_m *m);
 void							redir_heredoc(t_cmd *cmd, t_m *m);
 void							execute_pipe_command(t_pipecmd *pcmd, t_m *m);
@@ -358,6 +368,7 @@ t_envvar						*get_envvar(char *key);
 void							print_envvars(void);
 void							free_envvars(void);
 int								cmplen(char *lst_key, char *key);
+void							minishell_envp(t_m *m);
 
 // builtins and builtin utils
 void							builtin_cd(t_cmd *cmd, t_m *m);

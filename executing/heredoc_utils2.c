@@ -49,7 +49,7 @@ void	expand_env_cmd(char *start, char *target, int heredoc_fd,
 			execute_cmdline_update(&start, target, heredoc_fd, heredoc);
 		else if (*start)
 		{
-			while (*start && *start != ' ')
+			while (*start && *start != ' ' && *start != '$')
 				start++;
 			var_name = ft_substr(target + 1, 0, start - target - 1);
 			var_value = get_exported_envvar(var_name);

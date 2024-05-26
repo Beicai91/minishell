@@ -110,7 +110,6 @@ void	set_envvar(t_cmd *cmd, t_m *m)
 		equal = ft_strchr(cmd_args[i], '=');
 		key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
 		value = get_value(cmd_args[i], equal + 1, cmd, m);
-		//check_key_validity(key, value, 0);
 		if (get_envvar(key))
 			update_envvars(key, value, 1);
 		else

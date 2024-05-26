@@ -16,7 +16,7 @@ int	inlist_execution_util(t_execcmd *ecmd, t_m *m, t_inout **in_temp)
 {	
 	if (*in_temp == NULL)
 	{
-		execute_simple_command(ecmd, m);
+		traverse_tree((t_cmd *)ecmd, m);
 		return (1);
 	}
 	while ((*in_temp)->next != NULL)
@@ -55,7 +55,7 @@ void	inlist_execution(t_execcmd *ecmd, t_m *m)
 		return ;
 	}
 	close(fd);
-	execute_simple_command(ecmd, m);
+	traverse_tree((t_cmd *)ecmd, m);
 	restore_inout(fdin_cpy, 0, m);
 	close(fdin_cpy);
 }

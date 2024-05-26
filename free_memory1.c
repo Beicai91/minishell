@@ -42,11 +42,15 @@ void	free_exec(t_cmd *cmd)
 	execcmd = (t_execcmd *)cmd;
 	if (execcmd->cmd_args != NULL)
 		free_2darray(execcmd->cmd_args);
-	if (execcmd->cmdargs != NULL)
+	if (execcmd->cmd_args == NULL)
 	{
 		while (execcmd->cmdargs != NULL)
 		{
 			temp = execcmd->cmdargs;
+			//test
+			printf("freeing %s\n", temp->content);
+			//
+			free(temp->content);
 			execcmd->cmdargs = execcmd->cmdargs->next;
 			free(temp);
 		}

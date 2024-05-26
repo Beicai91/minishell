@@ -45,22 +45,15 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 {
 	struct sigaction	sa;
 
+	minishell_envp(m);
 	find_path(m);
-	if (ft_strchr(ecmd->cmd_args[0], '/'))
-		m->path = ft_strdup(ecmd->cmd_args[0]);
-	else
-	{
-		m->i = 0;
-		find_executable_path(m, ecmd);
-	}
-	free_2darray(m->envp_path);
-	m->envp_path = NULL;
+	find_executable_path(m, ecmd);
 	m->pid = fork_check(m);
 	if (m->pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
 		signal(SIGQUIT, SIG_DFL);
-		if (execve(m->path, ecmd->cmd_args, m->envp) == -1)
+		if (execve(m->path, ecmd->cmd_args, m->minishell_envp) == -1)
 		{
 			execve_error_message(ecmd);
 			exit(127);
@@ -76,18 +69,38 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 
 void	find_executable_path(t_m *m, t_execcmd *ecmd)
 {
-	if (!m->path)
-		ecmd->path_prob = 1;
-	while (m->envp_path && m->envp_path[m->i] != NULL)
+	if (ft_strchr(ecmd->cmd_args[0], '/'))
+		m->path = ft_strdup(ecmd->cmd_args[0]);
+	else
 	{
-		m->temp_path = ft_strjoin(m->envp_path[m->i], "/");
-		m->path = ft_strjoin(m->temp_path, ecmd->cmd_args[0]);
-		free(m->temp_path);
-		m->temp_path = NULL;
-		if (access(m->path, X_OK) == 0)
-			break ;
-		free(m->path);
-		m->path = NULL;
-		m->i++;
+		m->i = 0;
+		if (!m->path)
+			ecmd->path_prob = 1;
+		while (m->envp_path && m->envp_path[m->i] != NULL)
+		{
+			m->temp_path = ft_strjoin(m->envp_path[m->i], "/");
+			m->path = ft_strjoin(m->temp_path, ecmd->cmd_args[0]);
+			free(m->temp_path);
+			m->temp_path = NULL;
+			if (access(m->path, X_OK) == 0)
+				break ;
+			free(m->path);
+			m->path = NULL;
+			m->i++;
+		}
+	}
+	free_2darray(m->envp_path);
+	m->envp_path = NULL;
+}
+
+void	builtin_exec(t_cmd *cmd, t_m *m)
+{
+	if (is_builtin(((t_execcmd *)cmd)->cmd_args[0]) == 1)
+		run_builtin(cmd, m);
+	else
+	{
+		m->position = ON_EXEC;
+		execute_simple_command((t_execcmd *)cmd, m);
+		m->position = ON_MAIN;
 	}
 }

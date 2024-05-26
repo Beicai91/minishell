@@ -16,7 +16,6 @@ int	main(int argc, char **argv, char **envp)
 {
 	t_m					m;
 	struct sigaction	sa;
-	t_envvar	*shlvl;
 
 	(void)argc;
 	(void)argv;
@@ -25,6 +24,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		signal_tracking(&sa, &m);
 		m.input = readline("minishell$ ");
+
 		if (!m.input)
 			exit(1);
 		add_history(m.input);

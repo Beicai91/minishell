@@ -32,6 +32,7 @@ static void	is_numeric(t_cmd *cmd, t_m *m, char *arg_one)
 		{
 			printf("exit\nminishell: exit: %s: numeric argument required\n", arg_one);
 			free_tree(cmd, m);
+			free_2darray(m->minishell_envp);
 			lastfree_restore();
 			exit(255);
 		}
@@ -46,6 +47,7 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 	if (cmd_args[1] == NULL)
 	{
 		free_tree(cmd, m);
+		free_2darray(m->minishell_envp);
 		lastfree_restore();
 		printf("exit\n");
 		exit(m->exit_status);

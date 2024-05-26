@@ -25,7 +25,6 @@ t_cmd	*parsecmd(char *input)
 	cmd = parselist(&start, end);
 	if (cmd == NULL)
 		printf("Invalid command line\n");
-		//handle_error("Invalid command line.", cmd);
 	return (cmd);
 }
 
@@ -85,13 +84,11 @@ t_cmd	*parsepipe(char **start, char *end)
 	if (**start == '|' && *(*start + 1) != '|')
 	{
 		gettoken(start, end, &s_token, &e_token);
-		//test
-		printf("in parsepipe after gettoken, start %c\nletter before start %c", **start, *(*start - 1));
-		if (*start == end)
-			printf("start is updated till the end\n");
-		//
 		if (*start == end)
 		{
+			//test
+			printf("ready to free left part of pipe, type %d\n", cmd->type);
+			//
 			free_memory(cmd);
 			return (NULL);
 		}

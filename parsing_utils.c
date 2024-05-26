@@ -24,7 +24,6 @@ int	get_type(char **start, char *end)
 	}
 	else if (**start == 39)
 		type = get_squotetype(start, end);
-		//type = **start;
 	else if (**start == '"')
 		type = get_quotetype(start, end);
 	else if (**start == '<')
@@ -83,20 +82,8 @@ t_cmd	*handle_quoted_delimiter(t_cmd *cmd, char **start, char *s_token, char *e_
 {
 	t_heredoc	*res;
 
-	/*
-	(*start)++;
-	s_token = *start;
-	while (**start && file_type == 39 && **start != 39)
-		(*start)++;
-	while (**start && file_type == '"' && **start != '"')
-		(*start)++;
-	if (!**start)
-		handle_error("Missing closing quote for delimiter\n", cmd);
-	e_token = *start - 1;
-	*/
 	res = heredoc_init(cmd, s_token, e_token - s_token + 2, 0);
 	change_quotestat(&res);
 	(*start)++;
-	//skipspace_peek(start, end, NULL);
 	return ((t_cmd *)res);
 }

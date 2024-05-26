@@ -22,22 +22,19 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	execcmd->m = m;
 	if (m->heredoc_flag == 1 && execcmd->cmdargs == NULL)
 	{
-		execcmd->cmd_args = safe_malloc(2, STRING_ARRAY, m->final_tree);
-		execcmd->cmd_args[0] = ft_strdup("cat");
-		execcmd->cmd_args[1] = NULL;
+		//test
+		printf("In last_set set_exec, no replace should happen\n");
+		//
+		//execcmd->cmd_args = safe_malloc(2, STRING_ARRAY, m->final_tree);
+		//execcmd->cmd_args[0] = ft_strdup("cat");
+		//execcmd->cmd_args[1] = NULL;
 		return ;
 	}
 	i = 0;
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL
 		&& execcmd->single_quote == 0)
 	{
-		//test
-		printf("before replace, cmd_args %s\n", execcmd->cmd_args[i]);
-		//
 		temp = replace_d(execcmd, i);
-		//test
-		printf("after replace, cmd_args %s\n", temp);
-		//
 		execcmd->cmd_args[i] = temp;
 		i++;
 	}
