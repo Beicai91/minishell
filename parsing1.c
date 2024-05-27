@@ -86,9 +86,6 @@ t_cmd	*parsepipe(char **start, char *end)
 		gettoken(start, end, &s_token, &e_token);
 		if (*start == end)
 		{
-			//test
-			printf("ready to free left part of pipe, type %d\n", cmd->type);
-			//
 			free_memory(cmd);
 			return (NULL);
 		}

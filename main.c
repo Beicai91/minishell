@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:04:02 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/24 12:18:43 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/27 11:45:54 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!m.input)
 			exit(1);
 		add_history(m.input);
+		update_history_file(&m);
 		m.input = expand_input_check(m.input, &m);
 		partial_reinit_m(&m);
 		m.final_tree = parsecmd(m.input);

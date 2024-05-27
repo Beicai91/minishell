@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/24 16:42:48 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/27 11:53:31 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,9 @@ typedef struct s_mini
 	t_list						*check;
 	char						*line;
 	char						*one_ch;
+	char						*history;
+	char						*prev_history;
+	int initial_history_check;
 }								t_m;
 
 typedef struct s_listcmd
@@ -179,11 +182,11 @@ typedef struct s_strvars
 
 typedef struct s_tkn
 {
-	char	*s_tkn;
-	char	*e_tkn;
-	int		redir;
-	int		file;
-}	t_tkn;
+	char						*s_tkn;
+	char						*e_tkn;
+	int							redir;
+	int							file;
+}								t_tkn;
 
 typedef struct s_gl
 {
@@ -238,8 +241,10 @@ void							handle_sigint_heredoc(int sig,
 									siginfo_t *siginfo, void *context);
 void							handle_sigint(int sig, siginfo_t *siginfo,
 									void *context);
-void							handle_sigint_exec(int sig, siginfo_t *siginfo, void *context);
-void							handle_sigquit_exec(int sig, siginfo_t *siginfo, void *context);
+void							handle_sigint_exec(int sig, siginfo_t *siginfo,
+									void *context);
+void							handle_sigquit_exec(int sig, siginfo_t *siginfo,
+									void *context);
 
 // multiple in_outfiles utiles
 void							build_redir_list(t_cmd *cmd, t_m *m,
@@ -306,12 +311,8 @@ t_cmd							*parseblock(char **start, char *end);
 void							get_cmd_args(t_execcmd *execcmd, t_cmd *cmd);
 void							populate_cmdargs(t_list **cmdargs,
 									char *s_token, char *e_token, t_cmd *cmd);
-void							populate_cmdargs_singlequote(t_list **cmdargs,
-									char *s_token, char *e_token, t_cmd *cmd);
 void							cmdargs_quote(t_list **cmdargs, char *s_token,
 									char *e_token, char **start);
-void							single_quoted_args(t_list **cmdargs,
-									t_execcmd *ecmd, char **start, t_cmd *cmd);
 char							*getvalue_freename(t_list *cmdargs,
 									char *var_name);
 char							*get_current_envvar(char *key);
@@ -357,7 +358,8 @@ void							fill_basic_envvars(void);
 void							resize(char *buffer, size_t *size);
 void							add_envvar(char *key, char *value,
 									int is_exported);
-int								check_key_validity(char *key, char *value, int export_flag);
+int								check_key_validity(char *key, char *value,
+									int export_flag);
 void							update_envvars(char *key, char *value,
 									int is_exported);
 void							update_target(t_envvar *target, char *value,
@@ -440,5 +442,13 @@ void							initialize_var_wild(t_m *m);
 // global var
 t_gl							*init_global_var(void);
 t_gl							*get_gl(void);
+
+// history
+void							update_working_history(t_m *m);
+int								does_file_history_exist(void);
+void							update_history_list(t_m *m);
+void							update_history_file(t_m *m);
+void							load_history(t_m *m);
+char							*remove_line_break(char *line);
 
 #endif

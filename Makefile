@@ -62,7 +62,8 @@ SRC = executing/builtin_utils1.c \
 	  signals1.c \
 	  signals2.c \
 	  utils.c \
-	  initial_setup_util.c
+	  initial_setup_util.c \
+	  history/history_main.c 
 
 DODIR = dofile
 

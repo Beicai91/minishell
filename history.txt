@@ -1,0 +1,7 @@
+ls
+cat in0.txt
+hello
+exit
+echo $?
+sjdjdh
+cat
