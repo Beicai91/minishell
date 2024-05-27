@@ -1,5 +1,5 @@
-dofile/wildcards/wildcards.o: wildcards/wildcards.c \
-  wildcards/../minishell.h libft/libft.h \
+dofile/history/history_main.o: history/history_main.c \
+  history/../minishell.h libft/libft.h \
   /usr/local/Cellar/readline/8.2.10/include/readline/history.h \
   /usr/local/Cellar/readline/8.2.10/include/readline/rlstdc.h \
   /usr/local/Cellar/readline/8.2.10/include/readline/rltypedefs.h \
@@ -8,7 +8,7 @@ dofile/wildcards/wildcards.o: wildcards/wildcards.c \
   /usr/local/Cellar/readline/8.2.10/include/readline/chardefs.h \
   /usr/local/Cellar/readline/8.2.10/include/readline/tilde.h
 
-wildcards/../minishell.h:
+history/../minishell.h:
 
 libft/libft.h:
 

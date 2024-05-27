@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/24 13:44:08 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/27 12:06:04 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,18 @@ static void	is_numeric(t_cmd *cmd, t_m *m, char *arg_one)
 	int	i;
 
 	i = -1;
+	
 	if (arg_one[0] == '-')
 		i++;
 	while (arg_one[++i])
 	{
 		if (!ft_isdigit(arg_one[i]))
 		{
+			update_history_file(m);
 			printf("exit\nminishell: exit: %s: numeric argument required\n", arg_one);
 			free_tree(cmd, m);
 			free_2darray(m->minishell_envp);
-			lastfree_restore();
+			lastfree_restore();			
 			exit(255);
 		}
 	}
@@ -44,8 +46,10 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 	char	**cmd_args;
 
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
+	
 	if (cmd_args[1] == NULL)
 	{
+		update_history_file(m);
 		free_tree(cmd, m);
 		free_2darray(m->minishell_envp);
 		lastfree_restore();

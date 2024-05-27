@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 17:20:44 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/27 12:33:53 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,16 @@
 
 void	initial_setup(t_m *m, char **envp)
 {
-	struct termios	new_termios;
-	t_gl			*gl;
-
 	init_global_var();
-	gl = get_gl();
 	m->envp = envp;
 	m->exit_status = 0;
 	m->position = ON_MAIN;
 	m->line = NULL;
+	m->history = "";
+	m->prev_history = "";
 	init_envvars(envp, 0);
-	tcgetattr(STDIN_FILENO, &gl->orig_termios);
-	new_termios = gl->orig_termios;
-	new_termios.c_lflag &= ~ECHOCTL;
-	new_termios.c_cc[VERASE] = '\t';
-	tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
+		m->initial_history_check = 0;
+	update_working_history(m);
 }
 
 void	partial_reinit_m(t_m *m)
