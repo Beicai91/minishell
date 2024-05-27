@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 12:06:04 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/27 22:10:11 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,8 @@ static void	is_numeric(t_cmd *cmd, t_m *m, char *arg_one)
 	{
 		if (!ft_isdigit(arg_one[i]))
 		{
-			//update_history_file(m);
 			printf("exit\nminishell: exit: %s: numeric argument required\n", arg_one);
 			free_tree(cmd, m);
-			//free_2darray(m->minishell_envp);
 			lastfree_restore();			
 			exit(255);
 		}
@@ -49,9 +47,7 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 	
 	if (cmd_args[1] == NULL)
 	{
-		//update_history_file(m);
 		free_tree(cmd, m);
-		//free_2darray(m->minishell_envp);
 		lastfree_restore();
 		printf("exit\n");
 		exit(m->exit_status);

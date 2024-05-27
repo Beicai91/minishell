@@ -1,45 +1,5 @@
+cat in0.txt
 ls
-cat in0.txt
-hello
-exit
-echo $?
-sjdjdh
-cat
-cat
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-exit
-cat in0.txt
-echo hello
-cat in0.txt
-echo $?
-echo $? hello
-echo $? hello
-echo $HOME
-cat in0.txt
+echo "hello"
+"helo"
 exit

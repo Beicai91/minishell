@@ -113,7 +113,6 @@ void	resize_or_free(char *buffer, t_m *m, size_t *size)
 	{
 		perror("getcmd");
 		free_tree(m->final_tree, m);
-		//free_2darray(m->minishell_envp);
 		lastfree_restore();
 		exit(1);
 	}

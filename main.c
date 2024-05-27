@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:04:02 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 11:45:54 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/27 16:14:33 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@ int	main(int argc, char **argv, char **envp)
 		if (!m.input)
 			exit(1);
 		add_history(m.input);
+		//test
+		printf("ready to update history file\n");
+		//
 		update_history_file(&m);
 		m.input = expand_input_check(m.input, &m);
 		partial_reinit_m(&m);

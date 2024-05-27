@@ -35,7 +35,6 @@ void	clean_exit(char *one_char, t_m *m)
 	free(m->input);
 	free_tree(m->final_tree, m);
 	free_envvars();
-	//free_2darray(m->minishell_envp);
 	lastfree_restore();
 	exit(1);
 }

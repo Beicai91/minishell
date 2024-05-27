@@ -6,7 +6,7 @@
 /*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 12:33:53 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/27 21:43:57 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,20 @@ void	initial_setup(t_m *m, char **envp)
 	struct termios	new_termios;
 	t_gl			*gl;
 
+	//test
+	printf("initial setup\n");
+	//
 	gl = get_gl();
 	init_global_var();
 	m->envp = envp;
 	m->exit_status = 0;
 	m->position = ON_MAIN;
 	m->line = NULL;
-	//m->history = ft_strdup("");
-	//m->prev_history = ft_strdup("");
 	init_envvars(envp, 0);
 	tcgetattr(STDIN_FILENO, &gl->orig_termios);
 	new_termios = gl->orig_termios;
 	new_termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
-	//m->initial_history_check = 0;
 	update_working_history(m);
 }
 

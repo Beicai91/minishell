@@ -16,9 +16,6 @@ void	runcmd(t_cmd *cmd, t_m *m)
 {
 	if (cmd != NULL)
 	{
-		//test
-		printf("Ready to run cmd\n");
-		//
 		traverse_tree(cmd, m);
 		free_tree(cmd, m);
 	}
