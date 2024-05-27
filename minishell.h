@@ -446,7 +446,6 @@ t_gl							*get_gl(void);
 // history
 void							update_working_history(t_m *m);
 int								does_file_history_exist(void);
-void							update_history_list(t_m *m);
 void							update_history_file(t_m *m);
 void							load_history(t_m *m);
 char							*remove_line_break(char *line);

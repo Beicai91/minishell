@@ -64,6 +64,7 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 		signal_tracking(&sa, m);
 		waitpid(m->pid, &m->exit_status, 0);
 		check_exit_status(m->exit_status, m);
+		free_2darray(m->minishell_envp);
 	}
 }
 
