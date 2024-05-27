@@ -64,6 +64,9 @@ void	free_2darray(char **arr)
 			arr[i] = NULL;
 			i++;
 		}
+		//test
+		printf("freed %d\n", i - 1);
+		//
 		free(arr);
 		arr = NULL;
 	}

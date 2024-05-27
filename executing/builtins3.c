@@ -47,6 +47,9 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 	if (cmd_args[1] == NULL)
 	{
 		free_tree(cmd, m);
+		//test
+		printf("ready to free minishell_envp\n");
+		//
 		free_2darray(m->minishell_envp);
 		lastfree_restore();
 		printf("exit\n");
