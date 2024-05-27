@@ -43,14 +43,13 @@ void	free_exec(t_cmd *cmd)
 	while (execcmd->cmdargs != NULL)
 	{
 		temp = execcmd->cmdargs;
-		//test
-		printf("freeing in linked list %s\n", temp->content);
-		//
 		free(temp->content);
 		execcmd->cmdargs = execcmd->cmdargs->next;
 		free(temp);
 		temp = NULL;
 	}
+	if (execcmd->cmd_args != NULL)
+		free(execcmd->cmd_args);
 	free(cmd);
 	cmd = NULL;
 }
