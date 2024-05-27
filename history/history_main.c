@@ -1,16 +1,15 @@
 #include "../minishell.h"
 
-// change eva
 void	update_working_history(t_m *m)
 {
 	t_execcmd	*ecmd;
 
-	ecmd = execcmd_init();
-	ecmd->cmd_args = malloc(sizeof(char *) * 3);
-	if (!ecmd->cmd_args)
-		return ;
 	if (does_file_history_exist() == 0)
 	{
+		ecmd = execcmd_init();
+		ecmd->cmd_args = malloc(sizeof(char *) * 3);
+		if (!ecmd->cmd_args)
+			return ;
 		ecmd->cmd_args[0] = ft_strdup("touch");
 		ecmd->cmd_args[1] = ft_strdup("history.txt");
 		ecmd->cmd_args[2] = NULL;
