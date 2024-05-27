@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:56 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 10:00:37 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/27 21:43:36 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 		signal_tracking(&sa, m);
 		waitpid(m->pid, &m->exit_status, 0);
 		check_exit_status(m->exit_status, m);
+		free_2darray(m->minishell_envp);
 	}
 }
 

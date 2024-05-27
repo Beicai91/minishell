@@ -5,22 +5,19 @@ void	update_working_history(t_m *m)
 {
 	t_execcmd	*ecmd;
 	char		**array;
-
+ecmd = NULL;
 	array = NULL;
-	array = (char **)malloc(sizeof(char *) * 3);
-	if (!array)
-		return ;
-	ecmd = execcmd_init();
+
 	if (does_file_history_exist() == 0)
 	{
 		array[0] = ft_strdup("touch");
 		array[1] = ft_strdup("history.txt");
 		array[2] = NULL;
 		ecmd->cmd_args = array;
-		execute_simple_command(ecmd, m);
-		//to free execcmd and its content
 		free_2darray(array);
+		execute_simple_command(ecmd, m);	
 		free(ecmd);
+		ecmd = NULL;
 	}
 	else
 		load_history(m);
@@ -44,7 +41,6 @@ void	load_history(t_m *m)
 		line = get_next_line(fd);
 		if (!line)
 			break ;
-		//m->prev_history = join_free(m->prev_history, line);
 		new_line = remove_line_break(line);
 		add_history(new_line);
 		free(new_line);
@@ -68,7 +64,6 @@ char	*remove_line_break(char *line)
 		i++;
 	}
 	new[i] = '\0';
-	//need to free the original line
 	free(line);
 	return (new);
 }
@@ -94,38 +89,6 @@ int	does_file_history_exist(void)
 	closedir(dir);
 	return (0);
 }
-
-/*
-void	update_history_list(t_m *m)
-{
-	if (m->history[0] == '\0' || m->initial_history_check == 0)
-	{
-		m->initial_history_check = 1;
-		m->history = join_free(m->history, m->input);
-	}
-	else if (m->input != NULL)
-	{
-
-		m->history = join_free(m->history, "\n");
-		m->history = join_free(m->history, m->input);
-	}
-}
-
-void	update_history_file(t_m *m)
-{
-	char	*first;
-
-	first = ft_strdup("echo \"");
-	m->history = ft_strjoin(m->prev_history, m->history);
-	m->history = ft_strjoin(first, m->history);
-	m->history = ft_strjoin(m->history, "\" > history.txt");
-	m->final_tree = parsecmd(m->history);
-	if (m->final_tree != NULL)
-	{
-		last_set(m->final_tree, m);
-		runcmd(m->final_tree, m);
-	}
-}*/
 
 void	update_history_file(t_m *m)
 {

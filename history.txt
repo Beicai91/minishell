@@ -1,8 +1,42 @@
 ls
-cat in0.txt
-hello
+ls -l
 exit
-echo $?
-sjdjdh
-cat
-cat
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+exit
+ls
+ls
+ls
+exit
+ls
+cat in0.txt
+echo "home"
+echo "home
+exit
+echo "home"
+exit
+echo "home
+exit
+cat in0.txt
+exit
+ls
+exit
+echo "home
+exit

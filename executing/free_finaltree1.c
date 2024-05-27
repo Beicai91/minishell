@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_finaltree1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:48:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 10:04:52 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/27 22:03:05 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_exec_content(t_execcmd *ecmd)
 {
 	t_list	*temp;
 
+	printf("--------check\n");
 	free_2darray(ecmd->cmd_args);
 	if (ecmd->cmdargs != NULL)
 	{
@@ -28,6 +29,7 @@ void	free_exec_content(t_execcmd *ecmd)
 			free(temp);
 		}
 	}
+	printf("-------the end od free exec check\n");
 }
 
 void	free_redir_content(t_redircmd *rcmd, t_m *m)
