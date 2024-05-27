@@ -57,16 +57,10 @@ void	free_2darray(char **arr)
 	{
 		while (arr[i] != NULL)
 		{
-			//test
-			printf("freeing %s\n", arr[i]);
-			//
 			free(arr[i]);
 			arr[i] = NULL;
 			i++;
 		}
-		//test
-		printf("freed %d\n", i - 1);
-		//
 		free(arr);
 		arr = NULL;
 	}

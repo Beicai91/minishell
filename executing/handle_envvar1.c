@@ -201,15 +201,10 @@ void	minishell_envp(t_m *m)
 	while (temp != NULL)
 	{
 		v.first_part = ft_strjoin(temp->key, "=");
-		//v.new = ft_strjoin(v.first_part, temp->value);
 		m->minishell_envp[v.i] = ft_strjoin(v.first_part, temp->value);
 		free(v.first_part);
-		//m->minishell_envp[++(v.i)] = v.new;
 		temp = temp->next;
 		(v.i)++;
 	}
-	//test
-	printf("allocated %d\n", v.i - 1);
-	//
 	m->minishell_envp[v.i] = NULL;
 }
