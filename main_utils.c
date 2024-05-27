@@ -17,9 +17,6 @@ void	initial_setup(t_m *m, char **envp)
 	struct termios	new_termios;
 	t_gl			*gl;
 
-	//test
-	printf("initial setup\n");
-	//
 	gl = get_gl();
 	init_global_var();
 	m->envp = envp;
