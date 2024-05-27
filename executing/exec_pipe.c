@@ -13,7 +13,7 @@
 #include "../minishell.h"
 
 void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
-{	
+{
 	m->pipe_flag = 1;
 	if (pipe(m->pfd) < 0)
 		exit_error(1, "Problem with creating a pipe", m, m->final_tree);

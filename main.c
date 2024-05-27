@@ -28,9 +28,6 @@ int	main(int argc, char **argv, char **envp)
 		if (!m.input)
 			exit(1);
 		add_history(m.input);
-		//test
-		printf("ready to update history file\n");
-		//
 		update_history_file(&m);
 		m.input = expand_input_check(m.input, &m);
 		partial_reinit_m(&m);

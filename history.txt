@@ -1,5 +1,0 @@
-cat in0.txt
-ls
-echo "hello"
-"helo"
-exit

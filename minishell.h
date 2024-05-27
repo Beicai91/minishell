@@ -41,7 +41,7 @@ typedef enum type
 	HEREDOC = 9,
 	ON_MAIN = 10,
 	ON_HEREDOC = 11,
-	ON_EXEC = 12
+	ON_EXEC = 12,
 }								t_type;
 
 typedef struct s_cmd
