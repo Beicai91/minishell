@@ -56,6 +56,13 @@ typedef struct s_inout
 	struct s_inout				*next;
 }								t_inout;
 
+typedef struct	s_qflag
+{
+	int							quote_flag;
+	struct s_qflag				*next;
+}								t_qflag;
+
+
 typedef struct s_mini
 {
 	int							i;
@@ -144,7 +151,9 @@ typedef struct s_execcmd
 	int							type;
 	t_list						*cmdargs;
 	char						**cmd_args;
-	int							single_quote;
+	t_qflag						*qflags;
+	int							tkn_type;
+	//int							single_quote;
 	int							path_prob;
 	t_m							*m;
 }								t_execcmd;
@@ -284,6 +293,7 @@ bool							skipspace_peek(char **start, char *end,
 									char *check);
 t_cmd							*handle_quoted_delimiter(t_cmd *cmd,
 									char **start, char *s_token, char *e_token);
+void							add_qflag(t_qflag **lst, t_qflag *new);
 
 // initial and last set of cmd before entering exeution
 void							initial_setup(t_m *m, char **envp);
@@ -310,9 +320,9 @@ t_cmd							*parseblock(char **start, char *end);
 
 // cmd and args handling
 void							get_cmd_args(t_execcmd *execcmd, t_cmd *cmd);
-void							populate_cmdargs(t_list **cmdargs,
+void							populate_cmdargs(t_execcmd *ecmd,
 									char *s_token, char *e_token, t_cmd *cmd);
-void							cmdargs_quote(t_list **cmdargs, char *s_token,
+void							cmdargs_quote(t_execcmd *ecmd, char *s_token,
 									char *e_token, char **start);
 char							*getvalue_freename(t_list *cmdargs,
 									char *var_name);

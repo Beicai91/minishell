@@ -52,7 +52,7 @@ void	expand_env_cmd(char *start, char *target, int heredoc_fd,
 			while (*start && *start != ' ' && *start != '$')
 				start++;
 			var_name = ft_substr(target + 1, 0, start - target - 1);
-			var_value = get_exported_envvar(var_name);
+			var_value = get_current_envvar(var_name);
 			free(var_name);
 			write(heredoc_fd, var_value, ft_strlen(var_value));
 			target = start;

@@ -82,32 +82,31 @@ static t_cmd	*parseexec_error(int type, t_cmd *cmd)
 
 t_cmd	*parseexec(char **start, char *end)
 {
-	char		*s_tkn;
+	char		*s_tkn;//use t_tkn struct
 	char		*e_tkn;
-	t_execcmd	*execcmd;
+	t_execcmd	*ecmd;
 	t_cmd		*cmd;
-	int			type;
 
 	if (skipspace_peek(start, end, "("))
 		return (parseblock(start, end));
 	s_tkn = NULL;
 	e_tkn = NULL;
-	execcmd = execcmd_init();
-	cmd = parseredirs((t_cmd *)execcmd, start, end);
+	ecmd = execcmd_init();
+	cmd = parseredirs((t_cmd *)ecmd, start, end);
 	while (**start && skipspace_peek(start, end, "&|);") == false)
 	{
-		type = gettoken(start, end, &s_tkn, &e_tkn);
-		if (type == 127 || type == 40)
-			return (parseexec_error(type, cmd));
-		else if (type == 39)
-			cmdargs_quote(&execcmd->cmdargs, s_tkn + 1, e_tkn - 1, start);
-		else if (type == 34)
-			cmdargs_quote(&execcmd->cmdargs, s_tkn + 1, e_tkn - 1, start);
-		else if (type == 97)
-			populate_cmdargs(&execcmd->cmdargs, s_tkn, e_tkn, cmd);
+		ecmd->tkn_type = gettoken(start, end, &s_tkn, &e_tkn);
+		if (ecmd->tkn_type == 127 || ecmd->tkn_type == 40)
+			return (parseexec_error(ecmd->type, cmd));
+		else if (ecmd->tkn_type == 39)
+			cmdargs_quote(ecmd, s_tkn + 1, e_tkn - 1, start);
+		else if (ecmd->tkn_type == 34)
+			cmdargs_quote(ecmd, s_tkn + 1, e_tkn - 1, start);
+		else if (ecmd->tkn_type == 97)
+			populate_cmdargs(ecmd, s_tkn, e_tkn, cmd);
 		cmd = parseredirs(cmd, start, end);
 	}
-	get_cmd_args(execcmd, cmd);
+	get_cmd_args(ecmd, cmd);
 	return (cmd);
 }
 

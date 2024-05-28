@@ -195,3 +195,145 @@ a=hello
 b="$a"
 echo $b
 echo $a
+a=hello
+b="$a"
+echo $a
+<<EOF cat
+a=hello
+<<EOF cat
+a=hello
+b=$a
+echo $b
+c="$b"
+echo $c
+myVar=hello
+testVar="$myVar$HOME"
+env
+echo $testVar
+exit 1
+exit 127
+exit
+exit 1
+exit 127
+exit -290
+exit 123 hello
+exit hello
+exit hello 123
+cat < Makefile > a | wc -l
+< Makefile  > a > b
+cat Makefile
+echo '$USER' "$USER" '"$USER "'
+echo '$HOME'
+echo '$HOME'
+echo '$USER' "$USER" '"$USER "'
+echo hello
+cat | cat | ls
+cat <<a >b
+cat <<a >b
+cat <<a >b
+echo '$USER'
+echo "$USER"
+echo '$USER'
+echo '$USER' "$USER" '"$USER "'
+echo '$USER'
+echo "$USER"
+echo '$HOME'
+echo '$HOME' "$USER" '"$USER "'
+echo "$USER" '$USER'
+echo hello
+echo "hello"
+echo "$HOME"
+echo '$HOME'
+echo '$HOME' "$HOME"
+echo -n bonjour >> b
+echo hello >>b
+echo '$USER' "$USER" "hello"
+echo '$HOME'
+echo '$HOME' "$USER" '"$USER "'
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+ls
+ls
+s
+<<EOF
+<<EOF
+ls
+ls
+shhdsh
+stty sane
+ls
+<<EOF
+ls
+itty sane
+stty sane
+ls
+<<EOF
+<<EOF cat
+ls
+<<EOF
+ls
+echo -n hello >>b
+echo -n hello >>b
+echo -n hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo -n hello
+echo hello
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo -n "hello""bye" >>b
+echo -n hello
+echo -n "hello""bye"
+echo -n "hello""bye" >>b
+echo -n "hello""bye"
+echo "hello""bye"
+echo "hello" "bye"
+echo hello bye
+echo "hello""bye"
+echo "hello""bye"
+echo "hello" "bye"
+echo "hello""bye"
+echo -n "hello""bye" >>b
+echo "hello""bye"
+echo "hello" "bye"
+echo "hello""bye"
+echo hello >>b
+echo "quotedhello" >>b
+echo -n hello >>b
+echo -n hello >>b
+echo -n CRAZY  >>b
+echo -n WTF >>b
+echo -n COMPUTERDOESWORK >>b
+echo hello >>b
+echo -n CRAZY >>b
+echo hello >>b
+echo -n hello >>b
+echo -n hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n hello >>b
+echo hello >>b
+echo -n CRAZY >>b
+echo "hello""bye"
+echo "hello" "bye"
+echo "hello""bye"
+echo 'hello''bye'
+echo 'hello' 'bye'

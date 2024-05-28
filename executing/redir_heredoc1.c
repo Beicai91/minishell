@@ -77,7 +77,9 @@ void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
 {
 	int		fd;
 	t_inout	*to_free;
-
+//test
+printf("inlist execution loop\n");
+//
 	while (m->out->next != NULL)
 	{
 		fd = open(m->out->file_name, m->out->mode, 0666);
@@ -88,6 +90,9 @@ void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
 		free(to_free);
 	}
 	fd = open(m->out->file_name, m->out->mode, 0666);
+	//test
+	printf("file b fd %d\n", fd);
+	//
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
 		close_fds(fdout_cpy, fd);

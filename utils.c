@@ -57,3 +57,19 @@ char	*m_sub(char const *s, unsigned int start, size_t len,
 	ft_strlcpy(sub, s + start, len + 1);
 	return (sub);
 }
+
+void	add_qflag(t_qflag **lst, t_qflag *new)
+{
+	t_qflag	*temp;
+
+	if (!(*lst))
+	{
+		(*lst) = new;
+		return ;
+	}
+	temp = *lst;
+	while (temp->next != NULL)
+		temp = temp->next;
+	temp->next = new;
+	new->next = NULL;
+}

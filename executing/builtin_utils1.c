@@ -49,7 +49,7 @@ void	print_helper(char **cmd_args, int *i)
 		else
 		{
 			if (gl->consec_quotes == 0 || gl->quoted == 0)
-				printf("%s ", cmd_args[*i]);
+				write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
 			else
 				printf("%s", cmd_args[*i]);
 			(*i)++;

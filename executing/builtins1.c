@@ -78,6 +78,15 @@ void	builtin_cd(t_cmd *cmd, t_m *m)
 	update_pwd(m);
 }
 
+void	reset_gl_quote_ele()
+{
+	t_gl	*gl;
+
+	gl = get_gl();
+	gl->consec_quotes = 1;
+	gl->quoted = 0;
+}
+
 void	builtin_echo(t_cmd *cmd)
 {
 	char	**cmd_args;
@@ -99,10 +108,12 @@ void	builtin_echo(t_cmd *cmd)
 	}
 	while (cmd_args[i] != NULL)
 		print_helper(cmd_args, &i);
+	reset_gl_quote_ele();
 	((t_execcmd *)cmd)->m->exit_status = 0;
 	if (n_flag == false)
 		printf("\n");
 }
+
 
 void	resize_or_free(char *buffer, t_m *m, size_t *size)
 {

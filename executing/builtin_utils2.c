@@ -105,9 +105,6 @@ char	*get_value(char *arg, char *quote_letter, t_cmd *cmd, t_m *m)
 {
 	char	*value;
 
-	//test
-	printf("in get_value, quote_letter %c\n", *quote_letter);
-	//
 	if (*(quote_letter) == '"')
 		value = handle_expansion(quote_letter + 1, cmd, m);
 	else if (*quote_letter == 39)

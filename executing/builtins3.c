@@ -44,7 +44,6 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 	char	**cmd_args;
 
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
-	
 	if (cmd_args[1] == NULL)
 	{
 		free_tree(cmd, m);
@@ -61,6 +60,7 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 			return ;
 		}
 		m->exit_status = ft_atoi(cmd_args[1]);
+		exit(m->exit_status);
 	}
 }
 

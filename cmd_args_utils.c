@@ -16,10 +16,11 @@ char	*getvalue_freename(t_list *cmdargs, char *var_name)
 {
 	char	*var_value;
 
-	if (ft_strncmp(cmdargs->content, "echo", 4) == 0)
+	(void)cmdargs;
+	//if (ft_strncmp(cmdargs->content, "echo", 4) == 0)
 		var_value = get_current_envvar(var_name);
-	else
-		var_value = get_exported_envvar(var_name);
+	//else
+		//var_value = get_exported_envvar(var_name);
 	free(var_name);
 	return (var_value);
 }

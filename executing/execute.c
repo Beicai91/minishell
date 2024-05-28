@@ -48,6 +48,9 @@ void	traverse_tree(t_cmd *cmd, t_m *m)
 	{
 		if (((t_execcmd *)cmd)->cmd_args == NULL)
 			return ;
+		//test
+		printf("in traverse tree, detected EXEC\n");
+		//
 		builtin_exec(cmd, m);
 	}
 	else if (cmd->type == REDIR)

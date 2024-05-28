@@ -65,7 +65,10 @@ char	*ft_readline(char *prompt, t_m *m)
 	{
 		m->one_ch[1] = '\0';
 		if (m->one_ch[0] == '\004')
-			clean_exit(m->one_ch, m);
+		{
+			tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
+			return (NULL);
+		}
 		if (m->one_ch[0] == '\177')
 			m->line = delete_char(m->line);
 		else

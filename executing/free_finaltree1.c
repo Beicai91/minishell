@@ -15,17 +15,23 @@
 void	free_exec_content(t_execcmd *ecmd)
 {
 	t_list	*temp;
+	t_qflag	*qflag;
+	t_qflag	*qtemp;
 
 	free_2darray(ecmd->cmd_args);
+	qflag = ecmd->qflags;
 	if (ecmd->cmdargs != NULL)
 	{
 		while (ecmd->cmdargs != NULL)
 		{
 			temp = ecmd->cmdargs;
 			ecmd->cmdargs = ecmd->cmdargs->next;
-			if (ecmd->single_quote == 0)
+			if (qflag->quote_flag == 34 || qflag->quote_flag == 0)
 				free(temp->content);
 			free(temp);
+			qtemp = qflag;
+			qflag = qflag->next;
+			free(qtemp);
 		}
 	}
 }

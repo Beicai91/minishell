@@ -20,8 +20,8 @@ t_execcmd	*execcmd_init(void)
 	execcmd->type = EXEC;
 	execcmd->cmd_args = NULL;
 	execcmd->cmdargs = NULL;
-	execcmd->single_quote = 0;
 	execcmd->path_prob = 0;
+	execcmd->qflags = NULL;
 	return (execcmd);
 }
 
