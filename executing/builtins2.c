@@ -12,7 +12,7 @@
 
 #include "../minishell.h"
 
-void	no_value_case(char *arg)
+void	no_value_case(char *arg, t_m *m)
 {
 	char		*key;
 	char		*value;
@@ -22,6 +22,7 @@ void	no_value_case(char *arg)
 	target = get_envvar(key);
 	if (!target)
 	{
+		m->export_hidden = 1;
 		value = ft_strdup("");
 		update_envvars(key, value, 0);
 	}
@@ -85,7 +86,19 @@ void	builtin_export(t_cmd *cmd, t_m *m)
 	{
 		equal = ft_strchr(cmd_args[i], '=');
 		if (!equal)
-			no_value_case(cmd_args[i]);
+			no_value_case(cmd_args[i], m);
+		else if (!*(equal + 1))
+		{
+			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
+			if (cmd_args[i + 1] && !ft_strchr(cmd_args[i + 1], '='))
+			{
+				value = ft_strdup(cmd_args[i + 1]);
+				i = i + 1;
+			}
+			else
+				value = ft_strdup("");
+			update_envvars(key, value, 1);
+		}
 		else
 		{
 			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
@@ -93,6 +106,21 @@ void	builtin_export(t_cmd *cmd, t_m *m)
 			update_envvars(key, value, 1);
 		}
 	}
+}
+
+void	update_envvar_util(char *key, char *value, t_m *m)
+{
+	t_envvar	*temp;
+
+	temp = get_envvar(key);
+	if (temp && temp->is_exported == 1)
+		update_envvars(key, value, 1);
+	else if (temp && temp->is_exported == 0 && m->export_hidden == 1)
+		update_envvars(key, value, 1);
+	else if (temp && temp->is_exported == 0 && m->export_hidden == 0)
+		update_envvars(key, value, 0);
+	else
+		update_envvars(key, value, 0);
 }
 
 void	set_envvar(t_cmd *cmd, t_m *m)
@@ -108,12 +136,24 @@ void	set_envvar(t_cmd *cmd, t_m *m)
 	while (cmd_args[i] != NULL)
 	{
 		equal = ft_strchr(cmd_args[i], '=');
-		key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
-		value = get_value(cmd_args[i], equal + 1, cmd, m);
-		if (get_envvar(key))
-			update_envvars(key, value, 1);
+		if (!*(equal + 1))
+		{
+			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
+			if (cmd_args[i + 1] && !ft_strchr(cmd_args[i + 1], '='))
+			{
+				value = ft_strdup(cmd_args[i + 1]);
+				i = i + 1;
+			}
+			else
+				value = ft_strdup("");
+			m->export_hidden = 0;
+		}
 		else
-			update_envvars(key, value, 0);
+		{
+			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
+			value = get_value(cmd_args[i], equal + 1, cmd, m);
+		}
+		update_envvar_util(key, value, m);
 		i++;
 	}
 }

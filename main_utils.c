@@ -23,6 +23,7 @@ void	initial_setup(t_m *m, char **envp)
 	m->exit_status = 0;
 	m->position = ON_MAIN;
 	m->line = NULL;
+	m->export_hidden = 0;
 	init_envvars(envp, 0);
 	tcgetattr(STDIN_FILENO, &gl->orig_termios);
 	new_termios = gl->orig_termios;

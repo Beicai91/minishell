@@ -1,0 +1,197 @@
+export a="hello"
+env
+export myVar=hello
+env
+cat | cat | ls
+export a="hello"
+export a="hello"
+export a="hello"
+export a="hello"
+export a="hello"
+a="hello"
+export a=hello
+export d
+export a="hello" b="bye"
+export a="$HOME"
+export a="hello"
+export a="hello"
+export a="hello"
+export a="hello"
+export a="hello"
+export a="hello"
+export
+export a="hello"
+export a="hello"
+export a="hello"
+env
+export b="bye" c="ciao"
+env
+export d=dog
+env
+export e=eye f=fine
+env
+export g
+h=hello
+env
+export h
+h=hello
+export h
+h=hello
+env
+export h
+env
+export g
+env
+echo $g
+g=good
+export g
+g="good"
+a=hello b=bye
+env
+echo $a
+echo $b
+export a b
+env
+c="ciao" d="doggie"
+a="hello" b="bye"
+env
+echo $a $b
+export a b
+env
+export c
+c=ciao
+env
+export d
+d="doggie"
+env
+export e=
+a=
+export a=
+env
+echo $a
+a=hello
+export a=
+export a=
+env
+echo $a
+a=hellp
+export a="hello"
+env
+export b=
+env
+b=bye
+env
+export c=
+c="ciao"
+env
+export d
+d=doggie
+export a=
+a=hello
+env
+export b c=
+env
+b=bye c="ciao"
+env
+c="coucou"
+env
+unset a b c
+env
+a=
+env
+echo $a
+a=hello
+echo $a
+env
+b=
+env
+b=bye
+env
+c=
+c=ciao
+export a b=
+env
+a=hello b="bye"
+env
+c=
+c=ciao
+env
+echo $c
+export a b=
+env
+a=hello b="bye"
+env
+c=
+env
+c=ciao
+env
+d=
+a=
+env
+a=hello
+env
+export b
+env
+b=bye
+env
+c=
+c=ciao
+env
+export a
+env
+export b=
+env
+a=hello b="bye"
+env
+c=
+env
+c=ciao
+env
+echo $c
+export c
+env
+d="$a$HOME"
+env
+echo $d
+export d
+export e='$d $'
+env
+export f=""
+env
+f=fine
+env
+export a b= c=ciao
+env
+a=hello b=bye c=change
+env
+c=
+c=ciao
+env
+export c
+env
+unset a b c
+export a b= c=ciao
+env
+unset b
+env
+export a= b c=ciao
+env
+export a b= c=ciao
+env
+a=hello b=bye c="change"
+env
+d= e
+env
+d=doggie
+echo $d
+export d e="$HOME$d"
+env
+f="$HOME$d"
+echo $f
+g=good
+h="$HOME$g"
+echo $h
+a=hello
+b="$a"
+echo $b
+echo $a

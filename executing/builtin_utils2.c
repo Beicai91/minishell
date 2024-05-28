@@ -73,9 +73,15 @@ char	*handle_expansion(char *start, t_cmd *cmd, t_m *m)
 	char	*value;
 	char	*target;
 
+	//test
+	printf("Enter into handle_expansion\n");
+	//
 	dollarsign = 0;
 	temp = start;
 	target = NULL;
+	//test
+	printf("temp = firstletter %c\n", *temp);
+	//
 	while (*temp && *temp != '"')
 	{
 		if (*temp == '$' && *(temp + 1) != ' ' && *(temp + 1) != '"')
@@ -99,6 +105,9 @@ char	*get_value(char *arg, char *quote_letter, t_cmd *cmd, t_m *m)
 {
 	char	*value;
 
+	//test
+	printf("in get_value, quote_letter %c\n", *quote_letter);
+	//
 	if (*(quote_letter) == '"')
 		value = handle_expansion(quote_letter + 1, cmd, m);
 	else if (*quote_letter == 39)

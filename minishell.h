@@ -101,7 +101,8 @@ typedef struct s_mini
 	char						*one_ch;
 	char						*history;
 	char						*prev_history;
-	int initial_history_check;
+	int 						initial_history_check;
+	int							export_hidden;
 }								t_m;
 
 typedef struct s_listcmd

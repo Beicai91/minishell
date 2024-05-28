@@ -26,8 +26,14 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL
 		&& execcmd->single_quote == 0)
 	{
+		//test
+		printf("before replacement %s\n", execcmd->cmd_args[i]);
+		//
 		temp = replace_d(execcmd, i);
 		execcmd->cmd_args[i] = temp;
+		//test
+		printf("after replacement %s\n", temp);
+		//
 		i++;
 	}
 }
