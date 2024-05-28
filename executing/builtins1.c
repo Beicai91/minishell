@@ -77,7 +77,7 @@ void	builtin_cd(t_cmd *cmd, t_m *m)
 	}
 	update_pwd(m);
 }
-
+/*
 void	reset_gl_quote_ele()
 {
 	t_gl	*gl;
@@ -85,15 +85,40 @@ void	reset_gl_quote_ele()
 	gl = get_gl();
 	gl->consec_quotes = 1;
 	gl->quoted = 0;
-}
+}*/
 
 void	builtin_echo(t_cmd *cmd)
 {
 	char	**cmd_args;
 	bool	n_flag;
 	int		i;
+	t_qflag	*cqflags;
+	//t_qflag	*qflags;
 
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
+	//test
+	/*
+	t_qflag *temp;
+	temp = ((t_execcmd *)cmd)->cqflags;
+	while (temp != NULL)
+	{
+		printf("cqflag %d, ", temp->quote_flag);
+		temp = temp->next;
+	}
+	printf("\n");
+	t_qflag	*tmp;
+	tmp = ((t_execcmd *)cmd)->qflags;
+	while (tmp != NULL)
+	{
+		printf("qflag %d, ", tmp->quote_flag);
+		tmp = tmp->next;
+	}*/
+	//
+	cqflags = ((t_execcmd *)cmd)->cqflags->next;
+	//qflags = ((t_execcmd *)cmd)->qflags->next;
+	//test
+	//printf("cqflag start from %d\n", cqflags->quote_flag);
+	//
 	if (cmd_args[1] == NULL)
 	{
 		printf("\n");
@@ -104,11 +129,17 @@ void	builtin_echo(t_cmd *cmd)
 	if (cmd_args[1] && ft_strncmp(cmd_args[1], "-n", 1) == 0)
 	{
 		n_flag = true;
+		cqflags = cqflags->next;
+		//qflags = qflags->next;
 		i++;
 	}
 	while (cmd_args[i] != NULL)
-		print_helper(cmd_args, &i);
-	reset_gl_quote_ele();
+	{
+		print_helper(cmd_args, &i, cqflags);
+		cqflags = cqflags->next;
+		//qflags = qflags->next;
+	}
+	//reset_gl_quote_ele();
 	((t_execcmd *)cmd)->m->exit_status = 0;
 	if (n_flag == false)
 		printf("\n");

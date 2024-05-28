@@ -337,3 +337,104 @@ echo "hello" "bye"
 echo "hello""bye"
 echo 'hello''bye'
 echo 'hello' 'bye'
+echo "hello" "bye"
+echo "hello""bye"
+echo "hello" "echo"
+echo "hello""bye"
+echo 'hello'   bye
+echo -n hello >>b
+echo -n "hello""bye" >>b
+echo "hello""bye" >>b
+echo "hello""bye" >>b
+echo "hello""bye" "home" "sweet"
+echo "hello""bye"
+echo "hello""bye" "home" sweet
+echo "hello'''work" hello""""work
+echo "hello'''work" hello""""work
+<<eof
+<<eof
+echo "hello"""bye"
+echo "hello""bye"
+echo "hello" "bye"
+echo "hello""bye" "hello" "bye"
+echo "hello""bye"
+echo "hello""bye"  "home"
+echo "hello""bye" "sweeet""home" "ok"
+echo hello""""bye
+echo hello"""bye
+echo hello"""""bye
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo -n "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo hello bye
+echo hello
+echo "hello""bye"
+echo "hello" "bye"
+echo "hello""bye" "home" sweet
+echo "hello""bye"
+echo "hello""bye" "sweet" home
+echo "home" sweet "hello""bye"
+echo "home"  "sweet""hello"  "bye""""hi" bye
+echo hello""""hi
+echo hello""""bye
+echo "hello""""bye"
+echo hello"""bye
+echo hello""bye
+echo hello""""""bye
+echo hello""bye
+echo hello""bye
+echo "hello""bye"
+echo hello""bye
+echo hello""""bye
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye" "home" sweet
+echo hello""bye
+echo hello""bye
+echo hello"" bye
+echo hello""""bye
+echo hello"" ""bye
+echo "hello""""bye"
+echo hello""bye
+echo "hello" "bye"
+echo hello bye
+echo hello
+echo hello bye sweet
+echo hello""bye
+echo hello""bye
+echo hello""""bye
+echo "hello""bye"
+echo 'hello''bye'
+echo "hello""bye" 'hello''bye' "home"
+echo 'hello''''''bye'
+echo 'hello'''bye'
+echo "hello''bye"
+echo hello"" ""bye
+echo hello""""""bye
+echo hello""" """bye
+echo hello""""bye
+echo "$HOME" hello
+echo hello bye
+echo "hello""bye"
+echo hello""""bye
+echo hello''''bye
+echo "hello''bye"
+echo 'hello""""bye'
+echo "hello""bye" home "sweet"
+echo hello""bye
+echo hello""bye "home" sweet
+echo "hello""bye" home "sweet"
+echo hello""""bye
+echo hello"" ""bye
+echo hello""" """bye
+echo $HOME
+echo '$HOME'
+echo hello''''' '''''bye
+echo -n "hello""bye"
+echo -n "hello bye" >>b

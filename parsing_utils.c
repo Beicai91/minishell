@@ -62,8 +62,8 @@ bool	skipspace_peek(char **start, char *end, char *check)
 	gl = get_gl();
 	while (*start < end && ft_strchr(gl->spaces, **start))
 	{
-		if (gl->quoted == 1)
-			gl->consec_quotes = 0;
+		//if (gl->quoted == 1)
+			//gl->consec_quotes = 0;
 		(*start)++;
 	}
 	if (**start && ft_strchr(check, **start))

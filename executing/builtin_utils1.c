@@ -32,27 +32,54 @@ int	is_builtin(char *cmd)
 		return (0);
 }
 
-void	print_helper(char **cmd_args, int *i)
+void	print_helper(char **cmd_args, int *i, t_qflag *cqflags)
 {
 	t_gl	*gl;
 
 	gl = get_gl();
 	if (*cmd_args[*i] == '\0')
+	{
+		//test
+		//printf("skip this\n");
+		//
 		(*i)++;
+	}
 	else
 	{
+		if (cqflags->quote_flag == 1)
+		{
+			//test
+			//printf("cqflag %d\nready to write %s\n", cqflags->quote_flag, cmd_args[*i]);
+			//
+			write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
+		}
+		else
+		{
+			write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
+			write(1, " ", 1);
+		}
+		(*i)++;
+		/*
 		if (cmd_args[*i + 1] && *cmd_args[*i + 1] == '\0')
 		{
-			printf("%s", cmd_args[*i]);
+			//printf("%s", cmd_args[*i]);
+			write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
 			(*i)++;
 		}
 		else
 		{
 			if (gl->consec_quotes == 0 || gl->quoted == 0)
+			{
+				//test
+				//printf("gl->consec_quotes %d\n", gl->consec_quotes);
+				//printf("gl->quoted %d\n", gl->quoted);
+				//
 				write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
+				write(1, " ", 1);
+			}
 			else
-				printf("%s", cmd_args[*i]);
+				write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
 			(*i)++;
-		}
+		}*/
 	}
 }

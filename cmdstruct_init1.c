@@ -22,6 +22,7 @@ t_execcmd	*execcmd_init(void)
 	execcmd->cmdargs = NULL;
 	execcmd->path_prob = 0;
 	execcmd->qflags = NULL;
+	execcmd->cqflags = NULL;
 	return (execcmd);
 }
 

@@ -103,7 +103,7 @@ t_cmd	*parseexec(char **start, char *end)
 		else if (ecmd->tkn_type == 34)
 			cmdargs_quote(ecmd, s_tkn + 1, e_tkn - 1, start);
 		else if (ecmd->tkn_type == 97)
-			populate_cmdargs(ecmd, s_tkn, e_tkn, cmd);
+			populate_cmdargs(ecmd, s_tkn, e_tkn - 1, cmd); //before e_tkn
 		cmd = parseredirs(cmd, start, end);
 	}
 	get_cmd_args(ecmd, cmd);

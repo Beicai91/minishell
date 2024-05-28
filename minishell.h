@@ -152,8 +152,8 @@ typedef struct s_execcmd
 	t_list						*cmdargs;
 	char						**cmd_args;
 	t_qflag						*qflags;
+	t_qflag						*cqflags;
 	int							tkn_type;
-	//int							single_quote;
 	int							path_prob;
 	t_m							*m;
 }								t_execcmd;
@@ -402,7 +402,7 @@ char							*handle_expansion(char *start, t_cmd *cmd,
 									t_m *m);
 char							*get_value(char *arg, char *quote_letter,
 									t_cmd *cmd, t_m *m);
-void							print_helper(char **cmd_args, int *i);
+void							print_helper(char **cmd_args, int *i, t_qflag *cqflags);
 
 // heredoc functions
 void							no_line_expansion(t_heredoc *heredoc,

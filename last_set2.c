@@ -20,6 +20,16 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	t_qflag		*qflag;
 
 	execcmd = (t_execcmd *)cmd;
+	//test
+	printf("finished parsing, in last set\n");
+	t_qflag *tmp;
+	tmp = execcmd->cqflags;
+	while (tmp != NULL)
+	{
+		printf("flag %d, ", tmp->quote_flag);
+		tmp = tmp->next;
+	}
+
 	execcmd->m = m;
 	if (m->heredoc_flag == 1 && execcmd->cmdargs == NULL)
 		return ;
