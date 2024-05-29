@@ -54,8 +54,8 @@ void	populate_cmdargs(t_execcmd *ecmd, char *s_tkn, char *e_tkn, t_cmd *cmd)
 	cq_node = (t_qflag *)malloc(sizeof(t_qflag) * 1);
 	if (!cq_node)
 		return ;
-	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) == 34 && *(e_tkn + 3) != ' ') \
-		|| (*(e_tkn + 1) == 39 && *(e_tkn + 2) == 39 && *(e_tkn + 3) != ' '))
+	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) != ' ' ) \
+		|| (*(e_tkn + 1) == 39 && *(e_tkn + 2) !=  ' ' ))
 		cq_node->quote_flag = 1;
 	else
 		cq_node->quote_flag = 0;
@@ -63,16 +63,15 @@ void	populate_cmdargs(t_execcmd *ecmd, char *s_tkn, char *e_tkn, t_cmd *cmd)
 	add_qflag(&(ecmd->cqflags), cq_node);
 }
 
-void	cmdargs_quote(t_execcmd *ecmd, char *s_token,
-		char *e_token, char **start)
+void	cmdargs_quote(t_execcmd *ecmd, char *s_tkn, char *e_tkn, char **start)
 {
 	t_list	*node;
 	t_qflag	*flag_node;
 	t_qflag	*cq_node;
 
 	node = (t_list *)safe_malloc(1, NODE, NULL);
-	node->content = safe_malloc(e_token - s_token + 2, CHAR, NULL);
-	ft_strlcpy(node->content, s_token, e_token - s_token + 2);
+	node->content = safe_malloc(e_tkn - s_tkn + 2, CHAR, NULL);
+	ft_strlcpy(node->content, s_tkn, e_tkn - s_tkn + 2);
 	node->next = NULL;
 	ft_lstadd_back(&(ecmd->cmdargs), node);
 	(*start)++;
@@ -84,7 +83,8 @@ void	cmdargs_quote(t_execcmd *ecmd, char *s_token,
 	flag_node->next = NULL;
 	add_qflag(&(ecmd->qflags), flag_node);
 	cq_node = safe_malloc(1, QFLAG, NULL);
-	if (*(e_token + 2) == 39 || *(e_token + 2) == 34)
+	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) != ' ' ) \
+		|| (*(e_tkn + 1) == 39 && *(e_tkn + 2) !=  ' ' ))
 		cq_node->quote_flag = 1;
 	else
 		cq_node->quote_flag = 0;

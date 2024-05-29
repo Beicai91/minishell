@@ -25,10 +25,13 @@ void	set_exec(t_cmd *cmd, t_m *m)
 		return ;
 	i = 0;
 	qflag = ((t_execcmd *)cmd)->qflags;
+	//test
+	t_qflag *cqflag = ((t_execcmd *)cmd)->cqflags;
+	//
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL)
 	{
 		//test
-		printf("in last_set, cmd_args %s\nqflag %d\n", execcmd->cmd_args[i], qflag->quote_flag);
+		printf("in last_set, cmd_args %s\nqflag %d\ncqflag %d\n", execcmd->cmd_args[i], qflag->quote_flag, cqflag->quote_flag);
 		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
@@ -36,6 +39,9 @@ void	set_exec(t_cmd *cmd, t_m *m)
 			execcmd->cmd_args[i] = temp;
 		}
 		qflag = qflag->next;
+		//test
+		cqflag = cqflag->next;
+		//
 		i++;
 	}
 }

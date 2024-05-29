@@ -569,3 +569,34 @@ export z=zut
 env
 z="zebra"
 env
+echo hello"bye"
+echo hello"bye"
+echo "hello""bye"
+echo hello""bye
+echo "hello""""bye"
+echo "hello"bye
+echo "hello" bye
+echo hello"bye"
+echo bye"hello"
+echo hello""""bye"
+echo hello""bye
+echo "hello""bye" hello"bye"
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye"
+echo "hello""bye" hello"bye"
+echo hello""""bye
+echo hello""bye bye"hello"
+echo "hello"bye bye"hello"
+echo "hello"bye
+echo hello""bye
+echo "hello""bye"
+echo "hello" "bye"
+echo hello"bye"
+echo "hello"bye
+echo hello"bye" "hello""bye"
+echo "hello""bye" hello""bye
+echo "hello" "bye" hello""bye
+echo hello""bye hello "hello"bye
+echo "hello'''bye"
