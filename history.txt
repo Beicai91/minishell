@@ -657,3 +657,26 @@ cat in*.txt
 <"in0.txt" cat
 cat in*.txt
 exit
+<in*.txt grep hello 
+cd hshs
+cd shshh
+echo $?
+echo hello
+cat in*.txt
+echo "hello""bye" bye"hello" "hello"bye hello""""bye
+echo ($? + $?)
+echo $?
+<<EOF
+<in0.txt <<EOF grep hello
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+amke
+make
+<<EOF
+<<EOF
+export a="bye"
+env

@@ -73,7 +73,10 @@ void	builtin_cd(t_cmd *cmd, t_m *m)
 	else
 	{
 		if (chdir(cmd_args[1]) != 0)
+		{
 			perror("cd: ");
+			m->exit_status = 1;
+		}
 	}
 	update_pwd(m);
 }

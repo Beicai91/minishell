@@ -6,7 +6,7 @@ void	update_working_history(t_m *m)
 
 	if (does_file_history_exist() == 0)
 	{
-		ecmd = execcmd_init();
+		ecmd = execcmd_init(m);
 		ecmd->cmd_args = malloc(sizeof(char *) * 3);
 		if (!ecmd->cmd_args)
 			return ;

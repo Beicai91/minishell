@@ -78,7 +78,7 @@ void	embedded_cmdline(char *cmdline, int heredoc_fd, t_heredoc *heredoc)
 		close(m.outcpy_emb);
 		return ;
 	}
-	cmd = parsecmd(cmdline);
+	cmd = parsecmd(cmdline, &m);
 	last_set(cmd, &m);
 	if (cmd != NULL)
 	{

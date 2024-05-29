@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_execcmd	*execcmd_init(void)
+t_execcmd	*execcmd_init(t_m *m)
 {
 	t_execcmd	*execcmd;
 
@@ -23,6 +23,7 @@ t_execcmd	*execcmd_init(void)
 	execcmd->path_prob = 0;
 	execcmd->qflags = NULL;
 	execcmd->cqflags = NULL;
+	execcmd->m = m;
 	return (execcmd);
 }
 

@@ -271,7 +271,7 @@ void							restore_inout(int fd_cpy, int in_out, t_m *m);
 void							free_list(t_inout **list);
 
 // cmd struction initiation
-t_execcmd						*execcmd_init(void);
+t_execcmd						*execcmd_init(t_m *m);
 t_redircmd						*redircmd_init(t_cmd *subcmd, char *s_token,
 									size_t size);
 void							init_mode_fd(t_redircmd *rcmd, int mode,
@@ -308,16 +308,16 @@ char							*get_newstr2(char *temp, char *e_cpy,
 void							get_strlen(char *temp, int *i);
 
 // parsing main functions
-t_cmd							*parsecmd(char *input);
-t_cmd							*parselist(char **start, char *end);
-t_cmd							*parse_and_or(char **start, char *end);
-t_cmd							*parsepipe(char **start, char *end);
+t_cmd							*parsecmd(char *input, t_m *m);
+t_cmd							*parselist(char **start, char *end, t_m *m);
+t_cmd							*parse_and_or(char **start, char *end, t_m *m);
+t_cmd							*parsepipe(char **start, char *end, t_m *m);
 t_cmd							*parseredirs(t_cmd *cmd, char **start,
 									char *end);
 t_cmd							*get_redircmd(t_cmd *cmd, char *s_token,
 									char *e_token, int redir_type);
-t_cmd							*parseexec(char **start, char *end);
-t_cmd							*parseblock(char **start, char *end);
+t_cmd							*parseexec(char **start, char *end, t_m *m);
+t_cmd							*parseblock(char **start, char *end, t_m *m);
 
 // cmd and args handling
 void							get_cmd_args(t_execcmd *execcmd, t_cmd *cmd);

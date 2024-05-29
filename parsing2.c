@@ -64,7 +64,7 @@ t_cmd	*get_redircmd(t_cmd *cmd, char *s_token, char *e_token, int redir_type)
 	return (res);
 }
 
-static t_cmd	*parseexec_error(int type, t_cmd *cmd)
+static t_cmd	*parseexec_error(int type, t_cmd *cmd, t_m *m)
 {
 	if (type == 127)
 	{
@@ -75,6 +75,7 @@ static t_cmd	*parseexec_error(int type, t_cmd *cmd)
 	{
 		free_memory(cmd);
 		printf("minishell: syntax error near unexpected token\n");
+		m->exit_status = 258;
 		return (NULL);
 	}
 	return (NULL);
@@ -98,6 +99,8 @@ void	check_exec_flags(t_execcmd *ecmd)
 	char	**cmd_args;
 	t_qflag	*tmp;
 
+	if (ecmd->cmd_args == NULL)
+		return ;
 	i = 0;
 	cmd_args = ecmd->cmd_args;
 	while (cmd_args[i] != NULL)
@@ -118,23 +121,23 @@ void	check_exec_flags(t_execcmd *ecmd)
 	}
 }
 
-t_cmd	*parseexec(char **start, char *end)
+t_cmd	*parseexec(char **start, char *end, t_m *m)
 {
 	t_tkn		tkn;
 	t_execcmd	*ecmd;
 	t_cmd		*cmd;
 
 	if (skipspace_peek(start, end, "("))
-		return (parseblock(start, end));
+		return (parseblock(start, end, m));
 	tkn.s_tkn = NULL;
 	tkn.e_tkn = NULL;
-	ecmd = execcmd_init();
+	ecmd = execcmd_init(m);
 	cmd = parseredirs((t_cmd *)ecmd, start, end);
 	while (**start && skipspace_peek(start, end, "&|);") == false)
 	{
 		ecmd->tkn_type = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
 		if (ecmd->tkn_type == 127 || ecmd->tkn_type == 40)
-			return (parseexec_error(ecmd->tkn_type, cmd));
+			return (parseexec_error(ecmd->tkn_type, cmd, m));
 		else if (ecmd->tkn_type == 39)
 			cmdargs_quote(ecmd, tkn.s_tkn + 1, tkn.e_tkn - 1, start);
 		else if (ecmd->tkn_type == 34)
@@ -149,7 +152,7 @@ t_cmd	*parseexec(char **start, char *end)
 }
 
 
-t_cmd	*parseblock(char **start, char *end)
+t_cmd	*parseblock(char **start, char *end, t_m *m)
 {
 	t_cmd	*cmd;
 	char	*s_token;
@@ -158,7 +161,7 @@ t_cmd	*parseblock(char **start, char *end)
 	s_token = NULL;
 	e_token = NULL;
 	gettoken(start, end, &s_token, &e_token);
-	cmd = parselist(start, end);
+	cmd = parselist(start, end, m);
 	if (**start != ')')
 		handle_error("Missing closing parenthesis.", cmd);
 	gettoken(start, end, &s_token, &e_token);

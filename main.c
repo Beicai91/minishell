@@ -32,11 +32,8 @@ int	main(int argc, char **argv, char **envp)
 		add_history(m.input);
 		update_history_file(&m);
 		m.input = expand_input_check(m.input, &m);
-		//test
-		printf("after wildcards check, input %s\n", m.input);
-		//
 		partial_reinit_m(&m);
-		m.final_tree = parsecmd(m.input);
+		m.final_tree = parsecmd(m.input, &m);
 		if (m.final_tree != NULL)
 		{
 			last_set(m.final_tree, &m);
