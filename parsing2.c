@@ -81,46 +81,6 @@ static t_cmd	*parseexec_error(int type, t_cmd *cmd, t_m *m)
 	return (NULL);
 }
 
-void	add_flagnode(t_qflag **flags)
-{
-	t_qflag	*flag_node;
-
-	flag_node = safe_malloc(1, QFLAG, NULL);
-	flag_node->quote_flag = 0;
-	flag_node->next = NULL;
-	add_qflag(flags, flag_node);
-}
-
-void	check_exec_flags(t_execcmd *ecmd)
-{
-	int	i;
-	int	j;
-	int	count;
-	char	**cmd_args;
-	t_qflag	*tmp;
-
-	if (ecmd->cmd_args == NULL)
-		return ;
-	i = 0;
-	cmd_args = ecmd->cmd_args;
-	while (cmd_args[i] != NULL)
-		i++;
-	j = 0;
-	tmp = ecmd->qflags;
-	while (tmp != NULL)
-	{
-		j++;
-		tmp = tmp->next;
-	}
-	count = i - j;
-	while (count > 0)
-	{
-		add_flagnode(&(ecmd->qflags));
-		add_flagnode(&(ecmd->cqflags));
-		count--;
-	}
-}
-
 t_cmd	*parseexec(char **start, char *end, t_m *m)
 {
 	t_tkn		tkn;
@@ -147,7 +107,6 @@ t_cmd	*parseexec(char **start, char *end, t_m *m)
 		cmd = parseredirs(cmd, start, end);
 	}
 	get_cmd_args(ecmd, cmd);
-	check_exec_flags(ecmd);
 	return (cmd);
 }
 

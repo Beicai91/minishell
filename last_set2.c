@@ -38,27 +38,27 @@ while (tmp[j] != NULL)
 	i = 0;
 	qflag = ((t_execcmd *)cmd)->qflags;
 	//test
-	t_qflag *cqflag = ((t_execcmd *)cmd)->cqflags;
+	//t_qflag *cqflag = ((t_execcmd *)cmd)->cqflags;
 	//
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL)
 	{
 		//test
-		printf("in last_set, cmd_args %s\nqflag %d\ncqflag %d\n", execcmd->cmd_args[i], qflag->quote_flag, cqflag->quote_flag);
+		//printf("in last_set, cmd_args %s\nqflag %d\ncqflag %d\n", execcmd->cmd_args[i], qflag->quote_flag, cqflag->quote_flag);
 		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
 			//test
-			printf("cmd_agrs %s is replaced\n", execcmd->cmd_args[i]);
+			//printf("cmd_agrs %s is replaced\n", execcmd->cmd_args[i]);
 			//
 			temp = replace_d(execcmd, i);
 			execcmd->cmd_args[i] = temp;
 			//test
-			printf("replace by %s\n", temp);
+			//printf("replace by %s\n", temp);
 			//
 		}
 		qflag = qflag->next;
 		//test
-		cqflag = cqflag->next;
+		//cqflag = cqflag->next;
 		//
 		i++;
 	}

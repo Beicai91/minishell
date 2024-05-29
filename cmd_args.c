@@ -12,6 +12,46 @@
 
 #include "minishell.h"
 
+void	add_flagnode(t_qflag **flags)
+{
+	t_qflag	*flag_node;
+
+	flag_node = safe_malloc(1, QFLAG, NULL);
+	flag_node->quote_flag = 0;
+	flag_node->next = NULL;
+	add_qflag(flags, flag_node);
+}
+
+void	check_exec_flags(t_execcmd *ecmd)
+{
+	int	i;
+	int	j;
+	int	count;
+	char	**cmd_args;
+	t_qflag	*tmp;
+
+	if (ecmd->cmd_args == NULL)
+		return ;
+	i = 0;
+	cmd_args = ecmd->cmd_args;
+	while (cmd_args[i] != NULL)
+		i++;
+	j = 0;
+	tmp = ecmd->qflags;
+	while (tmp != NULL)
+	{
+		j++;
+		tmp = tmp->next;
+	}
+	count = i - j;
+	while (count > 0)
+	{
+		add_flagnode(&(ecmd->qflags));
+		add_flagnode(&(ecmd->cqflags));
+		count--;
+	}
+}
+
 void	get_cmd_args(t_execcmd *execcmd, t_cmd *cmd)
 {
 	int		len;
@@ -32,6 +72,7 @@ void	get_cmd_args(t_execcmd *execcmd, t_cmd *cmd)
 		}
 		execcmd->cmd_args[i] = NULL;
 	}
+	check_exec_flags(execcmd);
 }
 
 void	populate_cmdargs(t_execcmd *ecmd, char *s_tkn, char *e_tkn, t_cmd *cmd)
@@ -62,8 +103,8 @@ void	populate_cmdargs(t_execcmd *ecmd, char *s_tkn, char *e_tkn, t_cmd *cmd)
 	cq_node->next = NULL;
 	add_qflag(&(ecmd->cqflags), cq_node);
 	//test
-	printf("in populate_cmdargs\n");
-	printf("cmd_args %s\nqflag %d\n cqflag %d\n", node->content, flag_node->quote_flag, cq_node->quote_flag);
+	//printf("in populate_cmdargs\n");
+	//printf("cmd_args %s\nqflag %d\n cqflag %d\n", node->content, flag_node->quote_flag, cq_node->quote_flag);
 	//
 }
 
