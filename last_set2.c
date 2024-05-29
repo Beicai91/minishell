@@ -19,47 +19,19 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	char		*temp;
 	t_qflag		*qflag;
 
-//test
-/*
-printf("after parsing, cmd_args\n");
-char	**tmp;
-tmp = ((t_execcmd *)cmd)->cmd_args;
-int j = 0;
-while (tmp[j] != NULL)
-{
-	printf("%s\n", tmp[j]);
-	j++;
-}*/
-//
 	execcmd = (t_execcmd *)cmd;
-	//execcmd->m = m;
 	if (m->heredoc_flag == 1 && execcmd->cmdargs == NULL)
 		return ;
 	i = 0;
 	qflag = ((t_execcmd *)cmd)->qflags;
-	//test
-	//t_qflag *cqflag = ((t_execcmd *)cmd)->cqflags;
-	//
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL)
 	{
-		//test
-		//printf("in last_set, cmd_args %s\nqflag %d\ncqflag %d\n", execcmd->cmd_args[i], qflag->quote_flag, cqflag->quote_flag);
-		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
-			//test
-			//printf("cmd_agrs %s is replaced\n", execcmd->cmd_args[i]);
-			//
 			temp = replace_d(execcmd, i);
 			execcmd->cmd_args[i] = temp;
-			//test
-			//printf("replace by %s\n", temp);
-			//
 		}
 		qflag = qflag->next;
-		//test
-		//cqflag = cqflag->next;
-		//
 		i++;
 	}
 }

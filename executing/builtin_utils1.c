@@ -55,3 +55,24 @@ void	update_eles(int *n_flag, t_qflag **cqflags, int *i)
 	*cqflags = (*cqflags)->next;
 	(*i)++;
 }
+
+void	build_envvar_list(t_envvar *envvars, t_list **envcpy)
+{
+	char	*temp;
+
+	while (envvars != NULL)
+	{
+		if (*(envvars->value) == '\0')
+			temp = strdup(envvars->key);
+		else
+		{
+			temp = ft_strjoin(envvars->key, "=\"");
+			temp = join_free(temp, envvars->value);
+			temp = join_free(temp, "\"");
+		}
+		build_files_list(envcpy, temp);
+		free(temp);
+		temp = NULL;
+		envvars = envvars->next;
+	}
+}

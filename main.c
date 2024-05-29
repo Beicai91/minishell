@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	lastset_run(t_m *m)
+{
+	last_set(m->final_tree, m);
+	runcmd(m->final_tree, m);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_m					m;
@@ -35,10 +41,7 @@ int	main(int argc, char **argv, char **envp)
 		partial_reinit_m(&m);
 		m.final_tree = parsecmd(m.input, &m);
 		if (m.final_tree != NULL)
-		{
-			last_set(m.final_tree, &m);
-			runcmd(m.final_tree, &m);
-		}
+			lastset_run(&m);
 		free(m.input);
 	}
 }

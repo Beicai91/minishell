@@ -40,20 +40,6 @@ int	get_outtype(char **start)
 	return (type);
 }
 
-int	get_andtype(char **start)
-{
-	int	type;
-
-	type = 0;
-	(*start)++;
-	if (**start == '&')
-	{
-		type = '&';
-		(*start)++;
-	}
-	return (type);
-}
-
 int	get_atype(char **start, char *end)
 {
 	int		type;

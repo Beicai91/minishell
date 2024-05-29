@@ -19,7 +19,6 @@ void	handle_sigint(int sig, siginfo_t *siginfo, void *context)
 	(void)siginfo;
 	(void)context;
 	rl_replace_line("", 0);
-	//rl_on_new_line();
 	rl_redisplay();
 	printf("\nminishell$ ");
 }

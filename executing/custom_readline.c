@@ -97,36 +97,3 @@ char    *ft_readline(char *prompt, t_m *m)
     free(m->one_ch);
     return (m->line);
 }
-
-/*
-char	*ft_readline(char *prompt, t_m *m)
-{
-	t_gl	*gl;
-
-	gl = get_gl();
-	m->one_ch = safe_malloc(2, CHAR, NULL);
-	m->line = ft_strdup("");
-	write(STDOUT_FILENO, prompt, ft_strlen(prompt));
-	set_raw_mode();
-	while (read(STDIN_FILENO, m->one_ch, 1) == 1 && ft_strncmp(m->one_ch, "\n",
-			1) != 0 && g_sig_indicator == 0)
-	{
-		m->one_ch[1] = '\0';
-		if (m->one_ch[0] == '\004')
-		{
-			tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
-			return (NULL);
-		}
-		if (m->one_ch[0] == '\177')
-			m->line = delete_char(m->line);
-		else
-		{
-			m->line = join_free(m->line, m->one_ch);
-			write(STDOUT_FILENO, m->one_ch, 1);
-		}
-	}
-	write(STDOUT_FILENO, "\n", 1);
-	tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
-	free(m->one_ch);
-	return (m->line);
-}*/

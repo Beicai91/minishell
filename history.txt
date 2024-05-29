@@ -1,22 +1,32 @@
-< Makefile  > a > b
+echo one"last" test
+echo -?
+echo &?
+echo $?
+echo &?
+echo $?
 export b
-env
-echo $b
-b=bye
-env
-<in0.txt >a >b
-export d=
-env
-export e
-export e=
-env
-echo -?
-echo &?
-export a
 export
-a=hello
+export b=my
 env
-echo - hello
-echo - hello
-echo &?
-echo -?
+<<EOF
+<<EOF <in0.txt grep hello
+<<EOF <in0.txt grep hello >>a
+echo -n hello
+echo -n bye >>a
+echo -n hiagain >>a
+
+
+<<'EOF'
+<<'EOF
+<<'EOF'
+<<'EOF' cat
+<<EOF
+echo hello | wc -l
+bye
+echo $?
+<<EOF
+cat
+cat | cat |ls
+sleep 3 | sleep 3 | sleep 3
+sleep 3 | sleep 3 | sleep 3
+ls

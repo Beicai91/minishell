@@ -102,10 +102,6 @@ void	populate_cmdargs(t_execcmd *ecmd, char *s_tkn, char *e_tkn, t_cmd *cmd)
 		cq_node->quote_flag = 0;
 	cq_node->next = NULL;
 	add_qflag(&(ecmd->cqflags), cq_node);
-	//test
-	//printf("in populate_cmdargs\n");
-	//printf("cmd_args %s\nqflag %d\n cqflag %d\n", node->content, flag_node->quote_flag, cq_node->quote_flag);
-	//
 }
 
 void	cmdargs_quote(t_execcmd *ecmd, char *s_tkn, char *e_tkn, char **start)

@@ -24,7 +24,10 @@ t_cmd	*parsecmd(char *input, t_m *m)
 	end = input + ft_strlen(input);
 	cmd = parselist(&start, end, m);
 	if (cmd == NULL)
+	{
 			printf("Invalid command line\n");
+			m->exit_status = 127;
+	}
 	return (cmd);
 }
 

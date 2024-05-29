@@ -23,6 +23,7 @@ SRC = executing/builtin_utils1.c \
 	  executing/builtins1.c \
 	  executing/builtins2.c \
 	  executing/builtins3.c \
+	  executing/builtins4.c \
 	  executing/custom_readline.c \
 	  executing/errors_exit.c \
 	  executing/exec_cmds.c \
@@ -33,6 +34,7 @@ SRC = executing/builtin_utils1.c \
 	  executing/handle_envvar1.c \
 	  executing/handle_envvar2.c \
 	  executing/handle_envvar3.c \
+	  executing/handle_envvar4.c \
 	  executing/heredoc_utils1.c \
 	  executing/heredoc_utils2.c \
 	  executing/redir_heredoc1.c \
