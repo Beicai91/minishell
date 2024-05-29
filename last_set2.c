@@ -27,6 +27,9 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	qflag = ((t_execcmd *)cmd)->qflags;
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL)
 	{
+		//test
+		printf("in last_set, cmd_args %s\nqflag %d\n", execcmd->cmd_args[i], qflag->quote_flag);
+		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
 			temp = replace_d(execcmd, i);

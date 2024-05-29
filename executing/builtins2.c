@@ -70,41 +70,75 @@ void	build_envvar_list(t_envvar *envvars, t_list **envcpy)
 	}
 }
 
+void	no_value_after_equal1(int *i, char **cmd_args, char *equal, t_qflag **qflags)
+{
+	char	*key;
+	char	*value;
+//test
+printf("in no_value_after_equal1, cmd_args %s\n", cmd_args[*i]);
+//
+	key = ft_substr(cmd_args[*i], 0, equal - cmd_args[*i]);
+	if (cmd_args[*i + 1] && !ft_strchr(cmd_args[*i + 1], '=') && (*qflags)->next->quote_flag != 0)
+	{
+		value = ft_strdup(cmd_args[*i + 1]);
+		*i = *i + 1;
+		*qflags = (*qflags)->next;
+	}
+	else
+		value = ft_strdup("");
+	update_envvars(key, value, 1);
+}
+
+void	value_after_equal(int i, t_cmd *cmd, t_m *m, char *equal)
+{
+	char	*key;
+	char	*value;
+	char	**cmd_args;
+
+	cmd_args = ((t_execcmd *)cmd)->cmd_args;
+	key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
+	value = get_value(cmd_args[i], equal + 1, cmd, m);
+	update_envvars(key, value, 1);
+}
+
 void	builtin_export(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
-	char	*key;
-	char	*value;
+	//char	*key;
+	//char	*value;
 	char	*equal;
 	int		i;
+	t_qflag	*qflags;
 
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
+	qflags = ((t_execcmd *)cmd)->qflags->next;
+	//test
+	printf("qflag starts from %d\n", qflags->quote_flag);
+	//
 	if (cmd_args[1] == NULL)
 		export_all(m);
 	i = 0;
 	while (cmd_args[++i] != NULL)
 	{
+		//test
+		//printf("qflag in this round %d\n", cmd_args[i]);
+		//
 		equal = ft_strchr(cmd_args[i], '=');
 		if (!equal)
 			no_value_case(cmd_args[i], m);
 		else if (!*(equal + 1))
 		{
-			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
-			if (cmd_args[i + 1] && !ft_strchr(cmd_args[i + 1], '='))
-			{
-				value = ft_strdup(cmd_args[i + 1]);
-				i = i + 1;
-			}
-			else
-				value = ft_strdup("");
-			update_envvars(key, value, 1);
+			no_value_after_equal1(&i, cmd_args, equal, &qflags);
 		}
 		else
+			value_after_equal(i, cmd, m, equal);
+		/*
 		{
 			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
 			value = get_value(cmd_args[i], equal + 1, cmd, m);
 			update_envvars(key, value, 1);
-		}
+		}*/
+		qflags = qflags->next;
 	}
 }
 
@@ -123,6 +157,23 @@ void	update_envvar_util(char *key, char *value, t_m *m)
 		update_envvars(key, value, 0);
 }
 
+void	no_value_after_equal2(int *i, char **cmd_args, char *equal, t_m *m)
+{
+	char	*key;
+	char	*value;
+
+	key = ft_substr(cmd_args[*i], 0, equal - cmd_args[*i]);
+	if (cmd_args[*i + 1] && !ft_strchr(cmd_args[*i + 1], '='))
+	{
+		value = ft_strdup(cmd_args[*i + 1]);
+		*i = *i + 1;
+	}
+	else
+		value = ft_strdup("");
+	m->export_hidden = 0;
+	update_envvar_util(key, value, m);
+}
+
 void	set_envvar(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
@@ -138,6 +189,8 @@ void	set_envvar(t_cmd *cmd, t_m *m)
 		equal = ft_strchr(cmd_args[i], '=');
 		if (!*(equal + 1))
 		{
+			no_value_after_equal2(&i, cmd_args, equal, m);
+			/*
 			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
 			if (cmd_args[i + 1] && !ft_strchr(cmd_args[i + 1], '='))
 			{
@@ -146,14 +199,17 @@ void	set_envvar(t_cmd *cmd, t_m *m)
 			}
 			else
 				value = ft_strdup("");
-			m->export_hidden = 0;
+			m->export_hidden = 0;*/
 		}
 		else
 		{
 			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
 			value = get_value(cmd_args[i], equal + 1, cmd, m);
+			update_envvar_util(key, value, m);
 		}
-		update_envvar_util(key, value, m);
+		//update_envvar_util(key, value, m);
 		i++;
 	}
 }
+
+

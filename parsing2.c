@@ -82,28 +82,27 @@ static t_cmd	*parseexec_error(int type, t_cmd *cmd)
 
 t_cmd	*parseexec(char **start, char *end)
 {
-	char		*s_tkn;//use t_tkn struct
-	char		*e_tkn;
+	t_tkn		tkn;
 	t_execcmd	*ecmd;
 	t_cmd		*cmd;
 
 	if (skipspace_peek(start, end, "("))
 		return (parseblock(start, end));
-	s_tkn = NULL;
-	e_tkn = NULL;
+	tkn.s_tkn = NULL;
+	tkn.e_tkn = NULL;
 	ecmd = execcmd_init();
 	cmd = parseredirs((t_cmd *)ecmd, start, end);
 	while (**start && skipspace_peek(start, end, "&|);") == false)
 	{
-		ecmd->tkn_type = gettoken(start, end, &s_tkn, &e_tkn);
+		ecmd->tkn_type = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
 		if (ecmd->tkn_type == 127 || ecmd->tkn_type == 40)
 			return (parseexec_error(ecmd->tkn_type, cmd));
 		else if (ecmd->tkn_type == 39)
-			cmdargs_quote(ecmd, s_tkn + 1, e_tkn - 1, start);
+			cmdargs_quote(ecmd, tkn.s_tkn + 1, tkn.e_tkn - 1, start);
 		else if (ecmd->tkn_type == 34)
-			cmdargs_quote(ecmd, s_tkn + 1, e_tkn - 1, start);
+			cmdargs_quote(ecmd, tkn.s_tkn + 1, tkn.e_tkn - 1, start);
 		else if (ecmd->tkn_type == 97)
-			populate_cmdargs(ecmd, s_tkn, e_tkn - 1, cmd);
+			populate_cmdargs(ecmd, tkn.s_tkn, tkn.e_tkn - 1, cmd);
 		cmd = parseredirs(cmd, start, end);
 	}
 	get_cmd_args(ecmd, cmd);

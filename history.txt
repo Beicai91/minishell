@@ -478,3 +478,94 @@ echo "
 echo "
 ls -l |
 exit
+cat <<EOF
+'hello'
+exit
+he'lo'
+echo 'hello'
+echo he'lol'
+echo 'hello''bye'
+echo "hello""bye"
+export a= b c=ciao
+env
+export a= b c=ciao
+env
+export a= b c=ciao
+export h="hello"
+export a= b c=ciao
+export h="hello"
+export a= b c=ciao
+env
+unset a c
+a= b c=ciao
+env
+export a b c
+env
+unset a b c
+a= b c=ciao
+a b= c=ciao
+env
+export a
+env
+unset a
+export a= b c=ciao
+env
+a=hello b=bye
+env
+export a="hello"
+env
+export a="hello"
+env
+unset a
+export a="hello"
+export b=bye
+env
+export a="hello"
+env
+export b=bye c d="doggie"
+env
+export a= b c=ciao
+env
+b=bye a=hello
+env
+export d="doggie"
+env
+export e=eat f g="good"
+env
+f=frank
+env
+export h=""
+env
+export i='ille'
+export i="ille"
+env
+echo he"llo"
+export a b= c=ciao
+env
+export a="hello" b="bye"
+env
+unset a b c
+export a="hello" b="bye"
+env
+export a="hello" b="bye'
+export a="hello" b="bye"
+export a="hello" b="bye"
+echo 'hello'
+export a="hello" b="bye"
+env
+export c="ciao" d=doggie e=
+env
+export f=fine
+env
+e=echo
+env
+export h=horay
+env
+g=good y="yes"
+env
+export g y
+env
+export z=zut
+env
+z="zebra"
+env

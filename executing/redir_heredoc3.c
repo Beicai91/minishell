@@ -41,9 +41,6 @@ void	inlist_execution(t_execcmd *ecmd, t_m *m)
 	int		fd;
 	int		fdin_cpy;
 
-//test
-printf("in inlist_execution\n");
-//
 	in_temp = m->in;
 	if (inlist_execution_util(ecmd, m, &in_temp) == 1)
 		return ;
