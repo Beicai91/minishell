@@ -1,0 +1,22 @@
+< Makefile  > a > b
+export b
+env
+echo $b
+b=bye
+env
+<in0.txt >a >b
+export d=
+env
+export e
+export e=
+env
+echo -?
+echo &?
+export a
+export
+a=hello
+env
+echo - hello
+echo - hello
+echo &?
+echo -?

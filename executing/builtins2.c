@@ -60,9 +60,14 @@ void	build_envvar_list(t_envvar *envvars, t_list **envcpy)
 
 	while (envvars != NULL)
 	{
-		temp = ft_strjoin(envvars->key, "=\"");
-		temp = join_free(temp, envvars->value);
-		temp = join_free(temp, "\"");
+		if (*(envvars->value) == '\0')
+			temp = strdup(envvars->key);
+		else
+		{
+			temp = ft_strjoin(envvars->key, "=\"");
+			temp = join_free(temp, envvars->value);
+			temp = join_free(temp, "\"");
+		}
 		build_files_list(envcpy, temp);
 		free(temp);
 		temp = NULL;

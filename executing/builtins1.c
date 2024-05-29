@@ -98,7 +98,7 @@ void	builtin_echo(t_cmd *cmd)
 	}
 	i = 1;
 	n_flag = 0;
-	if (cmd_args[1] && ft_strncmp(cmd_args[1], "-n", 1) == 0)
+	if (cmd_args[1] && ft_strcmp(cmd_args[1], "-n") == 0)
 		update_eles(&n_flag, &cqflags, &i);
 	while (cmd_args[i] != NULL)
 	{
