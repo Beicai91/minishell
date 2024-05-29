@@ -40,6 +40,7 @@ void	free_exec_content(t_execcmd *ecmd)
 			if (qflag->quote_flag == 34 || qflag->quote_flag == 0)
 				free(temp->content);
 			free(temp);
+			qflag = qflag->next;
 		}
 	}
 	free_flags(ecmd->qflags);

@@ -73,15 +73,9 @@ char	*handle_expansion(char *start, t_cmd *cmd, t_m *m)
 	char	*value;
 	char	*target;
 
-	//test
-	printf("Enter into handle_expansion\n");
-	//
 	dollarsign = 0;
 	temp = start;
 	target = NULL;
-	//test
-	printf("temp = firstletter %c\n", *temp);
-	//
 	while (*temp && *temp != '"')
 	{
 		if (*temp == '$' && *(temp + 1) != ' ' && *(temp + 1) != '"')

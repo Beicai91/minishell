@@ -35,6 +35,9 @@ void	set_exec(t_cmd *cmd, t_m *m)
 		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
+			//test
+			printf("cmd_agrs %s is replaced\n", execcmd->cmd_args[i]);
+			//
 			temp = replace_d(execcmd, i);
 			execcmd->cmd_args[i] = temp;
 		}
