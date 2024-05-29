@@ -50,7 +50,7 @@ void	exec_sig_set(struct sigaction *sa)
 
 void	signal_tracking(struct sigaction *sa, t_m *m)
 {
-	init_global_var();
+	init_gl_var();
 	if (m->position == ON_MAIN)
 		main_sig_set(sa);
 	else if (m->position == ON_HEREDOC)

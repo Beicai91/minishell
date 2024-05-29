@@ -42,6 +42,7 @@ typedef enum type
 	ON_MAIN = 10,
 	ON_HEREDOC = 11,
 	ON_EXEC = 12,
+	QFLAG = 13
 }								t_type;
 
 typedef struct s_cmd
@@ -403,6 +404,7 @@ char							*handle_expansion(char *start, t_cmd *cmd,
 char							*get_value(char *arg, char *quote_letter,
 									t_cmd *cmd, t_m *m);
 void							print_helper(char **cmd_args, int *i, t_qflag *cqflags);
+void							update_eles(int *n_flag, t_qflag **cqflags, int *i);
 
 // heredoc functions
 void							no_line_expansion(t_heredoc *heredoc,
@@ -450,8 +452,8 @@ void							free_t_list(t_list **list);
 void							find_executable_path(t_m *m, t_execcmd *ecmd);
 void							initialize_var_wild(t_m *m);
 
-// global var
-t_gl							*init_global_var(void);
+// gl
+t_gl							*init_gl_var(void);
 t_gl							*get_gl(void);
 
 // history

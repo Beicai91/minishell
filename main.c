@@ -26,7 +26,10 @@ int	main(int argc, char **argv, char **envp)
 		m.input = readline("minishell$ ");
 
 		if (!m.input)
+		{
+			lastfree_restore();
 			exit(1);
+		}
 		add_history(m.input);
 		update_history_file(&m);
 		m.input = expand_input_check(m.input, &m);

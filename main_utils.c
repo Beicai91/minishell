@@ -18,7 +18,7 @@ void	initial_setup(t_m *m, char **envp)
 	t_gl			*gl;
 
 	gl = get_gl();
-	init_global_var();
+	//init_gl_var();
 	m->envp = envp;
 	m->exit_status = 0;
 	m->position = ON_MAIN;
@@ -50,6 +50,7 @@ void	lastfree_restore(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
 	free_envvars();
 	clear_history();
+	free(gl);
 }
 
 char	*expand_input_check(char *input, t_m *m)

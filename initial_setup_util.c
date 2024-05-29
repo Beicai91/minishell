@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-t_gl	*init_global_var(void)
+t_gl	*init_gl_var(void)
 {
 	static t_gl		*gl;
 	struct termios	orig_termios;
@@ -27,8 +27,6 @@ t_gl	*init_global_var(void)
 	gl->spaces = ft_strdup(" \t\r\n\v");
 	gl->signs = ft_strdup("<|>;()");
 	gl->env_vars = NULL;
-	//gl->quoted = 0;
-	//gl->consec_quotes = 1;
 	return (gl);
 }
 
@@ -37,6 +35,6 @@ t_gl	*get_gl(void)
 	static t_gl		*gl;
 
 	if (!gl)
-		gl = init_global_var();
+		gl = init_gl_var();
 	return (gl);
 }

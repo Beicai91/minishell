@@ -20,16 +20,6 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	t_qflag		*qflag;
 
 	execcmd = (t_execcmd *)cmd;
-	//test
-	printf("finished parsing, in last set\n");
-	t_qflag *tmp;
-	tmp = execcmd->cqflags;
-	while (tmp != NULL)
-	{
-		printf("flag %d, ", tmp->quote_flag);
-		tmp = tmp->next;
-	}
-
 	execcmd->m = m;
 	if (m->heredoc_flag == 1 && execcmd->cmdargs == NULL)
 		return ;
@@ -37,16 +27,10 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	qflag = ((t_execcmd *)cmd)->qflags;
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL)
 	{
-		//test
-		//printf("before replacement %s\n", execcmd->cmd_args[i]);
-		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
 			temp = replace_d(execcmd, i);
 			execcmd->cmd_args[i] = temp;
-			//test
-			//printf("after replacement %s\n", temp);
-			//
 		}
 		qflag = qflag->next;
 		i++;

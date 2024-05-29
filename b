@@ -26,4 +26,10 @@ bye
 in inlist_execution
 no inlist, ready to execute cmd
 in traverse tree, detected EXEC
-hello bye 
+hello bye in inlist_execution
+in traverse tree, detected EXEC
+hello world
+hello bye
+in inlist_execution
+in traverse tree, detected EXEC
+heredoc hello

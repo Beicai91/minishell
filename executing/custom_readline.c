@@ -51,6 +51,27 @@ void	set_raw_mode(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &raw);
 }
 
+int readline_helper(t_m *m, int return_pressed, t_gl *gl)
+{
+    if (return_pressed == 1 && m->one_ch[0] == '\004')
+    {
+        tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
+        return (1);
+    }
+    else if (return_pressed == 0 && m->one_ch[0] == '\004')
+    {
+        return (0);
+    }
+    else if (m->one_ch[0] == '\177')
+        m->line = delete_char(m->line);
+    else
+    {
+        m->line = join_free(m->line, m->one_ch);
+        write(STDOUT_FILENO, m->one_ch, 1);
+    }
+    return (0);
+}
+
 char    *ft_readline(char *prompt, t_m *m)
 {
     t_gl    *gl;
@@ -78,26 +99,6 @@ char    *ft_readline(char *prompt, t_m *m)
     return (m->line);
 }
 
-int readline_helper(t_m *m, int return_pressed, t_gl *gl)
-{
-    if (return_pressed == 1 && m->one_ch[0] == '\004')
-    {
-        tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
-        return (1);
-    }
-    else if (return_pressed == 0 && m->one_ch[0] == '\004')
-    {
-        return (0);
-    }
-    else if (m->one_ch[0] == '\177')
-        m->line = delete_char(m->line);
-    else
-    {
-        m->line = join_free(m->line, m->one_ch);
-        write(STDOUT_FILENO, m->one_ch, 1);
-    }
-    return (0);
-}
 /*
 char	*ft_readline(char *prompt, t_m *m)
 {

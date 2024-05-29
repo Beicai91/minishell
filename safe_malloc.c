@@ -29,6 +29,8 @@ void	*safe_malloc(size_t size, t_type type, t_cmd *cmd)
 		p = malloc(sizeof(t_list) * size);
 	else if (type == STRING_ARRAY)
 		p = malloc(sizeof(char *) * size);
+	else if (type == QFLAG)
+		p = malloc(sizeof(t_qflag) * size);
 	if (!p)
 	{
 		perror("Malloc");

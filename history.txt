@@ -438,3 +438,29 @@ echo '$HOME'
 echo hello''''' '''''bye
 echo -n "hello""bye"
 echo -n "hello bye" >>b
+echo hello""bye
+echo "hello""bye" home "sweet"
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+<<EOF cat
+<<EOF <in0.txt grep hello >>b
+<in0.txt <<EOF grep hello >>b
+<<EOF
+<<EOF
+<<EOF
+<<EOF
+<<eof
+<<EOF
+<<EOF
+cat
+ls
+exit
+<<EOF
+<<EOF
+<<EOF
+cat
+ls
+exit
