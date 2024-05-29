@@ -607,3 +607,53 @@ echo 'hello'
 echo hello'bye'
 echo 'bye'hello
 echo hello''bye 'bye'hello
+export a="hello"
+env
+export c=""
+env
+export d
+env
+d=doggie
+env
+cat | cat | ls
+cat | cat | ls
+ls
+exit 1
+cat < Makefile > a | wc -l
+< Makefile > a > b
+cat Makefile
+echo '$USER' "$USER" '"$USER "'
+cat <<a >b
+
+echo -n hellofinal >>b
+cd ..
+pwd
+./minishell
+ecoh $SHLVL
+echo $SHLVL
+exit
+exit 123 hello
+exit hello 123
+exit hello
+cat Makefile | wc -l
+<in*.txt grep hello >b
+(false || true) && true
+(echo false || echo true) && echo true
+echo ($? + $?)
+echo $?
+cat in*.txt
+cat in0.txt
+cat in0.txt in1.txt
+shhdhd
+echo $?
+cat in0.txt in1.txt a
+cat in0.txt in1.txt b
+cat in*.txt
+cat in*.txt
+cat in*.txt
+cat in*.txt
+cat in*.txt
+cat in*.txt
+<"in0.txt" cat
+cat in*.txt
+exit

@@ -17,7 +17,7 @@ int	inlist_execution_util(t_execcmd *ecmd, t_m *m, t_inout **in_temp)
 	if (*in_temp == NULL)
 	{
 		//test
-		printf("no inlist, ready to execute cmd\n");
+		//printf("no inlist, ready to execute cmd\n");
 		//
 		traverse_tree((t_cmd *)ecmd, m);
 		return (1);

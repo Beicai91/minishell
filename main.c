@@ -24,7 +24,6 @@ int	main(int argc, char **argv, char **envp)
 	{
 		signal_tracking(&sa, &m);
 		m.input = readline("minishell$ ");
-
 		if (!m.input)
 		{
 			lastfree_restore();
@@ -33,6 +32,9 @@ int	main(int argc, char **argv, char **envp)
 		add_history(m.input);
 		update_history_file(&m);
 		m.input = expand_input_check(m.input, &m);
+		//test
+		printf("after wildcards check, input %s\n", m.input);
+		//
 		partial_reinit_m(&m);
 		m.final_tree = parsecmd(m.input);
 		if (m.final_tree != NULL)
@@ -43,3 +45,4 @@ int	main(int argc, char **argv, char **envp)
 		free(m.input);
 	}
 }
+

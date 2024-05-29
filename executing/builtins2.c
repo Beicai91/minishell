@@ -74,9 +74,7 @@ void	no_value_after_equal1(int *i, char **cmd_args, char *equal, t_qflag **qflag
 {
 	char	*key;
 	char	*value;
-//test
-printf("in no_value_after_equal1, cmd_args %s\n", cmd_args[*i]);
-//
+
 	key = ft_substr(cmd_args[*i], 0, equal - cmd_args[*i]);
 	if (cmd_args[*i + 1] && !ft_strchr(cmd_args[*i + 1], '=') && (*qflags)->next->quote_flag != 0)
 	{
@@ -104,8 +102,6 @@ void	value_after_equal(int i, t_cmd *cmd, t_m *m, char *equal)
 void	builtin_export(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
-	//char	*key;
-	//char	*value;
 	char	*equal;
 	int		i;
 	t_qflag	*qflags;
@@ -113,16 +109,13 @@ void	builtin_export(t_cmd *cmd, t_m *m)
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
 	qflags = ((t_execcmd *)cmd)->qflags->next;
 	//test
-	printf("qflag starts from %d\n", qflags->quote_flag);
+	//printf("qflag starts from %d\n", qflags->quote_flag);
 	//
 	if (cmd_args[1] == NULL)
 		export_all(m);
 	i = 0;
 	while (cmd_args[++i] != NULL)
 	{
-		//test
-		//printf("qflag in this round %d\n", cmd_args[i]);
-		//
 		equal = ft_strchr(cmd_args[i], '=');
 		if (!equal)
 			no_value_case(cmd_args[i], m);
@@ -132,12 +125,6 @@ void	builtin_export(t_cmd *cmd, t_m *m)
 		}
 		else
 			value_after_equal(i, cmd, m, equal);
-		/*
-		{
-			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);
-			value = get_value(cmd_args[i], equal + 1, cmd, m);
-			update_envvars(key, value, 1);
-		}*/
 		qflags = qflags->next;
 	}
 }

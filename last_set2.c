@@ -19,6 +19,17 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	char		*temp;
 	t_qflag		*qflag;
 
+//test
+printf("after parsing, cmd_args\n");
+char	**tmp;
+tmp = ((t_execcmd *)cmd)->cmd_args;
+int j = 0;
+while (tmp[j] != NULL)
+{
+	printf("%s\n", tmp[j]);
+	j++;
+}
+//
 	execcmd = (t_execcmd *)cmd;
 	execcmd->m = m;
 	if (m->heredoc_flag == 1 && execcmd->cmdargs == NULL)
@@ -40,6 +51,9 @@ void	set_exec(t_cmd *cmd, t_m *m)
 			//
 			temp = replace_d(execcmd, i);
 			execcmd->cmd_args[i] = temp;
+			//test
+			printf("replace by %s\n", temp);
+			//
 		}
 		qflag = qflag->next;
 		//test
