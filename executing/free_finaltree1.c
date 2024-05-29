@@ -12,17 +12,15 @@
 
 #include "../minishell.h"
 
-void	free_cqflags(t_execcmd *ecmd)
+void	free_flags(t_qflag *flags)
 {
-	t_qflag *cqflag;
-	t_qflag	*cqtmp;
+	t_qflag	*tmp;
 
-	cqflag = ecmd->cqflags;
-	while (cqflag != NULL)
+	while (flags != NULL)
 	{
-		cqtmp = cqflag;
-		cqflag = cqflag->next;
-		free(cqtmp);
+		tmp = flags;
+		flags = flags->next;
+		free(tmp);
 	}
 }
 
@@ -30,7 +28,6 @@ void	free_exec_content(t_execcmd *ecmd)
 {
 	t_list	*temp;
 	t_qflag	*qflag;
-	t_qflag	*qtemp;
 
 	free_2darray(ecmd->cmd_args);
 	qflag = ecmd->qflags;
@@ -43,12 +40,10 @@ void	free_exec_content(t_execcmd *ecmd)
 			if (qflag->quote_flag == 34 || qflag->quote_flag == 0)
 				free(temp->content);
 			free(temp);
-			qtemp = qflag;
-			qflag = qflag->next;
-			free(qtemp);
 		}
 	}
-	free_cqflags(ecmd);
+	free_flags(ecmd->qflags);
+	free_flags(ecmd->cqflags);
 }
 
 void	free_redir_content(t_redircmd *rcmd, t_m *m)

@@ -86,8 +86,7 @@ char    *ft_readline(char *prompt, t_m *m)
     while (read(STDIN_FILENO, m->one_ch, 1) == 1 && ft_strncmp(m->one_ch, "\n",
             1) != 0 && g_sig_indicator == 0)
     {
-        if (ft_isalpha(m->one_ch[0]) || ft_isdigit(m->one_ch[0])
-            || m->one_ch[0] == ' ' || m->one_ch[0] == '\t')
+        if ((m->one_ch[0] >= 32 && m->one_ch[0] <= 126) || m->one_ch[0] == 9 || m->one_ch[0] == 11)
             return_pressed = 0;
         m->one_ch[1] = '\0';
         if (readline_helper(m, return_pressed, gl) == 1)

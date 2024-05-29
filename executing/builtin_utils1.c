@@ -34,9 +34,6 @@ int	is_builtin(char *cmd)
 
 void	print_helper(char **cmd_args, int *i, t_qflag *cqflags)
 {
-	t_gl	*gl;
-
-	gl = get_gl();
 	if (*cmd_args[*i] == '\0')
 		(*i)++;
 	else

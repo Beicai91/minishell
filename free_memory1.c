@@ -50,6 +50,8 @@ void	free_exec(t_cmd *cmd)
 	}
 	if (execcmd->cmd_args != NULL)
 		free(execcmd->cmd_args);
+	free_flags(execcmd->qflags);
+	free_flags(execcmd->cqflags);
 	free(cmd);
 	cmd = NULL;
 }

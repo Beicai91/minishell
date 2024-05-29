@@ -50,6 +50,8 @@ void	lastfree_restore(void)
 	tcsetattr(STDIN_FILENO, TCSANOW, &gl->orig_termios);
 	free_envvars();
 	clear_history();
+	free(gl->signs);
+	free(gl->spaces);
 	free(gl);
 }
 

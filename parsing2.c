@@ -97,7 +97,7 @@ t_cmd	*parseexec(char **start, char *end)
 	{
 		ecmd->tkn_type = gettoken(start, end, &s_tkn, &e_tkn);
 		if (ecmd->tkn_type == 127 || ecmd->tkn_type == 40)
-			return (parseexec_error(ecmd->type, cmd));
+			return (parseexec_error(ecmd->tkn_type, cmd));
 		else if (ecmd->tkn_type == 39)
 			cmdargs_quote(ecmd, s_tkn + 1, e_tkn - 1, start);
 		else if (ecmd->tkn_type == 34)

@@ -24,7 +24,7 @@ t_cmd	*parsecmd(char *input)
 	end = input + ft_strlen(input);
 	cmd = parselist(&start, end);
 	if (cmd == NULL)
-		printf("Invalid command line\n");
+			printf("Invalid command line\n");
 	return (cmd);
 }
 

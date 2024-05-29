@@ -464,3 +464,17 @@ exit
 cat
 ls
 exit
+<<EOF
+echo hello
+<<EOF
+<<EOF
+<<EOF cat
+<<EOF
+<<EOF
+echo "
+echo "
+echo "
+echo "
+echo "
+ls -l |
+exit

@@ -343,6 +343,7 @@ void							free_memory(t_cmd *cmd);
 void							free_heredoc(t_cmd *cmd);
 void							free_redir(t_cmd *cmd);
 void							free_exec(t_cmd *cmd);
+void							free_flags(t_qflag *flags);
 void							free_lrlist(t_cmd *cmd);
 void							free_lrpipe(t_cmd *cmd);
 void							free_lrand(t_cmd *cmd);
