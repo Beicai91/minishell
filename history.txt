@@ -133,3 +133,17 @@ sleep 3 | sleep 3 | sleep 3
 sleep 3 | sleep 3
 sleep 3 | sleep 3 | sleep 3
 sleep 3 | sleep 3 | sleep 3
+sleep 3 | sleep 3 | sleep 3
+echo "summer" | wc -w
+echo "summer" | wc -l
+<<EOF grep hello | wc -l
+
+ls | cat <<EOF
+cat <<EOF | ls
+sleep 3 | sleep 3 | sleep 3
+cat <<EOF | ls
+ls | cat <<EOF
+<<EOF grep hello | wc -l
+sleep 3 | sleep 3 | sleep 3
+sleep 3 | sleep 3 | sleep 3 | sleep 3
+echo hello | |

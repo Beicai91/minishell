@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:49:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 16:12:55 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 17:02:12 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,6 @@ void	no_line_expansion(t_heredoc *heredoc, int heredoc_fd, t_m *m)
 	line = ft_readline("heredoc>", m);
 	while ((line) != NULL)
 	{
-		//test
-		printf("reading line\n");
-		//
 		if (g_sig_indicator != 0)
 		{
 			free(line);
