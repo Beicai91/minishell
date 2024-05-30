@@ -147,3 +147,80 @@ ls | cat <<EOF
 sleep 3 | sleep 3 | sleep 3
 sleep 3 | sleep 3 | sleep 3 | sleep 3
 echo hello | |
+echo hello | |
+echo hello | |
+<<EOF grep hello | wc -l
+make
+make
+./minishell
+<<EOF grep hello | wc -l
+eche hello ; ls
+
+echo hello ; ls
+echo hello | |
+<<EOF grep hello | wc -l
+echo hello | |
+<<EOF grep hello | wc -l
+echo hello | |
+echo hello | |
+echo hello | |
+|
+|
+echo hello | |
+
+echo hello | |
+echo hello | |
+|
+<<EOF grep hello | wc -l
+echo hello ; ls
+echo hello && ls
+echo hello || ls
+echo hello || ls
+echo hello &
+echo hello &&
+echo hello |
+(echo hello
+(echo hello
+(echo hello
+echo hello)
+
+cd $HOME
+cd $HOME/Documents
+cd $HOME/Documents
+cd $HOME/Documents
+cd $HOME/Documents
+cd $HOME
+cd $HOME
+cd $HOME/Documents
+cd $HOME
+pwd
+cd $HOME
+cd $HOME
+cd $HOME/Documents
+
+cd $HOME
+cd $HOME
+cd $HOME
+
+pwd
+cd $HOME/Documents
+
+pwd
+cd $HOME/Documents
+cd $HOME
+cd $HOME
+cd $HOME
+
+pwd
+cd $HOME/Documents
+cd ~
+cd $HOME
+cd $HOME
+cd $HOME
+cd $HOME
+cd $HOME
+cd $HOME/Documents
+cd $HOME
+cd $HOME
+cd $HOME
+cd $HOME

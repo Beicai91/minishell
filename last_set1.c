@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:57:24 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 12:18:56 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 19:01:01 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	update_temp2(char **temp)
 {
-	while (**temp && (**temp != '$' || (**temp == '$' && (*(*temp
+	while (**temp && **temp != '/' && (**temp != '$' || (**temp == '$' && (*(*temp
 						+ 1) == ' ' || *(*temp + 1) == '\0' || *(*temp
 						+ 1) == '"' || *(*temp + 1) == '$'))))
 		(*temp)++;
@@ -35,12 +35,21 @@ char	*replace_d(t_execcmd *ecmd, int i)
 	while (*temp && *(temp + 1))
 	{
 		update_temp2(&temp);
+		//test
+		printf("1.after update_temp2 temp %c\n", *temp);
+		//
 		first_part = m_sub(s_cpy, 0, temp - s_cpy, NULL);
 		new = get_newstr2(temp, e_cpy, ecmd, first_part);
 		temp = new;
 		update_temp2(&temp);
+				//test
+		printf("2.after update_temp2 temp %c\n", *temp);
+		//
 		s_cpy = new;
 		e_cpy = new + ft_strlen(new) - 1;
+		//test
+		printf("new %s\n", new);
+		//
 	}
 	if (!new)
 		new = ft_strdup(ecmd->cmd_args[i]);

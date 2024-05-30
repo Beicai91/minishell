@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:30:54 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 12:26:56 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 18:00:58 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,9 +93,6 @@ t_cmd	*parseexec(char **start, char *end, t_m *m)
 	tkn.e_tkn = NULL;
 	ecmd = execcmd_init(m);
 	cmd = parseredirs((t_cmd *)ecmd, start, end);
-	//test
-	printf("in parseexec start %c\n", **start);
-	//
 	while (**start && skipspace_peek(start, end, "&|);") == false)
 	{
 		ecmd->tkn_type = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
@@ -119,12 +116,21 @@ t_cmd	*parseblock(char **start, char *end, t_m *m)
 	char	*s_token;
 	char	*e_token;
 
+//test
+printf("detected (\n");
+//
 	s_token = NULL;
 	e_token = NULL;
 	gettoken(start, end, &s_token, &e_token);
+//test
+printf("after gettoken start %c\n", **start);
+//
 	cmd = parselist(start, end, m);
 	if (**start != ')')
+	{
 		handle_error("Missing closing parenthesis.", cmd);
+		return (NULL);
+	}
 	gettoken(start, end, &s_token, &e_token);
 	cmd = parseredirs(cmd, start, end);
 	return (cmd);

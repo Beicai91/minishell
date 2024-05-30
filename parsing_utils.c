@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:06:33 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 12:12:47 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 17:53:12 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,14 @@ int	get_type(char **start, char *end)
 {
 	int	type;
 
-	if ((**start == '|' && *(*start + 1) != '|') || **start == '(' || **start == ')')
+	if (**start == '(' || **start == ')')
 	{
-		//test
-		printf("in get type detected %c\n", **start);
-		//
 		type = **start;
 		(*start)++;
 	}
 	else if (**start == ';')
+		type = **start;
+	else if (**start == '|' && *(*start + 1) != '|')
 		type = **start;
 	else if (**start == 39)
 		type = get_squotetype(start, end);

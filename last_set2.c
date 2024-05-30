@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   last_set2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 13:08:01 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/17 13:28:22 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 18:04:36 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,16 @@ void	set_exec(t_cmd *cmd, t_m *m)
 	qflag = ((t_execcmd *)cmd)->qflags;
 	while (execcmd->cmd_args && execcmd->cmd_args[i] != NULL)
 	{
+		//test
+		printf("before replace %s\n", execcmd->cmd_args[i]);
+		//
 		if (qflag->quote_flag == 0 || qflag->quote_flag == 34)
 		{
 			temp = replace_d(execcmd, i);
 			execcmd->cmd_args[i] = temp;
+			//test
+			printf("after replace %s\n", temp);
+			//
 		}
 		qflag = qflag->next;
 		i++;
