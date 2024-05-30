@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:51:05 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 10:58:48 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 16:32:24 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,8 +75,10 @@ void	build_redir_list(t_cmd *cmd, t_m *m, t_inout **list)
 
 void	execute_heredoc_command(t_heredoc *heredoc, t_m *m)
 {
-	if (m->pipe_flag == 1)
+	if (m->pipe_left_flag == 1)
 		restore_inout(m->fdout_cpy, 1, m);
+	if (m->pipe_right_flag == 1)
+		restore_inout(m->fdin_cpy, 0, m);
 	m->heredoc_fd = open("heredoc_tmp", O_RDWR | O_CREAT | O_TRUNC, 0666);
 	heredoc->tmp_file = ft_strdup("heredoc_tmp");
 	if (heredoc->is_quoted == 1)
@@ -84,8 +86,10 @@ void	execute_heredoc_command(t_heredoc *heredoc, t_m *m)
 	else
 		expand_line(heredoc, m->heredoc_fd, m);
 	close(m->heredoc_fd);
-	if (m->pipe_flag == 1)
+	if (m->pipe_left_flag == 1)
 		dup2(m->pfd[1], STDOUT_FILENO);
+	if (m->pipe_right_flag == 1)
+		dup2(m->pfd[0], STDIN_FILENO);
 }
 
 void	free_list(t_inout **list)

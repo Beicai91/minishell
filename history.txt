@@ -1,0 +1,135 @@
+cat <<EOF | ls
+echo hello ; |
+
+echo hello;
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; |
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+| ; echo hello
+| ; echo hello
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+echo hello ; | 
+
+echo hello ; | 
+echo hello ; | 
+echo hello ;
+echo hello ; <
+| ; echo hello
+| ; echo hello
+| ; echo hello
+| ; echo hello
+echo hello ; | 
+|
+| wc -l
+| ; echo hello
+
+echo hello ; |
+
+| wc -l
+
+wc -l |
+<
+<Makefile grep NAME;echo hello
+<Makefile grep NAME;
+echo hello;
+echo hello;
+wc -l |
+| wc -l
+echo hello ; |
+echo hello ;
+echo hello ; |
+| ; echo hello
+echo hello ;
+wc -l |
+| wc -l
+echo hello ; <
+cat <<EOF | ls
+cat <<EOF | ls
+cat <<EOF | ls
+cat <<EOF | ls
+cat <<EOF | ls
+sleep 3 | sleep 3 | sleep 3
+ls | cat <<EOF | ls
+ls | cat <<EOF | ls
+ls | cat <<EOF
+ls | cat <<EOF
+ls | grep mini
+ls | grep mini
+cat <<EOF | ls
+
+cat <<EOF | ls
+cat <<EOF | ls
+
+hi
+cat <<EOF | ls
+hi
+cat Makefile | wc -l
+cat Makefile | wc -l
+cat Makefile | wc -l
+cat <<EOF | ls
+
+hello
+echo hello | wc -l
+echo hello | wc -l
+echo hello | wc -l
+echo hello | wc -l
+cat <<EOF | ls
+ls | cat <<EOF
+sleep 3 | sleep 3 | sleep 3
+sleep 3 | sleep 3 | sleep 3
+cat <<EOF | ls
+ls | cat <<EOF
+ls | cat <<EOF
+<<EOF grep hello | wc -l
+<<EOF grep hello | wc -l
+ls | cat <<EOF
+<<EOF grep hello | wc -l
+
+ls | cat <<EOF
+<<EOF grep hello | wc -l
+ls | cat <<EOF
+<<EOF grep hello | wc -l
+ls | cat <<EOF
+cat <<EOF | ls
+sleep 3 | sleep 3 | sleep 3
+ls | cat <<EOF
+echo $$
+ls | cat <<EOF
+ls | cat <<EOF
+cat <<EOF | ls
+cat <<EOF | ls
+<<EOF grep hello | wc -l
+ls | cat <<EOF
+<<EOF grep hello | wc -l
+<<EOF grep hello | wc -l
+<<EOF grep hello | wc -l
+<<EOF cat | wc -l
+cat <<EOF | ls
+sleep 3 | sleep 3 | sleep 3
+ls | cat <<EOF
+sleep 3 | sleep 3 | sleep 3
+sleep 3 | sleep 3
+sleep 3 | sleep 3 | sleep 3
+sleep 3 | sleep 3 | sleep 3

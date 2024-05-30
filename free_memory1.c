@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_memory1.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:56:35 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 15:52:55 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 11:31:24 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,9 @@ void	free_exec(t_cmd *cmd)
 	t_execcmd	*execcmd;
 	t_list		*temp;
 
+//test
+printf("in free_exec, ready to free\n");
+//
 	execcmd = (t_execcmd *)cmd;
 	while (execcmd->cmdargs != NULL)
 	{
@@ -50,10 +53,16 @@ void	free_exec(t_cmd *cmd)
 	}
 	if (execcmd->cmd_args != NULL)
 		free(execcmd->cmd_args);
+	//test
+	printf("freed cmdargs and cmd_args, ready to free flags\n");
+	//
 	free_flags(execcmd->qflags);
 	free_flags(execcmd->cqflags);
 	free(cmd);
 	cmd = NULL;
+	//test
+	printf("finished freeing flags\n");
+	//
 }
 
 void	free_memory(t_cmd *cmd)

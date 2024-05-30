@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/30 10:23:21 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 16:25:13 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,8 +76,10 @@ typedef struct s_mini
 	char						**envp_path;
 	char						*input;
 	int							pfd[2];
-	int							pipe_flag;
+	int							pipe_left_flag;
+	int							pipe_right_flag;
 	int							fdout_cpy;
+	int							fdin_cpy;
 	int							outcpy_emb;
 	pid_t						pid;
 	pid_t						pid_left;
