@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins3.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 22:10:11 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:02:25 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,16 +24,16 @@ static void	is_numeric(t_cmd *cmd, t_m *m, char *arg_one)
 	int	i;
 
 	i = -1;
-	
 	if (arg_one[0] == '-')
 		i++;
 	while (arg_one[++i])
 	{
 		if (!ft_isdigit(arg_one[i]))
 		{
-			printf("exit\nminishell: exit: %s: numeric argument required\n", arg_one);
+			printf("exit\nminishell: exit: %s: \
+				numeric argument required\n", arg_one);
 			free_tree(cmd, m);
-			lastfree_restore();			
+			lastfree_restore();
 			exit(255);
 		}
 	}

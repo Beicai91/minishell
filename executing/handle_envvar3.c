@@ -1,13 +1,12 @@
-
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_envvar1.c                                   :+:      :+:    :+:   */
+/*   handle_envvar3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:48:54 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 21:49:19 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:28:48 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,16 +24,22 @@ int	special_cases(char *key, char *value)
 	return (0);
 }
 
+void	print_error_msg(int export_flag, char *key, char *value)
+{
+	if (export_flag == 1)
+		printf("minishell: export:'%s=%s': \
+			not a valid identifier\n", key, value);
+	else
+		printf("minishell: '%s=%s': not a valid identifier\n", key, value);
+}
+
 int	check_key_validity(char *key, char *value, int export_flag)
 {
 	int	i;
 
 	if (ft_isdigit(key[0]) || ft_strchr("~@%*^", key[0]))
 	{
-		if (export_flag == 1)
-			printf("minishell: export:'%s=%s': not a valid identifier\n", key, value);
-		else
-			printf("minishell: '%s=%s': not a valid identifier\n", key, value);
+		print_error_msg(export_flag, key, value);
 		return (1);
 	}
 	if (special_cases(key, value) == 1)
@@ -44,10 +49,7 @@ int	check_key_validity(char *key, char *value, int export_flag)
 	{
 		if (!ft_isdigit(key[i]) && !ft_isalpha(key[i]) && key[i] != '_')
 		{
-			if (export_flag == 1)
-				printf("minishell: export: '%s=%s': not a valid identifier\n", key, value);
-			else
-				printf("minishell: '%s=%s': not a valid identifier\n", key, value);
+			print_error_msg(export_flag, key, value);
 			return (1);
 		}
 	}
@@ -106,33 +108,4 @@ void	update_envvars(char *key, char *value, int is_exported)
 		update_target(target, value, key, is_exported);
 	else
 		add_envvar(key, value, is_exported);
-}
-
-void	remove_envvar(char *key)
-{
-	t_envvar	*temp;
-	t_envvar	*after_target;
-	t_envvar	*previous;
-	t_gl		*gl;
-
-	gl = get_gl();
-	temp = gl->env_vars;
-	while (temp != NULL && ft_strncmp(temp->key, key, cmplen(temp->key,
-				key)) != 0)
-	{
-		previous = temp;
-		temp = temp->next;
-	}
-	if (temp)
-	{
-		after_target = temp->next;
-		previous->next = after_target;
-		free(temp->key);
-		temp->key = NULL;
-		free(temp->value);
-		temp->value = NULL;
-		free(temp);
-		temp = NULL;
-	}
-	return ;
 }

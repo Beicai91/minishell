@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:06:33 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/24 16:31:17 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 10:23:27 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,12 @@ static void	change_quotestat(t_heredoc **heredoc)
 	return ;
 }
 
-t_cmd	*handle_quoted_delimiter(t_cmd *cmd, char **start, char *s_token, char *e_token)
+t_cmd	*quoted_delimiter(t_cmd *cmd, char **start, \
+	char *s_token, char *e_token)
 {
 	t_heredoc	*res;
 
-	res = heredoc_init(cmd, s_token, e_token - s_token + 2, 0);
+	res = hdinit(cmd, s_token, e_token - s_token + 2, 0);
 	change_quotestat(&res);
 	(*start)++;
 	return ((t_cmd *)res);

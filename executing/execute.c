@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:47:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:48:00 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 09:54:10 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ void	traverse_lr_or(t_cmd *left, t_cmd *right, t_m *m)
 	if (m->exit_status != 0)
 		traverse_tree(right, m);
 }
-
 
 void	traverse_tree(t_cmd *cmd, t_m *m)
 {

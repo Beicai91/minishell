@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_envvar1.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:48:54 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 21:49:19 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:28:15 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,8 +58,8 @@ t_envvar	*getter(void)
 
 void	minishell_envp(t_m *m)
 {
-	t_envvar *temp;
-	int	len;
+	t_envvar	*temp;
+	int			len;
 	t_strvars	v;
 
 	temp = getter();
@@ -83,4 +83,33 @@ void	minishell_envp(t_m *m)
 		(v.i)++;
 	}
 	m->minishell_envp[v.i] = NULL;
+}
+
+void	remove_envvar(char *key)
+{
+	t_envvar	*temp;
+	t_envvar	*after_target;
+	t_envvar	*previous;
+	t_gl		*gl;
+
+	gl = get_gl();
+	temp = gl->env_vars;
+	while (temp != NULL && ft_strncmp(temp->key, key, cmplen(temp->key,
+				key)) != 0)
+	{
+		previous = temp;
+		temp = temp->next;
+	}
+	if (temp)
+	{
+		after_target = temp->next;
+		previous->next = after_target;
+		free(temp->key);
+		temp->key = NULL;
+		free(temp->value);
+		temp->value = NULL;
+		free(temp);
+		temp = NULL;
+	}
+	return ;
 }

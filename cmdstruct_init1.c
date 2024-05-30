@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:55:41 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 11:26:48 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 10:23:16 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_mode_fd(t_redircmd *rcmd, int mode, int fd)
 	rcmd->fd = fd;
 }
 
-t_heredoc	*heredoc_init(t_cmd *subcmd, char *s_token, size_t size, int fd)
+t_heredoc	*hdinit(t_cmd *subcmd, char *s_token, size_t size, int fd)
 {
 	t_heredoc	*heredoc;
 

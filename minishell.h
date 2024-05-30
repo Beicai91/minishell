@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/27 11:53:31 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:23:21 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <string.h>
 # include <termios.h>
 # include <unistd.h>
+# include <sys/wait.h>
 
 extern volatile sig_atomic_t	g_sig_indicator;
 
@@ -57,12 +58,11 @@ typedef struct s_inout
 	struct s_inout				*next;
 }								t_inout;
 
-typedef struct	s_qflag
+typedef struct s_qflag
 {
 	int							quote_flag;
 	struct s_qflag				*next;
 }								t_qflag;
-
 
 typedef struct s_mini
 {
@@ -109,7 +109,7 @@ typedef struct s_mini
 	char						*one_ch;
 	char						*history;
 	char						*prev_history;
-	int 						initial_history_check;
+	int							initial_history_check;
 	int							export_hidden;
 }								t_m;
 
@@ -195,8 +195,8 @@ typedef struct s_tkn
 {
 	char						*s_tkn;
 	char						*e_tkn;
-	int							redir;
-	int							file;
+	int							rdr;
+	int							fl;
 }								t_tkn;
 
 typedef struct s_gl
@@ -277,7 +277,7 @@ t_redircmd						*redircmd_init(t_cmd *subcmd, char *s_token,
 void							init_mode_fd(t_redircmd *rcmd, int mode,
 									int fd);
 
-t_heredoc						*heredoc_init(t_cmd *subcmd, char *s_token,
+t_heredoc						*hdinit(t_cmd *subcmd, char *s_token,
 									size_t size, int fd);
 t_pipecmd						*pipecmd_init(t_cmd *left_cmd,
 									t_cmd *right_cmd);
@@ -292,7 +292,7 @@ int								gettoken(char **start, char *end,
 									char **s_token, char **e_token);
 bool							skipspace_peek(char **start, char *end,
 									char *check);
-t_cmd							*handle_quoted_delimiter(t_cmd *cmd,
+t_cmd							*quoted_delimiter(t_cmd *cmd,
 									char **start, char *s_token, char *e_token);
 void							add_qflag(t_qflag **lst, t_qflag *new);
 
@@ -321,8 +321,8 @@ t_cmd							*parseblock(char **start, char *end, t_m *m);
 
 // cmd and args handling
 void							get_cmd_args(t_execcmd *execcmd, t_cmd *cmd);
-void							populate_cmdargs(t_execcmd *ecmd,
-									char *s_token, char *e_token, t_cmd *cmd);
+void							populate_cmdargs(t_execcmd *ecmd, char *s_token,
+									char *e_token, t_cmd *cmd);
 void							cmdargs_quote(t_execcmd *ecmd, char *s_token,
 									char *e_token, char **start);
 char							*getvalue_freename(t_list *cmdargs,
@@ -404,8 +404,10 @@ char							*handle_expansion(char *start, t_cmd *cmd,
 									t_m *m);
 char							*get_value(char *arg, char *quote_letter,
 									t_cmd *cmd, t_m *m);
-void							print_helper(char **cmd_args, int *i, t_qflag *cqflags);
-void							update_eles(int *n_flag, t_qflag **cqflags, int *i);
+void							print_helper(char **cmd_args, int *i,
+									t_qflag *cqflags);
+void							update_eles(int *n_flag, t_qflag **cqflags,
+									int *i);
 
 // heredoc functions
 void							no_line_expansion(t_heredoc *heredoc,

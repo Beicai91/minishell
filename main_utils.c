@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 21:43:57 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:43:56 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ void	initial_setup(t_m *m, char **envp)
 	t_gl			*gl;
 
 	gl = get_gl();
-	//init_gl_var();
 	m->envp = envp;
 	m->exit_status = 0;
 	m->position = ON_MAIN;

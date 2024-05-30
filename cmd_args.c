@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:54:03 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/24 16:23:41 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 10:31:41 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,8 @@ void	add_flagnode(t_qflag **flags)
 
 void	check_exec_flags(t_execcmd *ecmd)
 {
-	int	i;
-	int	j;
-	int	count;
+	int		i;
+	int		j;
 	char	**cmd_args;
 	t_qflag	*tmp;
 
@@ -43,12 +42,11 @@ void	check_exec_flags(t_execcmd *ecmd)
 		j++;
 		tmp = tmp->next;
 	}
-	count = i - j;
-	while (count > 0)
+	while (i - j > 0)
 	{
 		add_flagnode(&(ecmd->qflags));
 		add_flagnode(&(ecmd->cqflags));
-		count--;
+		i--;
 	}
 }
 
@@ -95,8 +93,8 @@ void	populate_cmdargs(t_execcmd *ecmd, char *s_tkn, char *e_tkn, t_cmd *cmd)
 	cq_node = (t_qflag *)malloc(sizeof(t_qflag) * 1);
 	if (!cq_node)
 		return ;
-	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) != ' ' ) \
-		|| (*(e_tkn + 1) == 39 && *(e_tkn + 2) !=  ' ' ))
+	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) != ' ') || (*(e_tkn + 1) == 39
+			&& *(e_tkn + 2) != ' '))
 		cq_node->quote_flag = 1;
 	else
 		cq_node->quote_flag = 0;
@@ -124,8 +122,8 @@ void	cmdargs_quote(t_execcmd *ecmd, char *s_tkn, char *e_tkn, char **start)
 	flag_node->next = NULL;
 	add_qflag(&(ecmd->qflags), flag_node);
 	cq_node = safe_malloc(1, QFLAG, NULL);
-	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) != ' ' ) \
-		|| (*(e_tkn + 1) == 39 && *(e_tkn + 2) !=  ' ' ))
+	if ((*(e_tkn + 1) == 34 && *(e_tkn + 2) != ' ') || (*(e_tkn + 1) == 39
+			&& *(e_tkn + 2) != ' '))
 		cq_node->quote_flag = 1;
 	else
 		cq_node->quote_flag = 0;

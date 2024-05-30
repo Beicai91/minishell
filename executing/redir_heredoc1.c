@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:46 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 17:19:07 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 09:59:50 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
 {
 	int		fd;
 	t_inout	*to_free;
+
 	while (m->out->next != NULL)
 	{
 		fd = open(m->out->file_name, m->out->mode, 0666);

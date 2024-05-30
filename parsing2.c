@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:30:54 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 13:15:41 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 10:22:59 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,21 @@ t_cmd	*parseredirs(t_cmd *subcmd, char **start, char *end)
 	cmd = subcmd;
 	while (skipspace_peek(start, end, "<>") == true)
 	{
-		tkn.redir = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
-		tkn.file = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
-		if (tkn.file == 127)
+		tkn.rdr = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
+		tkn.fl = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
+		if (tkn.fl == 127)
 			return (NULL);
-		if (ft_strchr("<>+", tkn.redir) && tkn.file != 39 && tkn.file != 34)
-			cmd = get_redircmd(cmd, tkn.s_tkn, tkn.e_tkn, tkn.redir);
-		else if (ft_strchr("<>+", tkn.redir) && (tkn.file == 39 || tkn.file == 34))
+		if (ft_strchr("<>+", tkn.rdr) && tkn.fl != 39 && tkn.fl != 34)
+			cmd = get_redircmd(cmd, tkn.s_tkn, tkn.e_tkn, tkn.rdr);
+		else if (ft_strchr("<>+", tkn.rdr) && (tkn.fl == 39 || tkn.fl == 34))
 		{
-			cmd = get_redircmd(cmd, tkn.s_tkn + 1, tkn.e_tkn, tkn.redir);
+			cmd = get_redircmd(cmd, tkn.s_tkn + 1, tkn.e_tkn, tkn.rdr);
 			(*start)++;
 		}
-		else if (tkn.redir == 'h' && tkn.file != 39 && tkn.file != '"')
-			cmd = (t_cmd *)heredoc_init(cmd, tkn.s_tkn, tkn.e_tkn - tkn.s_tkn + 1, 0);
-		else if (tkn.redir == 'h' && (tkn.file == 39 || tkn.file == '"'))
-			cmd = handle_quoted_delimiter(cmd, start, tkn.s_tkn + 1, tkn.e_tkn - 1);
+		else if (tkn.rdr == 'h' && tkn.fl != 39 && tkn.fl != '"')
+			cmd = (t_cmd *)hdinit(cmd, tkn.s_tkn, tkn.e_tkn - tkn.s_tkn + 1, 0);
+		else if (tkn.rdr == 'h' && (tkn.fl == 39 || tkn.fl == '"'))
+			cmd = quoted_delimiter(cmd, start, tkn.s_tkn + 1, tkn.e_tkn - 1);
 	}
 	return (cmd);
 }
@@ -109,7 +109,6 @@ t_cmd	*parseexec(char **start, char *end, t_m *m)
 	get_cmd_args(ecmd, cmd);
 	return (cmd);
 }
-
 
 t_cmd	*parseblock(char **start, char *end, t_m *m)
 {

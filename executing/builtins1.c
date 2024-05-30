@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/24 16:44:10 by bcai             ###   ########.fr       */
+/*   Updated: 2024/05/30 09:49:25 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	update_pwd(t_m *m)
 
 void	builtin_cd(t_cmd *cmd, t_m *m)
 {
-	char	**cmd_args;
+	char		**cmd_args;
 	t_envvar	*home;
 
 	(void)m;
@@ -67,7 +67,7 @@ void	builtin_cd(t_cmd *cmd, t_m *m)
 	if (cmd_args[1] == NULL)
 	{
 		home = get_envvar("HOME");
-		if(chdir(home->value) != 0)
+		if (chdir(home->value) != 0)
 			perror("cd: ");
 	}
 	else
@@ -80,7 +80,6 @@ void	builtin_cd(t_cmd *cmd, t_m *m)
 	}
 	update_pwd(m);
 }
-
 
 void	builtin_echo(t_cmd *cmd)
 {
@@ -109,7 +108,6 @@ void	builtin_echo(t_cmd *cmd)
 	if (n_flag == 0)
 		printf("\n");
 }
-
 
 void	resize_or_free(char *buffer, t_m *m, size_t *size)
 {

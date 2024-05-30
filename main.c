@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:04:02 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/27 16:14:33 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:43:43 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,3 @@ int	main(int argc, char **argv, char **envp)
 		free(m.input);
 	}
 }
-

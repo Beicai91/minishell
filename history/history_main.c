@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   history_main.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/05/17 10:48:54 by bcai              #+#    #+#             */
+/*   Updated: 2024/05/30 09:59:36 by bcai             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../minishell.h"
 
 void	update_working_history(t_m *m)
@@ -13,7 +25,7 @@ void	update_working_history(t_m *m)
 		ecmd->cmd_args[0] = ft_strdup("touch");
 		ecmd->cmd_args[1] = ft_strdup("history.txt");
 		ecmd->cmd_args[2] = NULL;
-		execute_simple_command(ecmd, m);	
+		execute_simple_command(ecmd, m);
 		free_2darray(ecmd->cmd_args);
 		free(ecmd);
 		ecmd = NULL;

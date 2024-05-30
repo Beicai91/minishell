@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins2.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:50 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/22 12:55:14 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/05/30 09:50:16 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,15 @@ void	export_all(t_m *m)
 	}
 }
 
-void	no_value_after_equal1(int *i, char **cmd_args, char *equal, t_qflag **qflags)
+void	no_value_after_equal1(int *i, char **cmd_args, \
+	char *equal, t_qflag **qflags)
 {
 	char	*key;
 	char	*value;
 
 	key = ft_substr(cmd_args[*i], 0, equal - cmd_args[*i]);
-	if (cmd_args[*i + 1] && !ft_strchr(cmd_args[*i + 1], '=') && (*qflags)->next->quote_flag != 0)
+	if (cmd_args[*i + 1] && !ft_strchr(cmd_args[*i + 1], '=') \
+		&& (*qflags)->next->quote_flag != 0)
 	{
 		value = ft_strdup(cmd_args[*i + 1]);
 		*i = *i + 1;
@@ -109,5 +111,3 @@ void	builtin_export(t_cmd *cmd, t_m *m)
 		qflags = qflags->next;
 	}
 }
-
-
