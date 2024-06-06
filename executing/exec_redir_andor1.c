@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_redir_andor.c                                 :+:      :+:    :+:   */
+/*   exec_redir_andor1.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 13:03:14 by bcai              #+#    #+#             */
-/*   Updated: 2024/06/06 13:42:06 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 14:24:03 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	traverse_tree2(t_cmd *cmd, t_m *m)
 	{
 		if (((t_execcmd *)cmd)->cmd_args == NULL)
 			return ;
-		parselist_execute(cmd, m);
+		parselist_execute2(cmd, m);
 	}
 	else if (cmd->type == REDIR)
 		redir_heredoc(cmd, m);

@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/06/06 13:41:06 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 14:24:41 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -274,13 +274,16 @@ void							build_redir_list(t_cmd *cmd, t_m *m,
 									t_inout **list);
 void							add_node(t_inout **list, t_inout *new_node);
 void							parselist_execute(t_cmd *cmd, t_m *m);
+void							parselist_execute2(t_cmd *cmd, t_m *m);
 void							inlist_execution_loop(t_m *m, t_execcmd *ecmd);
+void							inlist_execution_loop2(t_m *m, t_execcmd *ecmd);
 void							inlist_execution(t_execcmd *ecmd, t_m *m);
 int								inlist_execution_util(t_execcmd *ecmd, t_m *m,
 									t_inout **in_temp);
 void							restore_inout(int fd_cpy, int in_out, t_m *m);
 void							free_list(t_inout **list);
 void							traverse_tree2(t_cmd *cmd, t_m *m);
+void							unlink_heredoc_file(t_m *m);
 
 // cmd struction initiation
 t_execcmd						*execcmd_init(t_m *m);
