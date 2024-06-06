@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:46 by bcai              #+#    #+#             */
-/*   Updated: 2024/06/06 09:24:52 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 13:03:50 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,9 @@
 void	redir_list(t_redircmd *rcmd, t_cmd *cmd, t_m *m, t_inout **list)
 {
 	build_redir_list(cmd, m, list);
-	if (rcmd->cmd->type != EXEC)
+	if (rcmd->cmd->type == AND || rcmd->cmd->type == OR)
+		traverse_tree2(rcmd->cmd, m);
+	else if (rcmd->cmd->type != EXEC)
 		traverse_tree(rcmd->cmd, m);
 	else
 		parselist_execute(rcmd->cmd, m);
@@ -44,6 +46,8 @@ void	redir_heredoc(t_cmd *cmd, t_m *m)
 		else
 			parselist_execute(heredoc->cmd, m);
 	}
+	free_list(&(m->out));
+	free_list(&(m->in));
 	m->position = ON_MAIN;
 }
 
@@ -75,8 +79,6 @@ void	parselist_execute(t_cmd *cmd, t_m *m)
 	close(m->out_cpy);
 	unlink_heredoc_file(m);
 	m->redir_out = 0;
-	free_list(&(m->out));
-	free_list(&(m->in));
 }
 
 void	inlist_execution_loop(t_m *m, t_execcmd *ecmd)

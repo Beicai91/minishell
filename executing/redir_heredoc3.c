@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir_heredoc3.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/22 17:18:59 by bcai              #+#    #+#             */
-/*   Updated: 2024/06/04 18:45:39 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:22:00 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,14 @@ void	execute_heredoc_command(t_heredoc *heredoc, t_m *m)
 		dup2(m->fd_outfile, STDOUT_FILENO);
 }
 
+void	print_set_status(t_inout *infile, t_m *m)
+{
+	printf("minishell %s: No such file or directory\n", \
+		infile->file_name);
+	m->exit_status = 1;
+	m->stop_executing = 1;
+}
+
 int	inlist_execution_util(t_execcmd *ecmd, t_m *m, t_inout **in_temp)
 {	
 	t_inout	*second_last;
@@ -49,17 +57,15 @@ int	inlist_execution_util(t_execcmd *ecmd, t_m *m, t_inout **in_temp)
 			return (1);
 		if (open((*in_temp)->file_name, (*in_temp)->mode, 0666) < 0)
 		{
-			printf("minishell$ %s:No such file or directory\n", \
-				(*in_temp)->file_name);
-			m->stop_executing = 1;
+			print_set_status(*in_temp, m);
 			return (1);
 		}
 		if ((*in_temp)->is_hd == 1)
 			execute_heredoc_command((*in_temp)->hdcmd, m);
 		second_last = *in_temp;
-		(*in_temp) = (*in_temp)->next;
+		*in_temp = (*in_temp)->next;
 	}
-	(*in_temp) = second_last;
+	*in_temp = second_last;
 	return (0);
 }
 
@@ -77,6 +83,7 @@ void	inlist_execution(t_execcmd *ecmd, t_m *m)
 	if (fd < 0)
 	{
 		printf("minishell$ %s:No such file or directory\n", in_temp->file_name);
+		m->exit_status = 1;
 		return ;
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)

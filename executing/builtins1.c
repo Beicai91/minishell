@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
+/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/06/04 17:45:41 by eprzybyl         ###   ########.fr       */
+/*   Updated: 2024/06/06 13:41:32 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,8 @@ void	builtin_echo(t_cmd *cmd)
 	}
 	i = 1;
 	n_flag = 0;
-	if (cmd_args[1] && ft_strcmp(cmd_args[1], "-n") == 0)
-		update_eles(&n_flag, &cqflags, &i);
+	if (cmd_args[1] && cmd_args[1][0] == '-' && cmd_args[1][1] == 'n')
+		update_eles(&n_flag, &cqflags, &i, cmd_args[1]);
 	while (cmd_args[i] != NULL)
 	{
 		print_helper(cmd_args, &i, cqflags);

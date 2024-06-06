@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:20 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 09:46:59 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 13:41:21 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,19 @@ void	print_helper(char **cmd_args, int *i, t_qflag *cqflags)
 	}
 }
 
-void	update_eles(int *n_flag, t_qflag **cqflags, int *i)
+void	update_eles(int *n_flag, t_qflag **cqflags, int *i, char *cmd_args)
 {
-	*n_flag = 1;
-	*cqflags = (*cqflags)->next;
+	int	j;
+
+	j = 0;
 	(*i)++;
+	*cqflags = (*cqflags)->next;
+	while (cmd_args[j] == 'n' && cmd_args[j] != '\0')
+	{
+		(*i)++;
+		j++;
+	}
+	*n_flag = 1;
 }
 
 void	build_envvar_list(t_envvar *envvars, t_list **envcpy)

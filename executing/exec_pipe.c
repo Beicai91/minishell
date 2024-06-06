@@ -6,11 +6,19 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:47:11 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 17:01:21 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 13:41:53 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minishell.h"
+
+void	close_pfd_set_flag(t_m *m)
+{
+	close(m->pfd[0]);
+	close(m->pfd[1]);
+	m->pipe_left_flag = 0;
+	m->pipe_right_flag = 0;
+}
 
 void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 {
@@ -20,7 +28,7 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 	if (m->pid_left == 0)
 	{
 		pipe_left_exec(m, pcmd);
-		exit(0);
+		exit(m->exit_status);
 	}
 	if (pcmd->left->type == 9 || pcmd->right->type == 9)
 	{
@@ -31,12 +39,11 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 	if (m->pid_right == 0)
 	{
 		pipe_right_exec(m, pcmd);
-		exit(0);
+		exit(m->exit_status);
 	}
-	close(m->pfd[0]);
-	close(m->pfd[1]);
-	m->pipe_left_flag = 0;
-	m->pipe_right_flag = 0;
+	close_pfd_set_flag(m);
+	waitpid(m->pid_left, &m->exit_status, 0);
+	check_exit_status(m->exit_status, m);
 	waitpid(m->pid_right, &m->exit_status, 0);
 	check_exit_status(m->exit_status, m);
 }

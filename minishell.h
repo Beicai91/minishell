@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/06/06 09:45:50 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 13:41:06 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -280,6 +280,7 @@ int								inlist_execution_util(t_execcmd *ecmd, t_m *m,
 									t_inout **in_temp);
 void							restore_inout(int fd_cpy, int in_out, t_m *m);
 void							free_list(t_inout **list);
+void							traverse_tree2(t_cmd *cmd, t_m *m);
 
 // cmd struction initiation
 t_execcmd						*execcmd_init(t_m *m);
@@ -423,12 +424,12 @@ char							*get_value(char *arg, char *quote_letter,
 void							print_helper(char **cmd_args, int *i,
 									t_qflag *cqflags);
 void							update_eles(int *n_flag, t_qflag **cqflags,
-									int *i);
+									int *i, char *cmd_args);
 void							no_value_case(char *arg, t_m *m);
-int								no_value_after_equal1(int *i, char **cmd_args, \
+int								no_value_after_equal1(int *i, char **cmd_args,
 									char *equal, t_qflag **qflags);
-int								value_after_equal(int i, t_cmd *cmd, \
-									t_m *m, char *equal);
+int								value_after_equal(int i, t_cmd *cmd, t_m *m,
+									char *equal);
 
 // heredoc functions
 void							no_line_expansion(t_heredoc *heredoc,
