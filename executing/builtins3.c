@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:08 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 10:02:25 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 10:52:23 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 		if (cmd_args[2] != NULL)
 		{
 			printf("exit\nminishell: exit: too many arguments\n");
+			m->exit_status = 1;
 			return ;
 		}
 		m->exit_status = ft_atoi(cmd_args[1]);
