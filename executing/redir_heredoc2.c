@@ -47,49 +47,38 @@ void	add_node(t_inout **list, t_inout *new_node)
 	}
 }
 
+void	prepare_heredoc_file(t_heredoc *heredoc)
+{
+	open(heredoc->delimiter, O_RDWR | O_CREAT | O_TRUNC, 0666);
+	heredoc->tmp_file = ft_strdup(heredoc->delimiter);
+}
+
 void	build_redir_list(t_cmd *cmd, t_m *m, t_inout **list)
 {
 	t_inout	*new_node;
 
+	(void)m;
 	new_node = NULL;
 	new_node = (t_inout *)malloc(sizeof(t_inout) * 1);
 	if (!new_node)
-	{
-		free_tree(m->final_tree, m);
 		return ;
-	}
 	new_node->next = NULL;
 	if (cmd->type == REDIR)
 	{
 		new_node->file_name = ft_strdup(((t_redircmd *)cmd)->file);
 		new_node->mode = ((t_redircmd *)cmd)->mode;
+		new_node->is_hd = 0;
+		new_node->hdcmd = NULL;
 	}
 	else if (cmd->type == HEREDOC)
 	{
-		execute_heredoc_command((t_heredoc *)cmd, m);
+		prepare_heredoc_file((t_heredoc *)cmd);
 		new_node->file_name = ft_strdup(((t_heredoc *)cmd)->tmp_file);
 		new_node->mode = O_RDONLY;
+		new_node->is_hd = 1;
+		new_node->hdcmd = (t_heredoc *)cmd;
 	}
 	add_node(list, new_node);
-}
-
-void	execute_heredoc_command(t_heredoc *heredoc, t_m *m)
-{
-	if (m->pipe_left_flag == 1)
-		restore_inout(m->fdout_cpy, 1, m);
-	if (m->pipe_right_flag == 1)
-		restore_inout(m->fdin_cpy, 0, m);
-	m->heredoc_fd = open("heredoc_tmp", O_RDWR | O_CREAT | O_TRUNC, 0666);
-	heredoc->tmp_file = ft_strdup("heredoc_tmp");
-	if (heredoc->is_quoted == 1)
-		no_line_expansion(heredoc, m->heredoc_fd, m);
-	else
-		expand_line(heredoc, m->heredoc_fd, m);
-	close(m->heredoc_fd);
-	if (m->pipe_left_flag == 1)
-		dup2(m->pfd[1], STDOUT_FILENO);
-	if (m->pipe_right_flag == 1)
-		dup2(m->pfd[0], STDIN_FILENO);
 }
 
 void	free_list(t_inout **list)

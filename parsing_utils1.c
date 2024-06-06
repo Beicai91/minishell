@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:06:33 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 17:53:12 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/05 22:29:42 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,7 @@ int	get_type(char **start, char *end)
 	int	type;
 
 	if (**start == '(' || **start == ')')
-	{
-		type = **start;
-		(*start)++;
-	}
+		type = get_blocktype(start);
 	else if (**start == ';')
 		type = **start;
 	else if (**start == '|' && *(*start + 1) != '|')
@@ -77,8 +74,8 @@ static void	change_quotestat(t_heredoc **heredoc)
 	return ;
 }
 
-t_cmd	*quoted_delimiter(t_cmd *cmd, char **start, \
-	char *s_token, char *e_token)
+t_cmd	*quoted_delimiter(t_cmd *cmd, char **start, char *s_token,
+		char *e_token)
 {
 	t_heredoc	*res;
 

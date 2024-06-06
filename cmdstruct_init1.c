@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cmdstruct_init1.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:55:41 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 10:23:16 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/05 22:26:13 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,26 @@ t_execcmd	*execcmd_init(t_m *m)
 
 t_redircmd	*redircmd_init(t_cmd *subcmd, char *s_token, size_t size)
 {
+	int			escape_flag;
+	size_t		i;
 	t_redircmd	*redircmd;
 
 	redircmd = (t_redircmd *)safe_malloc(1, REDIR, subcmd);
 	redircmd->type = REDIR;
 	redircmd->cmd = subcmd;
-	redircmd->file = safe_malloc(size, CHAR, (t_cmd *)redircmd);
-	ft_strlcpy(redircmd->file, s_token, size);
+	escape_flag = 0;
+	i = 0;
+	while (i < size)
+	{
+		if (s_token[i] == '\\')
+			escape_flag = 1;
+		i++;
+	}
+	if (escape_flag == 1)
+		redircmd->file = safe_malloc(size - 1, CHAR, (t_cmd *)redircmd);
+	else
+		redircmd->file = safe_malloc(size, CHAR, (t_cmd *)redircmd);
+	ft_strlcpy_special(redircmd->file, s_token, size);
 	return (redircmd);
 }
 

@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:57:04 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 10:03:32 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 09:21:26 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,85 @@ int	get_intype(char **start)
 
 	type = **start;
 	(*start)++;
+	if (**start != '<')
+	{
+		while (ft_strchr(" \t\r\n\v", **start) && **start)
+			(*start)++;
+	}
 	if (**start == '<')
 	{
 		type = 'h';
 		(*start)++;
+		while (ft_strchr(" \t\r\n\v", **start) && **start)
+			(*start)++;
+		if (ft_strchr("<&#()", **start))
+		{
+			printf("minishell: syntax error near unexpected \
+				token %c\n", **start);
+			return (127);
+		}
 	}
 	return (type);
+}
+
+int	check_unexpected_token1(char **start)
+{
+	if (ft_strchr("><!#&();", **start))
+	{
+		printf("minishell: syntax error near unexpected token %c\n", **start);
+		return (127);
+	}
+	if (**start == '.' && ft_strchr("& ", *(*start + 1)))
+	{
+		printf("minishell: .: Is a directory\n");
+		return (127);
+	}
+	if (**start == '.' && ft_strchr("<()", *(*start + 1)))
+	{
+		printf("minishell: syntax error near unexpected token %c\n", *(*start
+				+ 1));
+		return (127);
+	}
+	return (0);
+}
+
+int	check_unexpected_token2(char **start)
+{
+	if (**start == '.' && *(*start + 1) == '.' && ft_strchr("& ", *(*start
+				+ 2)))
+	{
+		printf("minishell: ..: Is a directory\n");
+		return (127);
+	}
+	if (**start == '.' && *(*start + 1) == '.' && ft_strchr("<()", *(*start
+				+ 2)))
+	{
+		printf("minishell: syntax error near unexpected token %c\n", *(*start
+				+ 2));
+		return (127);
+	}
+	return (0);
+}
+
+int	check_unexpected_token3(char **start)
+{
+	if (ft_strchr("<>!#&(); ", **start))
+	{
+		printf("minishell: syntax error near unexpected token %c\n", **start);
+		return (127);
+	}
+	if (**start == '.' && ft_strchr("& ", *(*start + 1)))
+	{
+		printf("minishell: .: Is a directory\n");
+		return (127);
+	}
+	if (**start == '.' && ft_strchr("<()", *(*start + 1)))
+	{
+		printf("minishell: syntax error near unexpected token %c\n", *(*start
+				+ 1));
+		return (127);
+	}
+	return (0);
 }
 
 int	get_outtype(char **start)
@@ -32,66 +105,23 @@ int	get_outtype(char **start)
 
 	type = **start;
 	(*start)++;
+	if (**start != '>')
+	{
+		while (ft_strchr(" \t\r\n\v", **start) && **start)
+			(*start)++;
+		if (check_unexpected_token1(start) == 127
+			|| check_unexpected_token2(start) == 127)
+			return (127);
+	}
 	if (**start == '>')
 	{
 		type = '+';
 		(*start)++;
-	}
-	return (type);
-}
-
-int	get_atype(char **start, char *end)
-{
-	int		type;
-	int		quote_num;
-	t_gl	*gl;
-
-	gl = get_gl();
-	quote_num = 0;
-	type = 'a';
-	while (*start < end && !ft_strchr(gl->spaces, **start)
-		&& !ft_strchr(gl->signs, **start) && **start != '"' && **start != 39)
-	{
-		if (**start == '"' || **start == 39)
-			quote_num++;
-		(*start)++;
-	}
-	if (quote_num == 1)
-	{
-		while (*start < end && (**start != '"' || **start != 39))
+		while (ft_strchr(" \t\r\n\v", **start) && **start)
 			(*start)++;
-	}
-	return (type);
-}
-
-int	get_quotetype(char **start, char *end)
-{
-	int	type;
-
-	type = **start;
-	(*start)++;
-	while (*start < end && **start != '"')
-		(*start)++;
-	if (**start != '"')
-	{
-		printf("Missing closing quote\n");
-		return (127);
-	}
-	return (type);
-}
-
-int	get_squotetype(char **start, char *end)
-{
-	int	type;
-
-	type = **start;
-	(*start)++;
-	while (*start < end && **start != 39)
-		(*start)++;
-	if (**start != 39)
-	{
-		printf("Missing closing quote\n");
-		return (127);
+		if (check_unexpected_token2(start) == 127 || \
+			check_unexpected_token3(start) == 127)
+			return (127);
 	}
 	return (type);
 }

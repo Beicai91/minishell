@@ -20,10 +20,12 @@ LFT = libft/libft.a
 # Source files
 SRC = executing/builtin_utils1.c \
 	  executing/builtin_utils2.c \
+	  executing/builtin_utils3.c \
 	  executing/builtins1.c \
 	  executing/builtins2.c \
 	  executing/builtins3.c \
 	  executing/builtins4.c \
+	  executing/builtins5.c \
 	  executing/custom_readline.c \
 	  executing/errors_exit.c \
 	  executing/exec_cmds.c \
@@ -53,11 +55,13 @@ SRC = executing/builtin_utils1.c \
 	  free_memory2.c \
 	  get_type1.c \
 	  get_type2.c \
+	  get_type3.c \
 	  last_set1.c \
 	  last_set2.c \
 	  main_utils.c \
 	  main.c \
-	  parsing_utils.c \
+	  parsing_utils1.c \
+	  parsing_utils2.c \
 	  parsing1.c \
 	  parsing2.c \
 	  safe_malloc.c \
@@ -65,7 +69,7 @@ SRC = executing/builtin_utils1.c \
 	  signals2.c \
 	  utils.c \
 	  initial_setup_util.c \
-	  history/history_main.c 
+	  history/history_main.c
 
 DODIR = dofile
 

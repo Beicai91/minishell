@@ -27,6 +27,7 @@ t_gl	*init_gl_var(void)
 	gl->spaces = ft_strdup(" \t\r\n\v");
 	gl->signs = ft_strdup("<|>;()");
 	gl->env_vars = NULL;
+	gl->oldpwd_list = NULL;
 	return (gl);
 }
 

@@ -21,7 +21,7 @@ char	*itoa_free(char *value)
 	return (res);
 }
 
-void	init_envvars(char **envp, int i)
+void	init_envvars(char **envp, int i, t_m *m)
 {
 	char	*key;
 	char	*value;
@@ -43,6 +43,8 @@ void	init_envvars(char **envp, int i)
 		value = ft_substr(equal + 1, 0, ft_strlen(equal + 1));
 		if (ft_strcmp(key, "SHLVL") == 0)
 			value = itoa_free(value);
+		if (ft_strcmp(key, "HOME") == 0)
+			m->home_cpy = ft_strdup(value);
 		add_envvar(key, value, 1);
 		i++;
 	}

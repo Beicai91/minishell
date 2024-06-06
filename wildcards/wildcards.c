@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:53:00 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:53:06 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/05 22:03:02 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_list	*check_wildcard(t_list *list)
 	t_m		m;
 	t_list	*ptr;
 
+	m.bank = NULL;
 	m.check = check_list(&list);
 	ptr = list;
 	initialize_var_wild(&m);
@@ -24,23 +25,23 @@ t_list	*check_wildcard(t_list *list)
 	{
 		if (ft_strchr((char *)ptr->content, '*'))
 		{
-			m.wild_count++;
 			m.temp_list = open_cd((char *)ptr->content, m.temp_list, &m);
+			if (m.temp_list != NULL)
+				build_files_list(&m.bank, (char *)ptr->content);
 		}
 		sort_array(&m.temp_list, &m);
 		m.temp_w = merge_list(m.temp_w, m.temp_list);
 		m.temp_list = NULL;
 		ptr = ptr->next;
 	}
-	if (m.match_count == m.wild_count)
-		list = remove_wildcards(list);
+	wildcards_to_remove_check(list, &m.bank);
 	list = merge_list(list, m.temp_w);
 	if (m.check != NULL)
 		list = add_check_node(list, m.check);
 	return (list);
 }
 
-t_list	*remove_wildcards(t_list *list)
+t_list	*remove_wildcards(t_list *list, t_list *bank)
 {
 	t_list	*ptr;
 	t_list	*prev;
@@ -53,7 +54,7 @@ t_list	*remove_wildcards(t_list *list)
 	{
 		if (prev)
 		{
-			if (ft_strchr((char *)ptr->content, '*'))
+			if (ft_strcmp((char *)ptr->content, (char *)bank->content) == 0)
 			{
 				to_free = ptr;
 				temp = ptr->next;

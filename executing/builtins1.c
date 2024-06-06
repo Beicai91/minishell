@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   builtins1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:45:38 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 09:49:25 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/04 17:45:41 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,52 +35,6 @@ void	run_builtin(t_cmd *cmd, t_m *m)
 		builtin_exit(cmd, m);
 }
 
-void	update_pwd(t_m *m)
-{
-	char	*cwd;
-	char	*buffer;
-	size_t	size;
-
-	size = 1024;
-	while (1)
-	{
-		buffer = safe_malloc(size, CHAR, m->final_tree);
-		cwd = getcwd(buffer, size);
-		if (cwd)
-		{
-			free(buffer);
-			break ;
-		}
-		else
-			resize_or_free(buffer, m, &size);
-	}
-	update_envvars(ft_strdup("PWD"), ft_strdup(cwd), 1);
-}
-
-void	builtin_cd(t_cmd *cmd, t_m *m)
-{
-	char		**cmd_args;
-	t_envvar	*home;
-
-	(void)m;
-	cmd_args = ((t_execcmd *)cmd)->cmd_args;
-	if (cmd_args[1] == NULL)
-	{
-		home = get_envvar("HOME");
-		if (chdir(home->value) != 0)
-			perror("cd: ");
-	}
-	else
-	{
-		if (chdir(cmd_args[1]) != 0)
-		{
-			perror("cd: ");
-			m->exit_status = 1;
-		}
-	}
-	update_pwd(m);
-}
-
 void	builtin_echo(t_cmd *cmd)
 {
 	char	**cmd_args;
@@ -107,18 +61,4 @@ void	builtin_echo(t_cmd *cmd)
 	((t_execcmd *)cmd)->m->exit_status = 0;
 	if (n_flag == 0)
 		printf("\n");
-}
-
-void	resize_or_free(char *buffer, t_m *m, size_t *size)
-{
-	free(buffer);
-	if (errno == ERANGE)
-		(*size) = (*size) * 2;
-	else
-	{
-		perror("getcmd");
-		free_tree(m->final_tree, m);
-		lastfree_restore();
-		exit(1);
-	}
 }

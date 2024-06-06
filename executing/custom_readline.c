@@ -36,6 +36,7 @@ void	clean_exit(char *one_char, t_m *m)
 	free_tree(m->final_tree, m);
 	free_envvars();
 	lastfree_restore();
+	free(m->home_cpy);
 	exit(1);
 }
 

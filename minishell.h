@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 12:53:49 by eprzybyl          #+#    #+#             */
-/*   Updated: 2024/05/30 16:25:13 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 09:45:50 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@
 # include <stdbool.h>
 # include <stdio.h>
 # include <string.h>
+# include <sys/wait.h>
 # include <termios.h>
 # include <unistd.h>
-# include <sys/wait.h>
 
 extern volatile sig_atomic_t	g_sig_indicator;
 
@@ -55,6 +55,8 @@ typedef struct s_inout
 {
 	char						*file_name;
 	int							mode;
+	int							is_hd;
+	struct s_heredoc			*hdcmd;
 	struct s_inout				*next;
 }								t_inout;
 
@@ -87,6 +89,9 @@ typedef struct s_mini
 	int							exit_status;
 	int							heredoc_flag;
 	int							heredoc_fd;
+	int							redir_out;
+	int							fd_outfile;
+	int							out_cpy;
 	t_cmd						*final_tree;
 	t_inout						*in;
 	t_inout						*out;
@@ -103,6 +108,7 @@ typedef struct s_mini
 	t_list						*prev;
 	t_list						*temp_w;
 	t_list						*temp_list;
+	t_list						*bank;
 	int							last_node;
 	int							wild_count;
 	int							match_count;
@@ -113,6 +119,9 @@ typedef struct s_mini
 	char						*prev_history;
 	int							initial_history_check;
 	int							export_hidden;
+	int							start;
+	int							stop_executing;
+	char						*home_cpy;
 }								t_m;
 
 typedef struct s_listcmd
@@ -209,6 +218,7 @@ typedef struct s_gl
 	struct termios				orig_termios;
 	int							quoted;
 	int							consec_quotes;
+	t_list						*oldpwd_list;
 }								t_gl;
 
 // executing main functions
@@ -264,8 +274,7 @@ void							build_redir_list(t_cmd *cmd, t_m *m,
 									t_inout **list);
 void							add_node(t_inout **list, t_inout *new_node);
 void							parselist_execute(t_cmd *cmd, t_m *m);
-void							inlist_execution_loop(t_m *m, int fdout_cpy,
-									t_execcmd *ecmd);
+void							inlist_execution_loop(t_m *m, t_execcmd *ecmd);
 void							inlist_execution(t_execcmd *ecmd, t_m *m);
 int								inlist_execution_util(t_execcmd *ecmd, t_m *m,
 									t_inout **in_temp);
@@ -294,9 +303,11 @@ int								gettoken(char **start, char *end,
 									char **s_token, char **e_token);
 bool							skipspace_peek(char **start, char *end,
 									char *check);
-t_cmd							*quoted_delimiter(t_cmd *cmd,
-									char **start, char *s_token, char *e_token);
+t_cmd							*quoted_delimiter(t_cmd *cmd, char **start,
+									char *s_token, char *e_token);
 void							add_qflag(t_qflag **lst, t_qflag *new);
+size_t							ft_strlcpy_special(char *dst, const char *src,
+									size_t dstsize);
 
 // initial and last set of cmd before entering exeution
 void							initial_setup(t_m *m, char **envp);
@@ -304,10 +315,11 @@ void							set_exec(t_cmd *cmd, t_m *m);
 void							parse_left_right(t_cmd *left, t_cmd *right,
 									t_m *m);
 void							last_set(t_cmd *cmd, t_m *m);
-char							*replace_d(t_execcmd *ecmd, int i);
-char							*get_newstr2(char *temp, char *e_cpy,
-									t_execcmd *ecmd, char *first_part);
+char							*replace_dollar(char *original, t_m *m);
+char							*get_newstr(char *temp, char *e_cpy, t_m *m,
+									char *first_part);
 void							get_strlen(char *temp, int *i);
+void							update_temp(char **temp);
 
 // parsing main functions
 t_cmd							*parsecmd(char *input, t_m *m);
@@ -327,10 +339,10 @@ void							populate_cmdargs(t_execcmd *ecmd, char *s_token,
 									char *e_token, t_cmd *cmd);
 void							cmdargs_quote(t_execcmd *ecmd, char *s_token,
 									char *e_token, char **start);
-char							*getvalue_freename(t_list *cmdargs,
-									char *var_name);
+char							*getvalue_freename(char *var_name);
 char							*get_current_envvar(char *key);
-char							*get_exported_envvar(char *key);
+void							check_exec_flags(t_execcmd *ecmd);
+void							add_flagnode(t_qflag **flags);
 void							build_envvar_list(t_envvar *envvars,
 									t_list **envcpy);
 
@@ -366,16 +378,17 @@ int								get_ortype(char **start);
 int								get_outtype(char **start);
 int								get_intype(char **start);
 int								get_squotetype(char **start, char *end);
+int								get_blocktype(char **start);
 
 // environment variables handling
-void							init_envvars(char **envp, int i);
+void							init_envvars(char **envp, int i, t_m *m);
 void							fill_basic_envvars(void);
 void							resize(char *buffer, size_t *size);
-void							add_envvar(char *key, char *value,
+int								add_envvar(char *key, char *value,
 									int is_exported);
 int								check_key_validity(char *key, char *value,
 									int export_flag);
-void							update_envvars(char *key, char *value,
+int								update_envvars(char *key, char *value,
 									int is_exported);
 void							update_target(t_envvar *target, char *value,
 									char *key, int is_exported);
@@ -389,6 +402,7 @@ void							minishell_envp(t_m *m);
 
 // builtins and builtin utils
 void							builtin_cd(t_cmd *cmd, t_m *m);
+void							set_oldpwd(t_m *m, char *add_pwd);
 void							resize_or_free(char *buffer, t_m *m,
 									size_t *size);
 void							builtin_echo(t_cmd *cmd);
@@ -410,6 +424,11 @@ void							print_helper(char **cmd_args, int *i,
 									t_qflag *cqflags);
 void							update_eles(int *n_flag, t_qflag **cqflags,
 									int *i);
+void							no_value_case(char *arg, t_m *m);
+int								no_value_after_equal1(int *i, char **cmd_args, \
+									char *equal, t_qflag **qflags);
+int								value_after_equal(int i, t_cmd *cmd, \
+									t_m *m, char *equal);
 
 // heredoc functions
 void							no_line_expansion(t_heredoc *heredoc,
@@ -452,10 +471,12 @@ void							find_smallest(t_list **array_files, t_m *m);
 t_list							*check_list(t_list **list);
 t_list							*add_check_node(t_list *list, t_list *node);
 t_list							*merge_list(t_list *list, t_list *temp);
-t_list							*remove_wildcards(t_list *list);
+t_list							*remove_wildcards(t_list *list, t_list *bank);
 void							free_t_list(t_list **list);
 void							find_executable_path(t_m *m, t_execcmd *ecmd);
 void							initialize_var_wild(t_m *m);
+t_list							*wildcards_to_remove_check(t_list *list,
+									t_list **bank);
 
 // gl
 t_gl							*init_gl_var(void);

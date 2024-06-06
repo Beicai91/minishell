@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing1.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:07:19 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 17:47:43 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/05 23:03:49 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,7 @@ t_cmd	*parsecmd(char *input, t_m *m)
 	end = input + ft_strlen(input);
 	cmd = parselist(&start, end, m);
 	if (cmd == NULL)
-	{
-		printf("Invalid command line\n");
-		m->exit_status = 127;
-	}
+		m->exit_status = 258;
 	return (cmd);
 }
 
@@ -40,10 +37,7 @@ t_cmd	*parselist(char **start, char *end, t_m *m)
 	if (**start == ';')
 	{
 		if (cmd == NULL)
-		{
-			//printf("Left: Invalide command line\n");
 			return (NULL);
-		}
 		(*start)++;
 		right_cmd = parselist(start, end, m);
 		if (right_cmd == NULL)
@@ -55,81 +49,59 @@ t_cmd	*parselist(char **start, char *end, t_m *m)
 	return (cmd);
 }
 
-t_cmd	*parse_and_or(char **start, char *end, t_m *m)
+t_cmd	*handle_orcmd(char **start, char *end, t_m *m, t_cmd *left_cmd)
 {
 	t_cmd	*cmd;
 	t_cmd	*right_cmd;
 	char	*s_token;
 	char	*e_token;
 
-	cmd = parsepipe(start, end, m);
-	//test
-	if (cmd == NULL)
-		printf("the returned pipe cmd is NULL\n");
-	//
-	if (cmd == NULL)
+	gettoken(start, end, &s_token, &e_token);
+	right_cmd = parse_and_or(start, end, m);
+	cmd = (t_cmd *)orcmd_init(left_cmd, right_cmd);
+	if (right_cmd == NULL)
 		return (NULL);
-	if (**start == '&' && *(*start + 1) == '&')
-	{
-		gettoken(start, end, &s_token, &e_token);
-		right_cmd = parse_and_or(start, end, m);
-		cmd = (t_cmd *)andcmd_init(cmd, right_cmd);
-		if (right_cmd == NULL)
-			return (NULL);
-	}
-	else if (**start == '|' && *(*start + 1) == '|')
-	{
-		gettoken(start, end, &s_token, &e_token);
-		right_cmd = parse_and_or(start, end, m);
-		cmd = (t_cmd *)orcmd_init(cmd, right_cmd);
-		if (right_cmd == NULL)
-			return (NULL);
-	}
-	else if (**start == '&' && *(*start + 1) != '&')
-	{
-		free_memory(cmd);
-		return (NULL);
-	}
 	return (cmd);
 }
 
-t_cmd	*parsepipe(char **start, char *end, t_m *m)
+t_cmd	*handle_andcmd(char **start, char *end, t_m *m, t_cmd *left_cmd)
 {
 	t_cmd	*cmd;
 	t_cmd	*right_cmd;
-	//char	*s_token;
-	//char	*e_token;
+	char	*s_token;
+	char	*e_token;
 
-	cmd = parseexec(start, end, m);
-		//test
-	printf("after parseexec start %c\n", **start);
-	//
-	if (**start == '|' && *(*start + 1) != '|')
+	gettoken(start, end, &s_token, &e_token);
+	right_cmd = parse_and_or(start, end, m);
+	cmd = (t_cmd *)andcmd_init(left_cmd, right_cmd);
+	if (right_cmd == NULL)
+		return (NULL);
+	return (cmd);
+}
+
+t_cmd	*parse_and_or(char **start, char *end, t_m *m)
+{
+	t_cmd	*cmd;
+
+	cmd = parsepipe(start, end, m);
+	if (cmd == NULL)
+		return (NULL);
+	if (**start == '&' && *(*start + 1) == '&' && *(*start + 2) != '\0')
+		return (handle_andcmd(start, end, m, cmd));
+	else if (**start == '|' && *(*start + 1) == '|' && *(*start + 2) != '\0')
+		return (handle_orcmd(start, end, m, cmd));
+	else if ((**start == '&' && *(*start + 1) == '&' && *(*start + 2) == '\0')
+		|| (**start == '|' && *(*start + 1) == '|' && *(*start + 2) == '\0'))
 	{
-		if (((t_execcmd *)cmd)->cmdargs == NULL)
-		{
-			//test
-			printf("ecmd void, return NULL\n");
-			//
-			return (NULL);
-		}
-		//gettoken(start, end, &s_token, &e_token);
-		(*start)++;
-		if (*start == end)
-		{
-			//test
-			printf("start = end\n");
-			//
-			free_memory(cmd);
-			return (NULL);
-		}
-		//test
-		printf("before reenter into pipe, start %c\n", **start);
-		//
-		right_cmd = parsepipe(start, end, m);
-		cmd = (t_cmd *)pipecmd_init(cmd, right_cmd);
-		if (right_cmd == NULL)
-			return (NULL);
+		printf("minishell: syntaxt error: unexpected end of file\n");
+		free_memory(cmd);
+		return (NULL);
+	}
+	else if (**start == '&' && *(*start + 1) != '&')
+	{
+		printf("minishell: syntax error: unexpected token &\n");
+		free_memory(cmd);
+		return (NULL);
 	}
 	return (cmd);
 }

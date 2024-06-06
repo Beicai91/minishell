@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:50:46 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 09:59:50 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 09:24:52 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,37 +47,44 @@ void	redir_heredoc(t_cmd *cmd, t_m *m)
 	m->position = ON_MAIN;
 }
 
+void	unlink_heredoc_file(t_m *m)
+{
+	t_inout	*in_temp;
+
+	in_temp = m->in;
+	while (in_temp != NULL)
+	{
+		if (in_temp->is_hd == 1)
+			unlink(in_temp->file_name);
+		in_temp = in_temp->next;
+	}
+}
+
 void	parselist_execute(t_cmd *cmd, t_m *m)
 {
 	t_execcmd	*ecmd;
-	int			fdout_cpy;
 
-	if (g_sig_indicator != 0)
-	{
-		g_sig_indicator = 0;
-		unlink("heredoc_tmp");
-		free_list(&(m->in));
-		free_list(&(m->out));
-		m->position = ON_MAIN;
-		return ;
-	}
 	ecmd = (t_execcmd *)cmd;
-	fdout_cpy = dup(STDOUT_FILENO);
+	m->out_cpy = dup(STDOUT_FILENO);
 	if (m->out != NULL)
-		inlist_execution_loop(m, fdout_cpy, ecmd);
+		inlist_execution_loop(m, ecmd);
 	else
 		inlist_execution(ecmd, m);
-	close(fdout_cpy);
-	unlink("heredoc_tmp");
+	if (g_sig_indicator != 0)
+		g_sig_indicator = 0;
+	close(m->out_cpy);
+	unlink_heredoc_file(m);
+	m->redir_out = 0;
 	free_list(&(m->out));
 	free_list(&(m->in));
 }
 
-void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
+void	inlist_execution_loop(t_m *m, t_execcmd *ecmd)
 {
 	int		fd;
 	t_inout	*to_free;
 
+	m->redir_out = 1;
 	while (m->out->next != NULL)
 	{
 		fd = open(m->out->file_name, m->out->mode, 0666);
@@ -88,12 +95,13 @@ void	inlist_execution_loop(t_m *m, int fdout_cpy, t_execcmd *ecmd)
 		free(to_free);
 	}
 	fd = open(m->out->file_name, m->out->mode, 0666);
+	m->fd_outfile = fd;
 	if (dup2(fd, STDOUT_FILENO) == -1)
 	{
-		close_fds(fdout_cpy, fd);
+		close_fds(m->out_cpy, fd);
 		return ;
 	}
-	close(fd);
 	inlist_execution(ecmd, m);
-	restore_inout(fdout_cpy, 1, m);
+	restore_inout(m->out_cpy, 1, m);
+	close(fd);
 }

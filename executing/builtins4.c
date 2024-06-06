@@ -44,6 +44,12 @@ void	no_value_after_equal2(int *i, char **cmd_args, char *equal, t_m *m)
 	update_envvar_util(key, value, m);
 }
 
+void	print_and_update_status(char *arg, t_m *m)
+{
+	printf("minishell: %s: command not found\n", arg);
+	m->exit_status = 127;
+}
+
 void	set_envvar(t_cmd *cmd, t_m *m)
 {
 	char	**cmd_args;
@@ -55,12 +61,12 @@ void	set_envvar(t_cmd *cmd, t_m *m)
 	cmd_args = ((t_execcmd *)cmd)->cmd_args;
 	i = 0;
 	while (cmd_args[i] != NULL)
-	{
+	{	
+		if (ft_isdigit(cmd_args[i][0]) || ft_strchr("~@%*^", cmd_args[i][0]))
+			print_and_update_status(cmd_args[i++], m);
 		equal = ft_strchr(cmd_args[i], '=');
 		if (!*(equal + 1))
-		{
 			no_value_after_equal2(&i, cmd_args, equal, m);
-		}
 		else
 		{
 			key = ft_substr(cmd_args[i], 0, equal - cmd_args[i]);

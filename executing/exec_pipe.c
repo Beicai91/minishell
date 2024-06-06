@@ -19,7 +19,6 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 	m->pid_left = fork_check(m);
 	if (m->pid_left == 0)
 	{
-		m->pipe_left_flag = 1;
 		pipe_left_exec(m, pcmd);
 		exit(0);
 	}
@@ -36,12 +35,15 @@ void	execute_pipe_command(t_pipecmd *pcmd, t_m *m)
 	}
 	close(m->pfd[0]);
 	close(m->pfd[1]);
+	m->pipe_left_flag = 0;
+	m->pipe_right_flag = 0;
 	waitpid(m->pid_right, &m->exit_status, 0);
 	check_exit_status(m->exit_status, m);
 }
 
 void	pipe_left_exec(t_m *m, t_pipecmd *pcmd)
 {
+	m->pipe_left_flag = 1;
 	m->fdout_cpy = dup(STDOUT_FILENO);
 	close(m->pfd[0]);
 	dup2(m->pfd[1], STDOUT_FILENO);

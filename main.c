@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:04:02 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 09:43:43 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/04 19:37:11 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ int	main(int argc, char **argv, char **envp)
 		if (!m.input)
 		{
 			lastfree_restore();
+			free(m.home_cpy);
 			exit(1);
 		}
 		add_history(m.input);

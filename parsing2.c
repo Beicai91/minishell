@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing2.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:30:54 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 18:00:58 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/05 22:34:31 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ t_cmd	*parseredirs(t_cmd *subcmd, char **start, char *end)
 	{
 		tkn.rdr = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
 		tkn.fl = gettoken(start, end, &(tkn.s_tkn), &(tkn.e_tkn));
-		if (tkn.fl == 127)
+		if (tkn.rdr == 127 || tkn.fl == 127)
 			return (NULL);
 		if (ft_strchr("<>+", tkn.rdr) && tkn.fl != 39 && tkn.fl != 34)
 			cmd = get_redircmd(cmd, tkn.s_tkn, tkn.e_tkn, tkn.rdr);
@@ -116,15 +116,9 @@ t_cmd	*parseblock(char **start, char *end, t_m *m)
 	char	*s_token;
 	char	*e_token;
 
-//test
-printf("detected (\n");
-//
 	s_token = NULL;
 	e_token = NULL;
 	gettoken(start, end, &s_token, &e_token);
-//test
-printf("after gettoken start %c\n", **start);
-//
 	cmd = parselist(start, end, m);
 	if (**start != ')')
 	{

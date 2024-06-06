@@ -3,17 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   main_utils.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 11:48:32 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 09:43:56 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/04 18:46:36 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	initial_setup(t_m *m, char **envp)
-{	
+{
 	struct termios	new_termios;
 	t_gl			*gl;
 
@@ -23,12 +23,17 @@ void	initial_setup(t_m *m, char **envp)
 	m->position = ON_MAIN;
 	m->line = NULL;
 	m->export_hidden = 0;
-	init_envvars(envp, 0);
+	m->pipe_left_flag = 0;
+	m->pipe_right_flag = 0;
+	m->redir_out = 0;
+	init_envvars(envp, 0, m);
 	tcgetattr(STDIN_FILENO, &gl->orig_termios);
 	new_termios = gl->orig_termios;
 	new_termios.c_lflag &= ~ECHOCTL;
 	tcsetattr(STDIN_FILENO, TCSANOW, &new_termios);
 	update_working_history(m);
+	update_envvars(ft_strdup("OLDPWD"), ft_strdup("  "), 1);
+	m->start = 0;
 }
 
 void	partial_reinit_m(t_m *m)
@@ -39,6 +44,7 @@ void	partial_reinit_m(t_m *m)
 	m->in = NULL;
 	m->out = NULL;
 	m->temp_list = NULL;
+	m->stop_executing = 0;
 }
 
 void	lastfree_restore(void)
@@ -51,6 +57,7 @@ void	lastfree_restore(void)
 	clear_history();
 	free(gl->signs);
 	free(gl->spaces);
+	free_t_list(&gl->oldpwd_list);
 	free(gl);
 }
 

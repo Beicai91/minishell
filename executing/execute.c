@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:47:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 11:53:17 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 09:23:34 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,11 @@ void	runcmd(t_cmd *cmd, t_m *m)
 {
 	if (cmd != NULL)
 	{
+		if (m->start == 0)
+		{
+			m->start = 1;
+			set_oldpwd(m, getcwd(safe_malloc(100, CHAR, cmd), 1024));
+		}
 		traverse_tree(cmd, m);
 		free_tree(cmd, m);
 	}

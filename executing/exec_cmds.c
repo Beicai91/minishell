@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_cmds.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:46:56 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/30 15:08:55 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/04 18:50:08 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,9 +45,6 @@ void	execute_simple_command(t_execcmd *ecmd, t_m *m)
 {
 	struct sigaction	sa;
 
-//test
-printf("execute simple command\n");
-//
 	minishell_envp(m);
 	find_path(m);
 	find_executable_path(m, ecmd);

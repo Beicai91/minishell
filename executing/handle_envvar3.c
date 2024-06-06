@@ -56,56 +56,37 @@ int	check_key_validity(char *key, char *value, int export_flag)
 	return (0);
 }
 
-void	add_envvar(char *key, char *value, int is_exported)
+void	assign_new(char *key, char *value, int is_exported, t_envvar **new)
+{
+	(*new)->key = ft_strdup(key);
+	(*new)->value = ft_strdup(value);
+	(*new)->is_exported = is_exported;
+	(*new)->next = NULL;
+	free(key);
+	free(value);
+}
+
+int	add_envvar(char *key, char *value, int is_exported)
 {
 	t_envvar	*new;
 	t_envvar	*temp;
 	t_gl		*gl;
 
 	if (check_key_validity(key, value, is_exported) == 1)
-		return ;
+		return (1);
 	gl = get_gl();
 	new = malloc(sizeof(t_envvar) * 1);
 	if (!new)
-		return ;
-	new->key = ft_strdup(key);
-	new->value = ft_strdup(value);
-	free(key);
-	free(value);
-	new->is_exported = is_exported;
-	new->next = NULL;
+		return (1);
+	assign_new(key, value, is_exported, &new);
 	if (!gl->env_vars)
 	{
 		gl->env_vars = new;
-		return ;
+		return (0);
 	}
 	temp = gl->env_vars;
 	while (temp->next != NULL)
 		temp = temp->next;
 	temp->next = new;
-}
-
-void	update_envvars(char *key, char *value, int is_exported)
-{
-	int			modify;
-	t_envvar	*temp;
-	t_envvar	*target;
-	t_gl		*gl;
-
-	gl = get_gl();
-	modify = 0;
-	temp = gl->env_vars;
-	while (temp != NULL)
-	{
-		if (ft_strncmp(temp->key, key, cmplen(temp->key, key)) == 0)
-		{
-			modify = 1;
-			target = temp;
-		}
-		temp = temp->next;
-	}
-	if (modify == 1)
-		update_target(target, value, key, is_exported);
-	else
-		add_envvar(key, value, is_exported);
+	return (0);
 }

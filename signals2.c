@@ -28,6 +28,10 @@ void	handle_sigint_heredoc(int sig, siginfo_t *siginfo, void *context)
 	(void)siginfo;
 	(void)context;
 	g_sig_indicator = 1;
+	rl_done = 1;
+	rl_replace_line("", 0);
+	rl_on_new_line();
+	rl_redisplay();
 }
 
 void	handle_sigint_exec(int sig, siginfo_t *siginfo, void *context)

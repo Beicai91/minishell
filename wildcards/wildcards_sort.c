@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   wildcards_sort.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: eprzybyl <eprzybyl@student.42lausanne.c    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:52:02 by bcai              #+#    #+#             */
-/*   Updated: 2024/05/17 10:52:19 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/05 23:07:49 by eprzybyl         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,4 +97,20 @@ void	find_smallest(t_list **array_files, t_m *m)
 		m->ptr = m->ptr->next;
 	}
 	m->ptr = *array_files;
+}
+
+t_list	*wildcards_to_remove_check(t_list *list, t_list **bank)
+{
+	t_list	*ptr;
+
+	ptr = *bank;
+	if (bank == NULL)
+		return (list);
+	while (ptr != NULL)
+	{
+		list = remove_wildcards(list, ptr);
+		ptr = ptr->next;
+	}
+	free_t_list(bank);
+	return (list);
 }

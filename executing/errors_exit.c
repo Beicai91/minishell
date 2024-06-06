@@ -30,7 +30,7 @@ void	report_error(int error_code, char *str, t_m *m, t_cmd *cmd)
 	(void)cmd;
 	if (m->path != NULL)
 		free(m->path);
-	printf((const char *)stderr, "Error: %s\n", str);
+	printf("Error: %s\n", str);
 }
 
 void	check_exit_status(int status, t_m *m)

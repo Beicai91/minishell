@@ -34,6 +34,7 @@ static void	is_numeric(t_cmd *cmd, t_m *m, char *arg_one)
 				numeric argument required\n", arg_one);
 			free_tree(cmd, m);
 			lastfree_restore();
+			free(m->home_cpy);
 			exit(255);
 		}
 	}
@@ -48,6 +49,7 @@ void	builtin_exit(t_cmd *cmd, t_m *m)
 	{
 		free_tree(cmd, m);
 		lastfree_restore();
+		free(m->home_cpy);
 		printf("exit\n");
 		exit(m->exit_status);
 	}

@@ -70,7 +70,7 @@ void	embedded_cmdline(char *cmdline, int heredoc_fd, t_heredoc *heredoc)
 	t_cmd	*cmd;
 
 	m.envp = heredoc->envp;
-	init_envvars(heredoc->envp, 0);
+	init_envvars(heredoc->envp, 0, &m);
 	partial_reinit_m(&m);
 	m.outcpy_emb = dup(STDOUT_FILENO);
 	if (dup2(heredoc_fd, STDOUT_FILENO) == -1)

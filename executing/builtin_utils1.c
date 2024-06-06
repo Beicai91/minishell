@@ -18,6 +18,7 @@ void	builtin_error(t_cmd *cmd, t_m *m, char *msg)
 	free_tree(cmd, m);
 	check_exit_status(-1, m);
 	lastfree_restore();
+	free(m->home_cpy);
 	exit(1);
 }
 
@@ -43,7 +44,8 @@ void	print_helper(char **cmd_args, int *i, t_qflag *cqflags)
 		else
 		{
 			write(1, cmd_args[*i], ft_strlen(cmd_args[*i]));
-			write(1, " ", 1);
+			if (cmd_args[*i + 1])
+				write(1, " ", 1);
 		}
 		(*i)++;
 	}
