@@ -1,0 +1,61 @@
+echo hello;
+echo hello;|
+| ; echo hello
+echo hello ; <
+| wc -l
+cat <<EOF | ls
+sleep 3 | sleep 3 | sleep 3
+ls | grep mini
+cat Makefile | wc -l
+echo "summer" | wc -l
+<<EOF grep hello > out1 >out2 >out3
+<<eof <out3 cat | wc -l
+<<here <<doc cat
+ls | export a=hello | ls
+env
+export a="hello" b= c=ciao 
+
+env
+b="bye$a"
+env
+export d
+export
+export e=
+export
+pwd
+cd
+pwd
+cd ~
+pwd
+unset HOME
+cd
+pwd
+
+
+  
+
+
+top | grep Finder
+ls
+echo hello >\;test\ 1
+<<<
+<<<<
+echo -n hello >>out3
+echo -n hello >>out3
+echo "hello" "world" "hello""world" hello"bye" bye"hello
+echo "hello" "world" "hello""world" hello"bye" bye"hello"
+unset a b c
+env
+/bin/ls
+<<EOF
+<<EOF
+<<eof
+<<'eof"
+<<'eof'
+<<'eof'
+<<eof
+ls
+<<eof cat
+<<eof
+<<eof cat
+<<here <<doc grep hello | wc -l

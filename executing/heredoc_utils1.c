@@ -6,7 +6,7 @@
 /*   By: bcai <bcai@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/17 10:49:26 by bcai              #+#    #+#             */
-/*   Updated: 2024/06/06 09:35:07 by bcai             ###   ########.fr       */
+/*   Updated: 2024/06/06 10:44:36 by bcai             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,9 @@ void	expand_line(t_heredoc *heredoc, int heredoc_fd, t_m *m)
 	while (1)
 	{
 		line = readline("heredoc>");
-		if (g_sig_indicator != 0 || ft_strncmp(line, heredoc->delimiter,
-				ft_strlen(heredoc->delimiter)) == 0)
+		if (!line)
+			break ;
+		if (g_sig_indicator != 0 || ft_strcmp(line, heredoc->delimiter) == 0)
 		{
 			free(line);
 			break ;
@@ -99,6 +100,5 @@ void	expand_line(t_heredoc *heredoc, int heredoc_fd, t_m *m)
 		else
 			expand_env_cmd(line, target, heredoc_fd, heredoc);
 		free(line);
-		line = NULL;
 	}
 }
