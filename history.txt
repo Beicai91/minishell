@@ -1,0 +1,13 @@
+(echo hello && echo bye) >out
+<<eof grep hello | wc -l
+cat shsh | cat out
+echo $?
+cat out | cat hshsh
+echo $?
+echo hello > out2
+<<eof <<here grep hello
+cat out ;|
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'"
+echo "'$USER'  $USER hello"
